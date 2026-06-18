@@ -1,0 +1,60 @@
+name: Deploy frontend to GitHub Pages
+
+# main 에 push 되면 frontend/ 를 정적 빌드해 GitHub Pages 로 배포.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 동시 배포 1개로 제한
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    env:
+      # 프로젝트 페이지 하위 경로(/<repo>). 커스텀 도메인 사용 시 빈 값으로 변경.
+      NEXT_PUBLIC_BASE_PATH: /weddinginvitation
+      # 백엔드 공개 URL 확정 시 리포지토리 Variables(API_BASE)에 넣으면 주입됨.
+      NEXT_PUBLIC_API_BASE: ${{ vars.API_BASE }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - run: npm ci
+      - run: npm run build
+
+      # _next 등 underscore 폴더가 Jekyll 에 무시되지 않도록
+      - run: touch out/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend/out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

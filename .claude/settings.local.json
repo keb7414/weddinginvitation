@@ -19,7 +19,8 @@
       "PowerShell(try { Remove-Item \"C:\\\\Users\\\\comes\\\\invited\\\\weddinginvitation\" -Recurse -Force -ErrorAction Stop; \"빈 폴더 삭제 완료\" } catch { \"삭제 실패\\(VSCode가 점유 중일 수 있음\\): $\\($_.Exception.Message\\)\" })",
       "Bash(echo \"브랜치: $\\(git symbolic-ref --short HEAD\\)\")",
       "Bash(git push *)",
-      "PowerShell($n=\\(Get-Command node -ErrorAction SilentlyContinue\\); if\\($n\\){ \"node $\\(node -v\\)  @ $\\($n.Source\\)\" } else { \"node NOT FOUND\" }; $np=\\(Get-Command npm -ErrorAction SilentlyContinue\\); if\\($np\\){ \"npm $\\(npm -v\\)\" } else { \"npm NOT FOUND\" })"
+      "PowerShell($n=\\(Get-Command node -ErrorAction SilentlyContinue\\); if\\($n\\){ \"node $\\(node -v\\)  @ $\\($n.Source\\)\" } else { \"node NOT FOUND\" }; $np=\\(Get-Command npm -ErrorAction SilentlyContinue\\); if\\($np\\){ \"npm $\\(npm -v\\)\" } else { \"npm NOT FOUND\" })",
+      "PowerShell(cd \"C:\\\\Users\\\\comes\\\\invited\\\\frontend\"; $env:NEXT_PUBLIC_BASE_PATH=\"/weddinginvitation\"; npm run build 2>&1 | Select-Object -Last 12; \"=== out 폴더 생성 확인 ===\"; if\\(Test-Path \".\\\\out\\\\index.html\"\\){ \"out/index.html 생성됨\" } else { \"out 없음\\(실패\\)\" }; Get-ChildItem \".\\\\out\" -Name 2>$null | Select-Object -First 10)"
     ]
   }
 }

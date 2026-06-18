@@ -5,6 +5,9 @@ out/
 dist/
 build/
 
+# 이미지 원본 staging 폴더 (public/images 로 복사해 사용)
+frontend/op/
+
 # 환경 변수 (Supabase 키 등 비밀정보)
 .env
 .env.local

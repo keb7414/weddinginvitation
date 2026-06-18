@@ -30,32 +30,55 @@ export function Cover() {
       >
         {playing ? "❚❚" : "♪"}
       </button>
-      {/* 음원 파일은 public/audio/bgm.mp3 로 교체 */}
       <audio ref={audioRef} loop src="/audio/bgm.mp3" />
 
-      <p className="z-10 text-xs tracking-[0.4em] text-point">WE ARE GETTING MARRIED</p>
+      <p
+        className="z-10 text-xs tracking-[0.4em] text-point opacity-0 animate-introUp"
+        style={{ animationDelay: "0.6s" }}
+      >
+        WE ARE GETTING MARRIED
+      </p>
 
-      {/* 대표 사진 자리 (플레이스홀더) */}
+      {/* 대표 사진 — 확대된 상태에서 서서히 나타난 뒤 아주 느린 줌(켄번스) */}
       <div className="z-10 flex w-full flex-1 items-center justify-center px-8">
-        <div className="flex aspect-[3/4] w-full max-w-[280px] items-center justify-center rounded-[40%_40%_38%_38%/45%_45%_40%_40%] border border-point/40 bg-gradient-to-b from-white/60 to-sand text-sm text-muted">
-          대표 사진
+        <div className="aspect-[3/4] w-full max-w-[280px] overflow-hidden rounded-[40%_40%_38%_38%/45%_45%_40%_40%] border border-point/40 opacity-0 animate-coverReveal">
+          {/* 실제 사진은 이 블록을 <img className="h-full w-full object-cover animate-kenBurns"/> 로 교체 */}
+          <div className="flex h-full w-full animate-kenBurns items-center justify-center bg-gradient-to-b from-white/60 to-sand text-sm text-muted">
+            대표 사진
+          </div>
         </div>
       </div>
 
       <div className="z-10 text-center">
-        <p className="text-2xl tracking-[0.15em] text-ink">
+        <p
+          className="text-2xl tracking-[0.15em] text-ink opacity-0 animate-introUp"
+          style={{ animationDelay: "1.0s" }}
+        >
           {groom.name} <span className="mx-2 text-point">·</span> {bride.name}
         </p>
-        <p className="mt-4 text-sm text-muted">
+        <p
+          className="mt-4 text-sm text-muted opacity-0 animate-introUp"
+          style={{ animationDelay: "1.3s" }}
+        >
           {date.year}. {String(date.month).padStart(2, "0")}. {String(date.day).padStart(2, "0")}.{" "}
           {date.weekday} {date.timeText}
         </p>
-        <p className="text-sm text-muted">{venue.name}</p>
+        <p
+          className="text-sm text-muted opacity-0 animate-introUp"
+          style={{ animationDelay: "1.5s" }}
+        >
+          {venue.name}
+        </p>
       </div>
 
-      <p className="z-10 animate-pulse text-[11px] tracking-[0.3em] text-muted">
-        SCROLL ↓
-      </p>
+      <span
+        className="z-10 opacity-0 animate-introUp"
+        style={{ animationDelay: "2s" }}
+      >
+        <span className="block animate-pulse text-[11px] tracking-[0.3em] text-muted">
+          SCROLL ↓
+        </span>
+      </span>
     </section>
   );
 }

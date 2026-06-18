@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { wedding } from "@/lib/data";
 
 /**
- * 오프닝(스플래시) 화면 — 진입 시 전체화면으로 잠깐 떴다가 페이드아웃.
- * 메인 커버와 다른 사진을 사용한다. (탭하면 즉시 닫힘)
- *
- * 실제 사진 교체: 아래 배경 div 를
- *   <img src="/images/intro.jpg" className="absolute inset-0 h-full w-full object-cover" />
- * 로 바꾸면 된다. (정적 배포 시 basePath 가 붙은 경로 필요)
+ * 오프닝(스플래시) 화면 — 이미지 없이 글자만, Invitation 섹션처럼 서서히 페이드업.
+ *  · "정승찬 ♥ 김은별" → 그 아래 "우리 결혼합니다"
+ *  · 잠시 후 자동 페이드아웃(탭하면 즉시 닫힘), 인트로 동안 본문 스크롤 잠금
  */
 export function Intro() {
   const [hidden, setHidden] = useState(false); // 페이드아웃 시작
@@ -16,7 +14,7 @@ export function Intro() {
 
   // 일정 시간 후 자동으로 닫기 시작
   useEffect(() => {
-    const t = setTimeout(() => setHidden(true), 3000);
+    const t = setTimeout(() => setHidden(true), 3200);
     return () => clearTimeout(t);
   }, []);
 
@@ -38,32 +36,25 @@ export function Intro() {
 
   if (gone) return null;
 
+  const { groom, bride } = wedding;
+
   return (
     <div
       onClick={() => setHidden(true)}
-      className={`fixed inset-0 z-[60] flex flex-col items-center justify-center overflow-hidden bg-ink transition-opacity duration-[1100ms] ease-out ${
+      className={`fixed inset-0 z-[60] flex flex-col items-center justify-center bg-ivory transition-opacity duration-[1100ms] ease-out ${
         hidden ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
-      {/* 인트로 사진 (메인 커버와 다른 사진) — 느린 줌 */}
-      <div className="absolute inset-0 animate-kenBurns bg-gradient-to-b from-[#8a7d6c] via-[#6f6557] to-[#3a3631]" />
-      {/* 텍스트 가독성용 어둡게 */}
-      <div className="absolute inset-0 bg-black/25" />
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-white/30">
-        인트로 사진
-      </div>
-
-      {/* 오프닝 문구 — 순차 페이드업 */}
-      <div className="relative z-10 text-center text-white">
+      <div className="text-center">
         <p
-          className="text-xs tracking-[0.4em] opacity-0 animate-introUp"
-          style={{ animationDelay: "0.4s" }}
+          className="text-2xl tracking-[0.15em] text-ink opacity-0 animate-introUp"
+          style={{ animationDelay: "0.3s" }}
         >
-          INVITATION
+          {groom.name} <span className="mx-2 text-point">♥</span> {bride.name}
         </p>
         <p
-          className="mt-6 text-4xl leading-relaxed tracking-[0.15em] opacity-0 animate-introUp"
-          style={{ animationDelay: "0.9s" }}
+          className="mt-6 text-lg tracking-[0.25em] text-muted opacity-0 animate-introUp"
+          style={{ animationDelay: "1.0s" }}
         >
           우리 결혼합니다
         </p>

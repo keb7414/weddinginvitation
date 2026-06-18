@@ -1,0 +1,225 @@
+﻿
+> invitation-web@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 1614ms
+ ○ Compiling / ...
+ ✓ Compiled / in 4.6s (615 modules)
+ GET / 200 in 4868ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 2.5s (609 modules)
+ GET /audio/bgm.mp3 404 in 2620ms
+node.exe :  ⨯ Failed to find font override values for font `Nanum Pen Script`
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( ⨯ Failed to fi...num Pen Script`:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ ⨯ Failed to find font override values for font `Nanum Pen Script`
+ ✓ Compiled in 1109ms (618 modules)
+ ✓ Compiled in 306ms (609 modules)
+ GET / 200 in 217ms
+ ✓ Compiled /_not-found in 950ms (612 modules)
+ GET /audio/bgm.mp3 404 in 505ms
+ ✓ Compiled in 515ms (612 modules)
+ ✓ Compiled in 281ms (612 modules)
+ GET / 200 in 165ms
+ GET /audio/bgm.mp3 404 in 31ms
+ GET / 200 in 58ms
+ GET /audio/bgm.mp3 404 in 35ms
+ GET / 200 in 65ms
+ GET /audio/bgm.mp3 404 in 34ms
+ GET / 200 in 59ms
+ GET / 200 in 49ms
+ GET /audio/bgm.mp3 404 in 18ms
+ ✓ Compiled in 736ms (609 modules)
+ ✓ Compiled in 423ms (606 modules)
+ ⨯ app\layout.tsx (14:14) @ Nanum_Pen_Script
+ ⨯ ReferenceError: Nanum_Pen_Script is not defined
+    at eval (webpack-internal:///(rsc)/./app/layout.tsx:17:14)
+    at (rsc)/./app/layout.tsx (C:\Users\comes\invited\frontend\.next\server\app\page.js:316:1)
+    at Function.__webpack_require__ (C:\Users\comes\invited\frontend\.next\server\webpack-runtime.js:33:42)
+    at async e7 (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35
+:398677)
+    at async rq (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:40
+:7341)
+    at async rJ (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:40
+:12680)
+    at async r3 (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:40
+:16174) {
+  page: '/'
+}
+[0m [90m 12 |[39m[0m
+[0m [90m 13 |[39m [90m// 손글씨 폰트 — 오프닝 "쓰는" 효과용[39m[0m
+[0m[31m[1m>[22m[39m[90m 14 |[39m [36mconst[39m hand [33m=[39m [33mNanum_Pen_Script[39m({[0m
+[0m [90m    |[39m              [31m[1m^[22m[39m[0m
+[0m [90m 15 |[39m   weight[33m:[39m [32m"400"[39m[33m,[39m[0m
+[0m [90m 16 |[39m   subsets[33m:[39m [[32m"latin"[39m][33m,[39m[0m
+[0m [90m 17 |[39m   variable[33m:[39m [32m"--font-hand"[39m[33m,[39m[0m
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1216ms (819 modules)
+ ⨯ app\layout.tsx (14:14) @ Nanum_Pen_Script
+ ⨯ ReferenceError: Nanum_Pen_Script is not defined
+    at eval (webpack-internal:///(rsc)/./app/layout.tsx:17:14)
+    at (rsc)/./app/layout.tsx (C:\Users\comes\invited\frontend\.next\server\app\page.js:316:1)
+    at Function.__webpack_require__ (C:\Users\comes\invited\frontend\.next\server\webpack-runtime.js:33:42)
+    at async e7 (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35
+:398677)
+    at async rq (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:40
+:7341)
+    at async rJ (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:40
+:12680)
+    at async r3 (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:40
+:16174) {
+  page: '/'
+}
+[0m [90m 12 |[39m[0m
+[0m [90m 13 |[39m [90m// 손글씨 폰트 — 오프닝 "쓰는" 효과용[39m[0m
+[0m[31m[1m>[22m[39m[90m 14 |[39m [36mconst[39m hand [33m=[39m [33mNanum_Pen_Script[39m({[0m
+[0m [90m    |[39m              [31m[1m^[22m[39m[0m
+[0m [90m 15 |[39m   weight[33m:[39m [32m"400"[39m[33m,[39m[0m
+[0m [90m 16 |[39m   subsets[33m:[39m [[32m"latin"[39m][33m,[39m[0m
+[0m [90m 17 |[39m   variable[33m:[39m [32m"--font-hand"[39m[33m,[39m[0m
+ ⨯ app\layout.tsx (14:14) @ Nanum_Pen_Script
+ ⨯ ReferenceError: Nanum_Pen_Script is not defined
+    at eval (webpack-internal:///(rsc)/./app/layout.tsx:17:14)
+    at (rsc)/./app/layout.tsx (C:\Users\comes\invited\frontend\.next\server\app\page.js:316:1)
+    at Function.__webpack_require__ (C:\Users\comes\invited\frontend\.next\server\webpack-runtime.js:33:42)
+    at async e7 (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35
+:398677)
+    at async rq (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:40
+:7341)
+    at async rJ (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:40
+:12680)
+    at async r3 (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:40
+:16174) {
+  page: '/'
+}
+[0m [90m 12 |[39m[0m
+[0m [90m 13 |[39m [90m// 손글씨 폰트 — 오프닝 "쓰는" 효과용[39m[0m
+[0m[31m[1m>[22m[39m[90m 14 |[39m [36mconst[39m hand [33m=[39m [33mNanum_Pen_Script[39m({[0m
+[0m [90m    |[39m              [31m[1m^[22m[39m[0m
+[0m [90m 15 |[39m   weight[33m:[39m [32m"400"[39m[33m,[39m[0m
+[0m [90m 16 |[39m   subsets[33m:[39m [[32m"latin"[39m][33m,[39m[0m
+[0m [90m 17 |[39m   variable[33m:[39m [32m"--font-hand"[39m[33m,[39m[0m
+ ⨯ app\layout.tsx (14:14) @ Nanum_Pen_Script
+ ⨯ ReferenceError: Nanum_Pen_Script is not defined
+    at eval (./app/layout.tsx:17:14)
+    at (rsc)/./app/layout.tsx (C:\Users\comes\invited\frontend\.next\server\app\page.js:316:1)
+    at Function.__webpack_require__ (C:\Users\comes\invited\frontend\.next\server\webpack-runtime.js:33:42)
+digest: "1622057514"
+[0m [90m 12 |[39m[0m
+[0m [90m 13 |[39m [90m// 손글씨 폰트 — 오프닝 "쓰는" 효과용[39m[0m
+[0m[31m[1m>[22m[39m[90m 14 |[39m [36mconst[39m hand [33m=[39m [33mNanum_Pen_Script[39m({[0m
+[0m [90m    |[39m              [31m[1m^[22m[39m[0m
+[0m [90m 15 |[39m   weight[33m:[39m [32m"400"[39m[33m,[39m[0m
+[0m [90m 16 |[39m   subsets[33m:[39m [[32m"latin"[39m][33m,[39m[0m
+[0m [90m 17 |[39m   variable[33m:[39m [32m"--font-hand"[39m[33m,[39m[0m
+ ⨯ app\layout.tsx (14:14) @ Nanum_Pen_Script
+ ⨯ ReferenceError: Nanum_Pen_Script is not defined
+    at eval (./app/layout.tsx:17:14)
+    at (rsc)/./app/layout.tsx (C:\Users\comes\invited\frontend\.next\server\app\page.js:316:1)
+    at Function.__webpack_require__ (C:\Users\comes\invited\frontend\.next\server\webpack-runtime.js:33:42)
+digest: "1622057514"
+[0m [90m 12 |[39m[0m
+[0m [90m 13 |[39m [90m// 손글씨 폰트 — 오프닝 "쓰는" 효과용[39m[0m
+[0m[31m[1m>[22m[39m[90m 14 |[39m [36mconst[39m hand [33m=[39m [33mNanum_Pen_Script[39m({[0m
+[0m [90m    |[39m              [31m[1m^[22m[39m[0m
+[0m [90m 15 |[39m   weight[33m:[39m [32m"400"[39m[33m,[39m[0m
+[0m [90m 16 |[39m   subsets[33m:[39m [[32m"latin"[39m][33m,[39m[0m
+[0m [90m 17 |[39m   variable[33m:[39m [32m"--font-hand"[39m[33m,[39m[0m
+ ⨯ app\layout.tsx (14:14) @ Nanum_Pen_Script
+ ⨯ ReferenceError: Nanum_Pen_Script is not defined
+    at eval (./app/layout.tsx:17:14)
+    at (rsc)/./app/layout.tsx (C:\Users\comes\invited\frontend\.next\server\app\page.js:316:1)
+    at Function.__webpack_require__ (C:\Users\comes\invited\frontend\.next\server\webpack-runtime.js:33:42)
+digest: "1944267367"
+[0m [90m 12 |[39m[0m
+[0m [90m 13 |[39m [90m// 손글씨 폰트 — 오프닝 "쓰는" 효과용[39m[0m
+[0m[31m[1m>[22m[39m[90m 14 |[39m [36mconst[39m hand [33m=[39m [33mNanum_Pen_Script[39m({[0m
+[0m [90m    |[39m              [31m[1m^[22m[39m[0m
+[0m [90m 15 |[39m   weight[33m:[39m [32m"400"[39m[33m,[39m[0m
+[0m [90m 16 |[39m   subsets[33m:[39m [[32m"latin"[39m][33m,[39m[0m
+[0m [90m 17 |[39m   variable[33m:[39m [32m"--font-hand"[39m[33m,[39m[0m
+ReferenceError: Nanum_Pen_Script is not defined
+    at eval (webpack-internal:///(rsc)/./app/layout.tsx:17:14)
+    at (rsc)/./app/layout.tsx (C:\Users\comes\invited\frontend\.next\server\app\page.js:316:1)
+    at Function.__webpack_require__ (C:\Users\comes\invited\frontend\.next\server\webpack-runtime.js:33:42)
+    at async e7 (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35
+:398677)
+    at async tS (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35
+:402230)
+    at async tw (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35
+:402791)
+    at async tO (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:36
+:2320)
+    at async C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:36:298
+9 {
+  digest: '1944267367'
+}
+ ⨯ app\layout.tsx (14:14) @ Nanum_Pen_Script
+ ⨯ ReferenceError: Nanum_Pen_Script is not defined
+    at eval (webpack-internal:///(rsc)/./app/layout.tsx:17:14)
+    at (rsc)/./app/layout.tsx (C:\Users\comes\invited\frontend\.next\server\app\page.js:316:1)
+    at Function.__webpack_require__ (C:\Users\comes\invited\frontend\.next\server\webpack-runtime.js:33:42)
+    at async e7 (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35
+:398677)
+    at async tS (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35
+:402230)
+    at async tw (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35
+:402791)
+    at async tO (C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:36
+:2320)
+    at async C:\Users\comes\invited\frontend\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:36:298
+9 {
+  digest: '1944267367',
+  page: '/'
+}
+[0m [90m 12 |[39m[0m
+[0m [90m 13 |[39m [90m// 손글씨 폰트 — 오프닝 "쓰는" 효과용[39m[0m
+[0m[31m[1m>[22m[39m[90m 14 |[39m [36mconst[39m hand [33m=[39m [33mNanum_Pen_Script[39m({[0m
+[0m [90m    |[39m              [31m[1m^[22m[39m[0m
+[0m [90m 15 |[39m   weight[33m:[39m [32m"400"[39m[33m,[39m[0m
+[0m [90m 16 |[39m   subsets[33m:[39m [[32m"latin"[39m][33m,[39m[0m
+[0m [90m 17 |[39m   variable[33m:[39m [32m"--font-hand"[39m[33m,[39m[0m
+ GET / 500 in 79ms
+ ✓ Compiled in 470ms (833 modules)
+ ⨯ app\layout.tsx (33:53) @ hand
+ ⨯ ReferenceError: hand is not defined
+    at RootLayout (./app/layout.tsx:31:242)
+    at stringify (<anonymous>)
+digest: "542085893"
+[0m [90m 31 |[39m }) {[0m
+[0m [90m 32 |[39m   [36mreturn[39m ([0m
+[0m[31m[1m>[22m[39m[90m 33 |[39m     [33m<[39m[33mhtml[39m lang[33m=[39m[32m"ko"[39m className[33m=[39
+m{[32m`${serif.variable} ${hand.variable}`[39m}[33m>[39m[0m
+[0m [90m    |[39m                                                     [31m[1m^[22m[39m[0m
+[0m [90m 34 |[39m       [33m<[39m[33mbody[39m className[33m=[39m[32m"font-serif"[39m[33m>[39m{children}[3
+3m<[39m[33m/[39m[33mbody[39m[33m>[39m[0m
+[0m [90m 35 |[39m     [33m<[39m[33m/[39m[33mhtml[39m[33m>[39m[0m
+[0m [90m 36 |[39m   )[33m;[39m[0m
+ ⨯ app\layout.tsx (33:53) @ hand
+ ⨯ ReferenceError: hand is not defined
+    at RootLayout (./app/layout.tsx:31:242)
+    at stringify (<anonymous>)
+digest: "542085893"
+[0m [90m 31 |[39m }) {[0m
+[0m [90m 32 |[39m   [36mreturn[39m ([0m
+[0m[31m[1m>[22m[39m[90m 33 |[39m     [33m<[39m[33mhtml[39m lang[33m=[39m[32m"ko"[39m className[33m=[39
+m{[32m`${serif.variable} ${hand.variable}`[39m}[33m>[39m[0m
+[0m [90m    |[39m                                                     [31m[1m^[22m[39m[0m
+[0m [90m 34 |[39m       [33m<[39m[33mbody[39m className[33m=[39m[32m"font-serif"[39m[33m>[39m{children}[3
+3m<[39m[33m/[39m[33mbody[39m[33m>[39m[0m
+[0m [90m 35 |[39m     [33m<[39m[33m/[39m[33mhtml[39m[33m>[39m[0m
+[0m [90m 36 |[39m   )[33m;[39m[0m
+ GET / 500 in 142ms
+ ✓ Compiled in 278ms (833 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET / 200 in 114ms
+ ✓ Compiled in 542ms (833 modules)
+ GET / 200 in 81ms

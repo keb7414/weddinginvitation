@@ -14,7 +14,7 @@ export function Intro() {
 
   // 일정 시간 후 자동으로 닫기 시작
   useEffect(() => {
-    const t = setTimeout(() => setHidden(true), 3200);
+    const t = setTimeout(() => setHidden(true), 1500);
     return () => clearTimeout(t);
   }, []);
 
@@ -48,13 +48,13 @@ export function Intro() {
       <div className="text-center">
         <p
           className="text-2xl tracking-[0.15em] text-ink opacity-0 animate-introUp"
-          style={{ animationDelay: "0.3s" }}
+          style={{ animationDelay: "0.15s" }}
         >
           {groom.name} <span className="mx-2 text-point">♥</span> {bride.name}
         </p>
         <p
           className="mt-6 text-lg tracking-[0.25em] text-muted opacity-0 animate-introUp"
-          style={{ animationDelay: "1.0s" }}
+          style={{ animationDelay: "0.5s" }}
         >
           우리 결혼합니다
         </p>

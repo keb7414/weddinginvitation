@@ -17,7 +17,9 @@
       "PowerShell(& \"C:\\\\Program Files\\\\MariaDB 11.4\\\\bin\\\\mariadb.exe\" -u root -proot --default-character-set=utf8mb4 -e \"USE invitation; SELECT id,name,message,is_deleted FROM guestbook; SELECT id,side,name,attend,headcount,meal,shuttle FROM rsvp; SELECT id,contact,notify_at,is_sent FROM alarm;\" 2>&1)",
       "Bash(git symbolic-ref *)",
       "PowerShell(try { Remove-Item \"C:\\\\Users\\\\comes\\\\invited\\\\weddinginvitation\" -Recurse -Force -ErrorAction Stop; \"빈 폴더 삭제 완료\" } catch { \"삭제 실패\\(VSCode가 점유 중일 수 있음\\): $\\($_.Exception.Message\\)\" })",
-      "Bash(echo \"브랜치: $\\(git symbolic-ref --short HEAD\\)\")"
+      "Bash(echo \"브랜치: $\\(git symbolic-ref --short HEAD\\)\")",
+      "Bash(git push *)",
+      "PowerShell($n=\\(Get-Command node -ErrorAction SilentlyContinue\\); if\\($n\\){ \"node $\\(node -v\\)  @ $\\($n.Source\\)\" } else { \"node NOT FOUND\" }; $np=\\(Get-Command npm -ErrorAction SilentlyContinue\\); if\\($np\\){ \"npm $\\(npm -v\\)\" } else { \"npm NOT FOUND\" })"
     ]
   }
 }

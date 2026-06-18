@@ -21,20 +21,21 @@
 
 ---
 
-## 2. 기술 스택 제안
+## 2. 기술 스택 (최종 확정)
 
-| 구분 | 선택지 A (정적/추천) | 선택지 B (풀스택) |
-|------|---------------------|------------------|
-| 프론트 | Next.js(App Router) + TypeScript | 동일 |
-| 스타일 | Tailwind CSS + CSS 애니메이션 | 동일 |
-| 백엔드 | 불필요 (정적 배포) | **방명록/참석여부/알림 저장 API 필요 ← 채택** |
-| DB | 없음 | **bkend.ai BaaS 또는 별도 DB ← 채택** |
-| 지도 | Kakao Map JS SDK | 동일 |
-| 공유 | Kakao SDK (JavaScript Key) | 동일 |
-| 배포 | Vercel / Netlify | Vercel + 백엔드 |
+| 구분 | 채택 | 비고 |
+|------|------|------|
+| 프론트 | **Next.js(App Router) + TypeScript** | 정적 export(`output: 'export'`) |
+| 스타일 | **Tailwind CSS + CSS 애니메이션** | |
+| 백엔드 | **Supabase (BaaS)** | 브라우저가 anon 키로 직접 호출, RLS 보안 |
+| DB | **Supabase Postgres** | 테이블 3개: guestbook/rsvp/alarm (`supabase/schema.sql`) |
+| 지도 | Kakao Map JS SDK | (예정) |
+| 공유 | Kakao SDK (JavaScript Key) | (예정) |
+| 배포 | **GitHub Pages** | GitHub Actions 자동 배포(`.github/workflows/deploy-pages.yml`) |
 
-> **확정: 선택지 B(풀스택)** — 방명록·참석여부·알림신청 데이터 저장을 위해 백엔드/DB 사용.
-> 백엔드는 사용자의 기존 환경(Spring) 또는 bkend.ai BaaS 중 택일(아래 6장 참고).
+> **변경 이력**: 초기 풀스택(Spring Boot + MariaDB)으로 구현했으나, 정적 호스팅(GitHub Pages)
+> 배포를 위해 **Supabase BaaS 로 백엔드 교체**. Spring 백엔드/ MariaDB 스키마는 제거됨.
+> 방명록 비밀번호는 bcrypt 해시 저장, 삭제는 DB 함수(RPC)로 검증. 알림은 저장만(발송 스케줄러 없음).
 
 ---
 

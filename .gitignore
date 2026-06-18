@@ -5,14 +5,7 @@ out/
 dist/
 build/
 
-# Gradle / Spring Boot 백엔드
-backend/build/
-backend/.gradle/
-backend/bin/
-backend/bootrun.log
-.gradle/
-
-# 환경 변수 (DB 비밀번호 등 비밀정보)
+# 환경 변수 (Supabase 키 등 비밀정보)
 .env
 .env.local
 *.local

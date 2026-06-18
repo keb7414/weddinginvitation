@@ -1,0 +1,192 @@
+﻿> Task :compileJava UP-TO-DATE
+> Task :processResources
+> Task :classes
+> Task :resolveMainClassName
+
+> Task :bootRun
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.14)
+
+2026-06-18T15:53:26.745+09:00  INFO 19684 --- [invitation-api] [  restartedMain] k.c.invitation.InvitationApplication     : Starting InvitationApplication using Java 21.0.7 with PID 19684 (C:\Users\comes\invited\backend\build\classes\java\main started by comes in C:\Users\comes\invited\backend)
+2026-06-18T15:53:26.746+09:00 DEBUG 19684 --- [invitation-api] [  restartedMain] k.c.invitation.InvitationApplication     : Running with Spring Boot v3.5.14, Spring v6.2.18
+2026-06-18T15:53:26.747+09:00  INFO 19684 --- [invitation-api] [  restartedMain] k.c.invitation.InvitationApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-06-18T15:53:26.784+09:00  INFO 19684 --- [invitation-api] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-06-18T15:53:26.784+09:00  INFO 19684 --- [invitation-api] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-06-18T15:53:27.920+09:00  INFO 19684 --- [invitation-api] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-06-18T15:53:27.933+09:00  INFO 19684 --- [invitation-api] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-18T15:53:27.934+09:00  INFO 19684 --- [invitation-api] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.54]
+2026-06-18T15:53:27.988+09:00  INFO 19684 --- [invitation-api] [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-18T15:53:27.989+09:00  INFO 19684 --- [invitation-api] [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1204 ms
+2026-06-18T15:53:28.794+09:00  INFO 19684 --- [invitation-api] [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-06-18T15:53:28.821+09:00  INFO 19684 --- [invitation-api] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-06-18T15:53:28.828+09:00  INFO 19684 --- [invitation-api] [  restartedMain] k.c.invitation.InvitationApplication     : Started InvitationApplication in 2.494 seconds (process running for 2.87)
+2026-06-18T15:53:54.285+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-18T15:53:54.285+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-18T15:53:54.286+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-06-18T15:53:54.482+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-1] k.c.i.guestbook.GuestbookMapper.insert   : ==>  Preparing: INSERT INTO guestbook (name, message, password) VALUES (?, ?, ?)
+2026-06-18T15:53:54.504+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-1] k.c.i.guestbook.GuestbookMapper.insert   : ==> Parameters: 홍길동(String), 결혼 축하합니다!(String), 1234(String)
+2026-06-18T15:53:54.541+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-1] p6spy                                    : #1781765634541 | took 37ms | statement | connection 1| url jdbc:p6spy:mariadb://localhost:3306/invitation?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8mb4
+INSERT INTO guestbook (name, message, password)
+        VALUES (?, ?, ?)
+INSERT INTO guestbook (name, message, password)
+        VALUES ('홍길동', '결혼 축하합니다!', '1234');
+2026-06-18T15:53:54.542+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-1] p6spy                                    : #1781765634542 | took 37ms | statement | connection 0| url jdbc:mariadb://localhost/invitation?user=root&password=***&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf8mb4
+INSERT INTO guestbook (name, message, password)
+        VALUES (?, ?, ?)
+INSERT INTO guestbook (name, message, password)
+        VALUES ('홍길동', '결혼 축하합니다!', '1234');
+2026-06-18T15:53:54.542+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-1] k.c.i.guestbook.GuestbookMapper.insert   : <==    Updates: 1
+2026-06-18T15:53:54.556+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-1] p6spy                                    : #1781765634556 | took 4ms | commit | connection 1| url jdbc:p6spy:mariadb://localhost:3306/invitation?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8mb4
+
+;
+2026-06-18T15:53:54.556+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-1] p6spy                                    : #1781765634556 | took 5ms | commit | connection 0| url jdbc:mariadb://localhost/invitation?user=root&password=***&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf8mb4
+
+;
+2026-06-18T15:53:54.644+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-2] k.c.i.guestbook.GuestbookMapper.findAll  : ==>  Preparing: SELECT id, name, message, is_deleted, created_at FROM guestbook WHERE is_deleted = 0 ORDER BY id DESC
+2026-06-18T15:53:54.645+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-2] k.c.i.guestbook.GuestbookMapper.findAll  : ==> Parameters: 
+2026-06-18T15:53:54.646+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-2] p6spy                                    : #1781765634646 | took 1ms | statement | connection 1| url jdbc:p6spy:mariadb://localhost:3306/invitation?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8mb4
+SELECT id, name, message, is_deleted, created_at
+          FROM guestbook
+         WHERE is_deleted = 0
+         ORDER BY id DESC
+SELECT id, name, message, is_deleted, created_at
+          FROM guestbook
+         WHERE is_deleted = 0
+         ORDER BY id DESC;
+2026-06-18T15:53:54.646+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-2] p6spy                                    : #1781765634646 | took 1ms | statement | connection 3| url jdbc:mariadb://localhost/invitation?user=root&password=***&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf8mb4
+SELECT id, name, message, is_deleted, created_at
+          FROM guestbook
+         WHERE is_deleted = 0
+         ORDER BY id DESC
+SELECT id, name, message, is_deleted, created_at
+          FROM guestbook
+         WHERE is_deleted = 0
+         ORDER BY id DESC;
+2026-06-18T15:53:54.657+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-2] k.c.i.guestbook.GuestbookMapper.findAll  : <==      Total: 1
+2026-06-18T15:53:54.658+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-2] p6spy                                    : #1781765634658 | took 0ms | commit | connection 1| url jdbc:p6spy:mariadb://localhost:3306/invitation?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8mb4
+
+;
+2026-06-18T15:53:54.659+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-2] p6spy                                    : #1781765634659 | took 0ms | commit | connection 3| url jdbc:mariadb://localhost/invitation?user=root&password=***&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf8mb4
+
+;
+2026-06-18T15:53:54.724+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-3] k.c.invitation.rsvp.RsvpMapper.insert    : ==>  Preparing: INSERT INTO rsvp (side, name, attend, headcount, meal, shuttle, memo) VALUES (?, ?, ?, ?, ?, ?, ?)
+2026-06-18T15:53:54.726+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-3] k.c.invitation.rsvp.RsvpMapper.insert    : ==> Parameters: GROOM(String), 김철수(String), true(Boolean), 2(Integer), true(Boolean), false(Boolean), null
+2026-06-18T15:53:54.727+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-3] p6spy                                    : #1781765634727 | took 1ms | statement | connection 1| url jdbc:p6spy:mariadb://localhost:3306/invitation?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8mb4
+INSERT INTO rsvp (side, name, attend, headcount, meal, shuttle, memo)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+INSERT INTO rsvp (side, name, attend, headcount, meal, shuttle, memo)
+        VALUES ('GROOM', '김철수', true, 2, true, false, NULL);
+2026-06-18T15:53:54.728+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-3] p6spy                                    : #1781765634728 | took 1ms | statement | connection 4| url jdbc:mariadb://localhost/invitation?user=root&password=***&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf8mb4
+INSERT INTO rsvp (side, name, attend, headcount, meal, shuttle, memo)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+INSERT INTO rsvp (side, name, attend, headcount, meal, shuttle, memo)
+        VALUES ('GROOM', '김철수', true, 2, true, false, NULL);
+2026-06-18T15:53:54.728+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-3] k.c.invitation.rsvp.RsvpMapper.insert    : <==    Updates: 1
+2026-06-18T15:53:54.731+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-3] p6spy                                    : #1781765634731 | took 2ms | commit | connection 1| url jdbc:p6spy:mariadb://localhost:3306/invitation?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8mb4
+
+;
+2026-06-18T15:53:54.731+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-3] p6spy                                    : #1781765634731 | took 2ms | commit | connection 4| url jdbc:mariadb://localhost/invitation?user=root&password=***&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf8mb4
+
+;
+2026-06-18T15:53:54.748+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-4] k.c.invitation.alarm.AlarmMapper.insert  : ==>  Preparing: INSERT INTO alarm (contact, notify_at) VALUES (?, ?)
+2026-06-18T15:53:54.750+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-4] k.c.invitation.alarm.AlarmMapper.insert  : ==> Parameters: 010-1234-5678(String), 2026-10-31T12:00(LocalDateTime)
+2026-06-18T15:53:54.752+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-4] p6spy                                    : #1781765634752 | took 1ms | statement | connection 1| url jdbc:p6spy:mariadb://localhost:3306/invitation?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8mb4
+INSERT INTO alarm (contact, notify_at)
+        VALUES (?, ?)
+INSERT INTO alarm (contact, notify_at)
+        VALUES ('010-1234-5678', '2026-10-31T12:00');
+2026-06-18T15:53:54.752+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-4] p6spy                                    : #1781765634752 | took 2ms | statement | connection 5| url jdbc:mariadb://localhost/invitation?user=root&password=***&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf8mb4
+INSERT INTO alarm (contact, notify_at)
+        VALUES (?, ?)
+INSERT INTO alarm (contact, notify_at)
+        VALUES ('010-1234-5678', '2026-10-31T12:00');
+2026-06-18T15:53:54.752+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-4] k.c.invitation.alarm.AlarmMapper.insert  : <==    Updates: 1
+2026-06-18T15:53:54.755+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-4] p6spy                                    : #1781765634755 | took 2ms | commit | connection 1| url jdbc:p6spy:mariadb://localhost:3306/invitation?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8mb4
+
+;
+2026-06-18T15:53:54.755+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-4] p6spy                                    : #1781765634755 | took 2ms | commit | connection 5| url jdbc:mariadb://localhost/invitation?user=root&password=***&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf8mb4
+
+;
+2026-06-18T15:53:54.774+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-5] k.c.i.g.GuestbookMapper.findById         : ==>  Preparing: SELECT id, name, message, password, is_deleted, created_at FROM guestbook WHERE id = ? LIMIT 1
+2026-06-18T15:53:54.775+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-5] k.c.i.g.GuestbookMapper.findById         : ==> Parameters: 1(Long)
+2026-06-18T15:53:54.776+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-5] p6spy                                    : #1781765634776 | took 0ms | statement | connection 1| url jdbc:p6spy:mariadb://localhost:3306/invitation?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8mb4
+SELECT id, name, message, password, is_deleted, created_at
+          FROM guestbook
+         WHERE id = ?
+         LIMIT 1
+SELECT id, name, message, password, is_deleted, created_at
+          FROM guestbook
+         WHERE id = 1
+         LIMIT 1;
+2026-06-18T15:53:54.776+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-5] p6spy                                    : #1781765634776 | took 1ms | statement | connection 6| url jdbc:mariadb://localhost/invitation?user=root&password=***&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf8mb4
+SELECT id, name, message, password, is_deleted, created_at
+          FROM guestbook
+         WHERE id = ?
+         LIMIT 1
+SELECT id, name, message, password, is_deleted, created_at
+          FROM guestbook
+         WHERE id = 1
+         LIMIT 1;
+2026-06-18T15:53:54.777+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-5] k.c.i.g.GuestbookMapper.findById         : <==      Total: 1
+2026-06-18T15:53:54.778+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-5] p6spy                                    : #1781765634778 | took 0ms | rollback | connection 1| url jdbc:p6spy:mariadb://localhost:3306/invitation?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8mb4
+
+;
+2026-06-18T15:53:54.778+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-5] p6spy                                    : #1781765634778 | took 0ms | rollback | connection 6| url jdbc:mariadb://localhost/invitation?user=root&password=***&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf8mb4
+
+;
+2026-06-18T15:53:54.785+09:00  WARN 19684 --- [invitation-api] [nio-8081-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.SecurityException: 비밀번호가 일치하지 않습니다.]
+2026-06-18T15:53:54.801+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-6] k.c.i.g.GuestbookMapper.findById         : ==>  Preparing: SELECT id, name, message, password, is_deleted, created_at FROM guestbook WHERE id = ? LIMIT 1
+2026-06-18T15:53:54.802+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-6] k.c.i.g.GuestbookMapper.findById         : ==> Parameters: 1(Long)
+2026-06-18T15:53:54.802+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-6] p6spy                                    : #1781765634802 | took 0ms | statement | connection 1| url jdbc:p6spy:mariadb://localhost:3306/invitation?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8mb4
+SELECT id, name, message, password, is_deleted, created_at
+          FROM guestbook
+         WHERE id = ?
+         LIMIT 1
+SELECT id, name, message, password, is_deleted, created_at
+          FROM guestbook
+         WHERE id = 1
+         LIMIT 1;
+2026-06-18T15:53:54.802+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-6] p6spy                                    : #1781765634802 | took 0ms | statement | connection 7| url jdbc:mariadb://localhost/invitation?user=root&password=***&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf8mb4
+SELECT id, name, message, password, is_deleted, created_at
+          FROM guestbook
+         WHERE id = ?
+         LIMIT 1
+SELECT id, name, message, password, is_deleted, created_at
+          FROM guestbook
+         WHERE id = 1
+         LIMIT 1;
+2026-06-18T15:53:54.802+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-6] k.c.i.g.GuestbookMapper.findById         : <==      Total: 1
+2026-06-18T15:53:54.803+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-6] k.c.i.g.GuestbookMapper.softDelete       : ==>  Preparing: UPDATE guestbook SET is_deleted = 1 WHERE id = ? AND is_deleted = 0
+2026-06-18T15:53:54.803+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-6] k.c.i.g.GuestbookMapper.softDelete       : ==> Parameters: 1(Long)
+2026-06-18T15:53:54.805+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-6] p6spy                                    : #1781765634805 | took 1ms | statement | connection 1| url jdbc:p6spy:mariadb://localhost:3306/invitation?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8mb4
+UPDATE guestbook
+           SET is_deleted = 1
+         WHERE id = ?
+           AND is_deleted = 0
+UPDATE guestbook
+           SET is_deleted = 1
+         WHERE id = 1
+           AND is_deleted = 0;
+2026-06-18T15:53:54.805+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-6] p6spy                                    : #1781765634805 | took 1ms | statement | connection 7| url jdbc:mariadb://localhost/invitation?user=root&password=***&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf8mb4
+UPDATE guestbook
+           SET is_deleted = 1
+         WHERE id = ?
+           AND is_deleted = 0
+UPDATE guestbook
+           SET is_deleted = 1
+         WHERE id = 1
+           AND is_deleted = 0;
+2026-06-18T15:53:54.805+09:00 DEBUG 19684 --- [invitation-api] [nio-8081-exec-6] k.c.i.g.GuestbookMapper.softDelete       : <==    Updates: 1
+2026-06-18T15:53:54.807+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-6] p6spy                                    : #1781765634807 | took 2ms | commit | connection 1| url jdbc:p6spy:mariadb://localhost:3306/invitation?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8mb4
+
+;
+2026-06-18T15:53:54.807+09:00  INFO 19684 --- [invitation-api] [nio-8081-exec-6] p6spy                                    : #1781765634807 | took 2ms | commit | connection 7| url jdbc:mariadb://localhost/invitation?user=root&password=***&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf8mb4
+
+;

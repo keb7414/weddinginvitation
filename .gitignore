@@ -9,3 +9,6 @@ build/
 .env
 .env.local
 *.local
+
+# Claude Code 로컬 설정 (개인 환경 전용 — 로컬 명령/경로 포함)
+.claude/settings.local.json

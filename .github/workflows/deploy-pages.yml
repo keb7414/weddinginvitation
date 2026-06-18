@@ -28,8 +28,11 @@ jobs:
     env:
       # 프로젝트 페이지 하위 경로(/<repo>). 커스텀 도메인 사용 시 빈 값으로 변경.
       NEXT_PUBLIC_BASE_PATH: /weddinginvitation
-      # 백엔드 공개 URL 확정 시 리포지토리 Variables(API_BASE)에 넣으면 주입됨.
-      NEXT_PUBLIC_API_BASE: ${{ vars.API_BASE }}
+      # Supabase 연결 — 리포지토리 Settings → Secrets and variables → Actions 에 등록
+      #  · Variables: SUPABASE_URL
+      #  · Secrets:   SUPABASE_ANON_KEY
+      NEXT_PUBLIC_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
     steps:
       - uses: actions/checkout@v4
 

@@ -1,23 +1,7 @@
-// 백엔드(invitation-api) 호출 클라이언트.
-// 기본값은 로컬 8081, 운영 시 NEXT_PUBLIC_API_BASE 로 주입.
+// 백엔드 = Supabase(BaaS). 브라우저가 anon 키로 직접 호출한다.
+// 컴포넌트는 이 모듈의 동일한 export 를 그대로 사용 (Spring 버전과 시그니처 호환).
 
-const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8081/api";
-
-async function handle<T>(res: Response): Promise<T> {
-  if (!res.ok) {
-    let message = `요청 실패 (${res.status})`;
-    try {
-      const body = await res.json();
-      if (body?.message) message = body.message;
-    } catch {
-      /* ignore */
-    }
-    throw new Error(message);
-  }
-  if (res.status === 204) return undefined as T;
-  return res.json() as Promise<T>;
-}
+import { supabase } from "./supabase";
 
 // ---- 방명록 ----
 export type GuestbookEntry = {
@@ -28,19 +12,37 @@ export type GuestbookEntry = {
 };
 
 export const guestbookApi = {
-  list: () => fetch(`${API_BASE}/guestbook`).then((r) => handle<GuestbookEntry[]>(r)),
-  create: (payload: { name: string; message: string; password: string }) =>
-    fetch(`${API_BASE}/guestbook`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    }).then((r) => handle<GuestbookEntry>(r)),
-  remove: (id: number, password: string) =>
-    fetch(`${API_BASE}/guestbook/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password }),
-    }).then((r) => handle<void>(r)),
+  list: async (): Promise<GuestbookEntry[]> => {
+    const { data, error } = await supabase
+      .from("guestbook_public")
+      .select("id, name, message, created_at")
+      .order("id", { ascending: false });
+    if (error) throw new Error(error.message);
+    return (data ?? []).map((r) => ({
+      id: r.id as number,
+      name: r.name as string,
+      message: r.message as string,
+      createdAt: r.created_at as string,
+    }));
+  },
+
+  create: async (payload: { name: string; message: string; password: string }) => {
+    const { error } = await supabase.from("guestbook").insert({
+      name: payload.name,
+      message: payload.message,
+      password: payload.password,
+    });
+    if (error) throw new Error(error.message);
+  },
+
+  remove: async (id: number, password: string) => {
+    const { data, error } = await supabase.rpc("delete_guestbook", {
+      p_id: id,
+      p_password: password,
+    });
+    if (error) throw new Error(error.message);
+    if (data !== true) throw new Error("비밀번호가 일치하지 않습니다.");
+  },
 };
 
 // ---- 참석 의사 ----
@@ -55,20 +57,27 @@ export type RsvpPayload = {
 };
 
 export const rsvpApi = {
-  create: (payload: RsvpPayload) =>
-    fetch(`${API_BASE}/rsvp`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    }).then((r) => handle<unknown>(r)),
+  create: async (payload: RsvpPayload) => {
+    const { error } = await supabase.from("rsvp").insert({
+      side: payload.side,
+      name: payload.name,
+      attend: payload.attend,
+      headcount: payload.headcount,
+      meal: payload.meal,
+      shuttle: payload.shuttle,
+      memo: payload.memo ?? null,
+    });
+    if (error) throw new Error(error.message);
+  },
 };
 
-// ---- 예식 알림 ----
+// ---- 예식 알림 (저장만) ----
 export const alarmApi = {
-  create: (payload: { contact: string; notifyAt: string }) =>
-    fetch(`${API_BASE}/alarm`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    }).then((r) => handle<unknown>(r)),
+  create: async (payload: { contact: string; notifyAt: string }) => {
+    const { error } = await supabase.from("alarm").insert({
+      contact: payload.contact,
+      notify_at: payload.notifyAt,
+    });
+    if (error) throw new Error(error.message);
+  },
 };

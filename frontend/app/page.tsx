@@ -1,4 +1,5 @@
 import { RevealProvider } from "@/components/RevealProvider";
+import { Intro } from "@/components/Intro";
 import { Cover } from "@/components/Cover";
 import { Invitation } from "@/components/Invitation";
 import { FamilyInfo } from "@/components/FamilyInfo";
@@ -21,6 +22,7 @@ import { Footer } from "@/components/Footer";
 export default function Home() {
   return (
     <main className="mx-auto min-h-screen w-full max-w-[460px] bg-ivory shadow-xl">
+      <Intro />
       <RevealProvider>
         <Cover />
         <Invitation />

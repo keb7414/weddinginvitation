@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.comes.invitation.rsvp.RsvpMapper">
+
+    <resultMap id="rsvpResultMap" type="kr.comes.invitation.rsvp.Rsvp">
+        <id     property="id"        column="id"/>
+        <result property="side"      column="side"/>
+        <result property="name"      column="name"/>
+        <result property="attend"    column="attend"/>
+        <result property="headcount" column="headcount"/>
+        <result property="meal"      column="meal"/>
+        <result property="shuttle"   column="shuttle"/>
+        <result property="memo"      column="memo"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO rsvp (side, name, attend, headcount, meal, shuttle, memo)
+        VALUES (#{side}, #{name}, #{attend}, #{headcount}, #{meal}, #{shuttle}, #{memo})
+    </insert>
+
+    <select id="findAll" resultMap="rsvpResultMap">
+        SELECT id, side, name, attend, headcount, meal, shuttle, memo, created_at
+          FROM rsvp
+         ORDER BY id DESC
+    </select>
+</mapper>

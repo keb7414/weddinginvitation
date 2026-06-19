@@ -11,9 +11,7 @@ import { LocationMap } from "@/components/LocationMap";
 import { Notice } from "@/components/Notice";
 import { AccountInfo } from "@/components/AccountInfo";
 import { GuestBook } from "@/components/GuestBook";
-import { FlowerOrder } from "@/components/FlowerOrder";
 import { RsvpForm } from "@/components/RsvpForm";
-import { AlarmRegister } from "@/components/AlarmRegister";
 import { ShareButtons } from "@/components/ShareButtons";
 import { Footer } from "@/components/Footer";
 
@@ -33,9 +31,7 @@ export default function Home() {
         <Notice />
         <AccountInfo />
         <GuestBook />
-        <FlowerOrder />
         <RsvpForm />
-        <AlarmRegister />
         <ShareButtons />
         <Footer />
       </RevealProvider>

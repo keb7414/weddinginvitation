@@ -46,8 +46,8 @@ export const wedding = {
   contacts: {
     groom: [
       { label: "신랑", name: "정승찬", phone: "010-0000-0001" },
-      { label: "신랑 아버지", name: "김영동", phone: "010-0000-0003" },
-      { label: "신랑 어머니", name: "이영주", phone: "010-0000-0004" },
+      { label: "신랑 아버지", name: "정병록", phone: "010-0000-0003" },
+      { label: "신랑 어머니", name: "조홍랑", phone: "010-0000-0004" },
     ],
     bride: [
       { label: "신부", name: "김은별", phone: "010-0000-0002" },

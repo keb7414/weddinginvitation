@@ -1,6 +1,48 @@
 import { Section, SectionTitle } from "./Section";
 import { wedding } from "@/lib/data";
 
+function SubwayIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+      <path d="M12 2c-4 0-8 .5-8 4v9.5A3.5 3.5 0 0 0 7.5 19L6 20.5V21h2l2-2h4l2 2h2v-.5L18.5 19A3.5 3.5 0 0 0 20 15.5V6c0-3.5-4-4-8-4zM7.5 17A1.5 1.5 0 1 1 9 15.5 1.5 1.5 0 0 1 7.5 17zM11 11H6V6h5zm2 0V6h5v5zm3.5 6a1.5 1.5 0 1 1 1.5-1.5A1.5 1.5 0 0 1 16.5 17z" />
+    </svg>
+  );
+}
+function BusIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+      <path d="M5 3c-2 0-3 .5-3 3v9a2 2 0 0 0 1 1.7V18a1 1 0 0 0 2 0v-1h10v1a1 1 0 0 0 2 0v-1.3A2 2 0 0 0 18 15V6c0-2.5-1-3-3-3zm0 3h10v4H5zm1.5 10A1.5 1.5 0 1 1 8 14.5 1.5 1.5 0 0 1 6.5 16zm7 0a1.5 1.5 0 1 1 1.5-1.5 1.5 1.5 0 0 1-1.5 1.5z" />
+    </svg>
+  );
+}
+function CarIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+      <path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11h.5a1.5 1.5 0 0 1 1.5 1.5V17a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4.5A1.5 1.5 0 0 1 4.5 11zm1.7-1h10.6l-1-3H8.2zM6.5 15A1.5 1.5 0 1 0 5 13.5 1.5 1.5 0 0 0 6.5 15zm11 0A1.5 1.5 0 1 0 16 13.5 1.5 1.5 0 0 0 17.5 15z" />
+    </svg>
+  );
+}
+
+function TransportBlock({
+  icon,
+  title,
+  children,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="border-t border-sand pt-6">
+      <div className="mb-3 flex items-center gap-2 text-point">
+        <span>{icon}</span>
+        <span className="text-sm">{title}</span>
+      </div>
+      <div className="text-[13px] leading-6 text-ink/80">{children}</div>
+    </div>
+  );
+}
+
 export function LocationMap() {
   const { venue, transport } = wedding;
   const mapQuery = encodeURIComponent(venue.name);
@@ -41,14 +83,32 @@ export function LocationMap() {
         </a>
       </div>
 
-      <ul className="mt-8 space-y-4">
-        {transport.map((t) => (
-          <li key={t.type} className="flex gap-3 text-sm">
-            <span className="shrink-0 font-bold text-point">{t.type}</span>
-            <span className="text-ink/80">{t.desc}</span>
-          </li>
-        ))}
-      </ul>
+      <div className="mt-8 space-y-6">
+        {/* 지하철 */}
+        <TransportBlock icon={<SubwayIcon />} title="지하철">
+          {transport.subway}
+        </TransportBlock>
+
+        {/* 버스 */}
+        <TransportBlock icon={<BusIcon />} title="버스">
+          <p className="mb-3">{transport.busStops}</p>
+          <div className="space-y-1">
+            {transport.busRoutes.map((b) => (
+              <p key={b.kind}>
+                <span className="mr-2 text-point">{b.kind}</span>
+                {b.list}
+              </p>
+            ))}
+          </div>
+        </TransportBlock>
+
+        {/* 자차 */}
+        <TransportBlock icon={<CarIcon />} title="자차">
+          {transport.car.map((line, i) => (
+            <p key={i}>{line}</p>
+          ))}
+        </TransportBlock>
+      </div>
     </Section>
   );
 }

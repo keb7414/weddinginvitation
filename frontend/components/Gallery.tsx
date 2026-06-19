@@ -40,9 +40,20 @@ export function Gallery() {
       {total > 6 && (
         <button
           onClick={() => setExpanded((v) => !v)}
-          className="mx-auto mt-6 block rounded-full border border-point/40 px-6 py-2 text-sm text-point"
+          className="mx-auto mt-7 flex items-center gap-1.5 text-sm text-ink/60"
         >
-          {expanded ? "접기" : "사진 더보기"}
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.4"
+            className="h-[18px] w-[18px]"
+          >
+            <circle cx="12" cy="12" r="9.5" />
+            <path d="M8 12h8" strokeLinecap="round" />
+            {!expanded && <path d="M12 8v8" strokeLinecap="round" />}
+          </svg>
+          {expanded ? "갤러리 접기" : "갤러리 더보기"}
         </button>
       )}
 

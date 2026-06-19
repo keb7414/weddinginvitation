@@ -7,10 +7,7 @@ import { FamilyInfo } from "@/components/FamilyInfo";
 import { ContactAccordion } from "@/components/ContactAccordion";
 import { Calendar } from "@/components/Calendar";
 import { Gallery } from "@/components/Gallery";
-import { VideoSection } from "@/components/VideoSection";
 import { LocationMap } from "@/components/LocationMap";
-import { Profile } from "@/components/Profile";
-import { Interview } from "@/components/Interview";
 import { Notice } from "@/components/Notice";
 import { AccountInfo } from "@/components/AccountInfo";
 import { GuestBook } from "@/components/GuestBook";
@@ -32,10 +29,7 @@ export default function Home() {
         <ContactAccordion />
         <Calendar />
         <Gallery />
-        <VideoSection />
         <LocationMap />
-        <Profile />
-        <Interview />
         <Notice />
         <AccountInfo />
         <GuestBook />

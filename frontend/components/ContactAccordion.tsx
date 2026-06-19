@@ -51,7 +51,7 @@ export function ContactAccordion() {
   }, [open]);
 
   return (
-    <Section className="bg-ivory">
+    <Section className="bg-ivory !pt-0">
       {/* 버튼 */}
       <button
         onClick={() => setOpen(true)}

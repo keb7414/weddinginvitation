@@ -16,14 +16,14 @@ export function Calendar() {
     ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
   ];
 
-  // D-day 계산
+  // D-day 계산 — 예식일 자정과 오늘 자정의 날짜 차이(시각/올림 영향 없음)
   const [dday, setDday] = useState<number | null>(null);
   useEffect(() => {
-    const target = new Date(wedding.date.iso).getTime();
+    const target = new Date(year, month - 1, day);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    setDday(Math.ceil((target - today.getTime()) / 86400000));
-  }, []);
+    setDday(Math.round((target.getTime() - today.getTime()) / 86400000));
+  }, [year, month, day]);
 
   return (
     <Section className="bg-ivory text-center">

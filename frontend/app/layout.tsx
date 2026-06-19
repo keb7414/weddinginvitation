@@ -18,7 +18,7 @@ const script = Parisienne({
   display: "swap",
 });
 
-const title = `💌모바일 청첩장 | ${wedding.groom.name}ღ${wedding.bride.name}`;
+const title = `모바일 청첩장 | ${wedding.groom.name}ღ${wedding.bride.name}`;
 const description = `${wedding.date.year}.${wedding.date.month}.${wedding.date.day} ${wedding.date.weekday} ${wedding.date.timeText} · ${wedding.venue.name}`;
 
 export const metadata: Metadata = {

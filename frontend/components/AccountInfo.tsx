@@ -53,9 +53,15 @@ export function AccountInfo() {
     <Section className="bg-ivory">
       <SectionTitle en="Gift" ko="마음 전하기" />
       <p className="mb-6 text-center text-sm leading-7 text-ink/80">
-        축하의 마음을 담아 축의금을 전하실 수 있도록
+        저희 두 사람의 앞날을 축복해 주시는
         <br />
-        계좌번호를 안내드립니다.
+        모든 분께 진심으로 감사드립니다. 
+        <br />
+        멀리서나마 축하의 마음을 전하고자 하시는 분들을 위해
+        <br />
+        아래와 같이 안내해 드립니다. 
+        <br />
+        보내주신 따뜻한 마음 잊지 않고 예쁘게 살겠습니다.
       </p>
 
       <div className="mx-auto mb-5 flex max-w-[320px] overflow-hidden rounded-full border border-point/30">

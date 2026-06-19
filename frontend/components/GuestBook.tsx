@@ -1,28 +1,54 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Section, SectionTitle } from "./Section";
 import { guestbookApi } from "@/lib/api";
 
+function PencilIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4">
+      <path d="M4 20h4l10-10-4-4L4 16v4z" strokeLinejoin="round" />
+      <path d="M13.5 6.5l4 4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function GuestBook() {
-  const [form, setForm] = useState({ name: "", message: "", password: "" });
+  const [open, setOpen] = useState(false);
+  const [form, setForm] = useState({ name: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   const submit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.message || !form.password) {
-      setError("이름·메시지·비밀번호를 모두 입력해 주세요.");
+    if (!form.name.trim() || !form.message.trim()) {
+      setError("성함과 내용을 입력해 주세요.");
       return;
     }
     setLoading(true);
     setError(null);
     try {
-      await guestbookApi.create(form);
-      setForm({ name: "", message: "", password: "" });
+      // 비공개 방명록 — 삭제는 관리자(신랑·신부)만 하므로 비밀번호는 고정값 사용
+      await guestbookApi.create({
+        name: form.name.trim(),
+        message: form.message.trim(),
+        password: "guest",
+      });
+      setForm({ name: "", message: "" });
       setDone(true);
-      setTimeout(() => setDone(false), 2500);
+      setTimeout(() => {
+        setDone(false);
+        setOpen(false);
+      }, 1500);
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -33,48 +59,89 @@ export function GuestBook() {
   return (
     <Section className="bg-ivory">
       <SectionTitle en="Guestbook" ko="방명록" />
-      <p className="mb-6 text-center text-xs text-muted">
-        남겨주신 축하 메시지는 신랑·신부에게만 전달됩니다.
-      </p>
 
-      <form onSubmit={submit} className="mx-auto max-w-[340px] space-y-2">
-        <div className="flex gap-2">
-          <input
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            placeholder="이름"
-            maxLength={50}
-            className="w-1/2 rounded-lg border border-sand bg-white px-3 py-2 text-sm outline-none focus:border-point"
-          />
-          <input
-            value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-            placeholder="비밀번호"
-            type="password"
-            maxLength={30}
-            className="w-1/2 rounded-lg border border-sand bg-white px-3 py-2 text-sm outline-none focus:border-point"
-          />
-        </div>
-        <textarea
-          value={form.message}
-          onChange={(e) => setForm({ ...form, message: e.target.value })}
-          placeholder="축하 메시지를 남겨주세요"
-          rows={3}
-          maxLength={1000}
-          className="w-full resize-none rounded-lg border border-sand bg-white px-3 py-2 text-sm outline-none focus:border-point"
-        />
-        {error && <p className="text-xs text-red-500">{error}</p>}
-        {done && (
-          <p className="text-xs text-point">축하 메시지가 전달되었습니다. 감사합니다.</p>
+      {/* 안내 카드 */}
+      <div className="mx-auto max-w-[340px] rounded-2xl bg-white px-6 py-8 text-center shadow-sm">
+        <p className="text-[15px] text-ink">신랑, 신부에게</p>
+        <p className="mt-1 text-[15px] text-ink">축하의 글을 남겨보세요.</p>
+        <p className="mt-4 text-xs text-muted">
+          다른 사람은 볼 수 없으며 신랑 신부만 확인 가능합니다.
+        </p>
+      </div>
+
+      {/* 작성하기 버튼 */}
+      <button
+        onClick={() => setOpen(true)}
+        className="mx-auto mt-5 flex items-center gap-1.5 text-sm text-point"
+      >
+        <PencilIcon />
+        작성하기
+      </button>
+
+      {/* 작성 팝업 */}
+      {open &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/30 px-6 backdrop-blur-sm"
+            onClick={() => setOpen(false)}
+          >
+            <div
+              className="w-full max-w-[360px] overflow-hidden rounded-2xl bg-white shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* 헤더 */}
+              <div className="flex items-center justify-between px-6 pt-5">
+                <span className="text-base font-medium text-ink">방명록 작성하기</span>
+                <button
+                  onClick={() => setOpen(false)}
+                  aria-label="닫기"
+                  className="text-xl text-muted"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* 안내 문구 */}
+              <p className="px-6 pt-2 text-xs leading-5 text-muted">
+                신랑신부님이 방명록 비공개를 선택했어요!
+                <br />
+                작성된 방명록은 신랑신부님 외 누구도 확인할 수 없습니다!
+              </p>
+
+              {/* 폼 */}
+              <form onSubmit={submit} className="space-y-3 px-6 pb-6 pt-4">
+                <input
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  placeholder="성함을 입력해주세요."
+                  maxLength={50}
+                  className="w-full rounded-lg bg-[#f4f2ef] px-4 py-3 text-sm text-ink outline-none placeholder:text-muted"
+                />
+                <textarea
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  placeholder="내용을 입력해주세요 (비방, 욕설, 정치적 성향의 글은 임의로 삭제되며 형사처벌의 대상이 될 수 있습니다.)"
+                  rows={5}
+                  maxLength={1000}
+                  className="w-full resize-none rounded-lg bg-[#f4f2ef] px-4 py-3 text-sm leading-6 text-ink outline-none placeholder:text-muted"
+                />
+                {error && <p className="text-xs text-red-500">{error}</p>}
+                {done && (
+                  <p className="text-xs text-point">축하 메시지가 전달되었습니다. 감사합니다.</p>
+                )}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full rounded-lg bg-ink py-3 text-sm font-medium text-white disabled:opacity-50"
+                >
+                  {loading ? "등록 중..." : "작성하기"}
+                </button>
+              </form>
+            </div>
+          </div>,
+          document.body
         )}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded-lg bg-point py-2.5 text-sm text-white disabled:opacity-50"
-        >
-          {loading ? "등록 중..." : "방명록 남기기"}
-        </button>
-      </form>
     </Section>
   );
 }

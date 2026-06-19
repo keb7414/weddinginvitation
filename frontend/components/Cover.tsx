@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { wedding } from "@/lib/data";
 import { asset } from "@/lib/asset";
+import { LeafSprig } from "./LeafSprig";
 
 export function Cover() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -57,7 +58,8 @@ export function Cover() {
           {date.year}년 {date.month}월 {date.day}일 {date.weekday} {date.timeText}
         </p>
         <p className="mt-1 text-sm text-muted">{venue.name}</p>
-        <p className="mt-7 text-base tracking-[0.05em] text-ink">결혼식에 초대합니다</p>
+        <LeafSprig className="mx-auto mt-8 h-12 w-12 text-point" />
+        <p className="mt-3 text-base tracking-[0.05em] text-ink">결혼식에 초대합니다</p>
       </div>
 
       {/* 둘째 사진 — 사각형 그대로 */}

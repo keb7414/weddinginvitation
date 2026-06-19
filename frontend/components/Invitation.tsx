@@ -9,7 +9,7 @@ export function Invitation() {
         &ldquo;{greeting.verse}&rdquo;
       </p>
       <p className="mb-8 mt-1 text-xs text-point/80">{greeting.verseRef}</p>
-      <div className="space-y-3 text-[15px] leading-8 text-ink/90">
+      <div className="space-y-1 text-[15px] leading-6 text-ink/90">
         {greeting.body.map((line, i) => (
           <p key={i}>{line}</p>
         ))}

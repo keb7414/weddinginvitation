@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Nanum_Myeongjo } from "next/font/google";
+import { Nanum_Myeongjo, Great_Vibes } from "next/font/google";
 import "./globals.css";
 import { wedding } from "@/lib/data";
 
@@ -7,6 +7,14 @@ const serif = Nanum_Myeongjo({
   weight: ["400", "700", "800"],
   subsets: ["latin"],
   variable: "--font-serif",
+  display: "swap",
+});
+
+// 영어 타이틀용 필기체(캘리그래피)
+const script = Great_Vibes({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-script",
   display: "swap",
 });
 
@@ -40,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className={serif.variable}>
+    <html lang="ko" className={`${serif.variable} ${script.variable}`}>
       <body className="font-serif">{children}</body>
     </html>
   );

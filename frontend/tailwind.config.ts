@@ -17,6 +17,7 @@ const config: Config = {
       },
       fontFamily: {
         serif: ["var(--font-serif)", "serif"],
+        script: ["var(--font-script)", "cursive"],
       },
       keyframes: {
         fadeUp: {

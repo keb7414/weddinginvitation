@@ -1,11 +1,10 @@
-import { Section, SectionTitle } from "./Section";
+import { Section } from "./Section";
 import { wedding } from "@/lib/data";
 
 export function Invitation() {
   const { greeting } = wedding;
   return (
     <Section className="bg-ivory text-center">
-      <SectionTitle ko="초대합니다" />
       <p className="text-sm italic leading-7 text-point">
         &ldquo;{greeting.verse}&rdquo;
       </p>

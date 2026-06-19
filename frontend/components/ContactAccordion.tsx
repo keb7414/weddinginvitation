@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { Section, SectionTitle } from "./Section";
+import { Section } from "./Section";
 import { wedding } from "@/lib/data";
 
 function PhoneIcon() {
@@ -52,8 +52,6 @@ export function ContactAccordion() {
 
   return (
     <Section className="bg-ivory">
-      <SectionTitle en="Contact" ko="연락하기" />
-
       {/* 버튼 */}
       <button
         onClick={() => setOpen(true)}

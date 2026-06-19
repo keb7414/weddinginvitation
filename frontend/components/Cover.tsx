@@ -36,9 +36,9 @@ export function Cover() {
       {/* INVITATION + 이름 */}
       <div className="px-7 pb-8 pt-14 text-center">
         <p className="text-xs tracking-[0.4em] text-point">INVITATION</p>
-        <p className="mt-5 text-2xl tracking-[0.12em] text-ink">
+        <p className="mt-5 text-xl tracking-[0.12em] text-ink">
           {groom.name}
-          <span className="mx-2 text-base text-muted">그리고</span>
+          <span className="mx-2 text-sm text-muted">그리고</span>
           {bride.name}
         </p>
       </div>

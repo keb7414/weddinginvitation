@@ -13,9 +13,10 @@ body {
 }
 
 body {
-  background: #e7e2da; /* 모바일 폭 바깥 영역 */
+  background: #e7e2da; /* 모바일 폭 바깥 영역 (데스크탑에서 가운데 프레임처럼 보임) */
   color: theme("colors.ink");
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* 가로 스크롤 방지 */
 }
 
 /* 스크롤 진입 애니메이션 기본 상태 */

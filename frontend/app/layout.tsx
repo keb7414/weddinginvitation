@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Nanum_Myeongjo } from "next/font/google";
 import "./globals.css";
 import { wedding } from "@/lib/data";
@@ -22,6 +22,16 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ko_KR",
   },
+};
+
+// 모바일 최적화 — 기기 폭에 맞춰 렌더, 핀치줌 방지(앱 같은 느낌), 노치 영역까지 채움
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+  themeColor: "#faf8f4",
 };
 
 export default function RootLayout({

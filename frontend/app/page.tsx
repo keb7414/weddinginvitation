@@ -1,7 +1,6 @@
 import { RevealProvider } from "@/components/RevealProvider";
 import { Intro } from "@/components/Intro";
 import { Cover } from "@/components/Cover";
-import { PhotoBreak } from "@/components/PhotoBreak";
 import { Invitation } from "@/components/Invitation";
 import { FamilyInfo } from "@/components/FamilyInfo";
 import { ContactAccordion } from "@/components/ContactAccordion";
@@ -26,7 +25,6 @@ export default function Home() {
       <Intro />
       <RevealProvider>
         <Cover />
-        <PhotoBreak />
         <Invitation />
         <FamilyInfo />
         <ContactAccordion />

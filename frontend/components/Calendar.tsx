@@ -30,7 +30,7 @@ export function Calendar() {
       <p className="font-script text-4xl leading-none text-point">Calendar</p>
       <p className="mt-4 text-xl tracking-wide text-ink">{month}월</p>
 
-      <div className="mx-auto mt-7 max-w-[330px] border-t border-sand pt-6">
+      <div className="mx-auto mt-7 max-w-[330px] border-y border-sand py-6">
         {/* 요일 헤더 */}
         <div className="grid grid-cols-7 text-xs">
           {WEEK.map((w, i) => (
@@ -64,10 +64,8 @@ export function Calendar() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-[330px] border-t border-sand pt-6" />
-
       {dday !== null && (
-        <p className="text-sm text-ink">
+        <p className="mt-7 text-sm text-ink">
           {wedding.groom.name} <span className="text-point">♥</span> {wedding.bride.name}{" "}
           결혼식{" "}
           {dday > 0 ? (

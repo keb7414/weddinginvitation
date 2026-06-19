@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Nanum_Myeongjo, Parisienne } from "next/font/google";
+import { Parisienne } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { wedding } from "@/lib/data";
 
-const serif = Nanum_Myeongjo({
-  weight: ["400", "700", "800"],
-  subsets: ["latin"],
+// 한글 본문 — 리디바탕(self-host)
+const serif = localFont({
+  src: "./fonts/RIDIBatang.woff2",
   variable: "--font-serif",
   display: "swap",
 });

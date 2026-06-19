@@ -55,7 +55,7 @@ export function ContactAccordion() {
       {/* 버튼 */}
       <button
         onClick={() => setOpen(true)}
-        className="mx-auto block w-full max-w-[340px] rounded-xl bg-[#e7c6b5] py-3.5 text-sm text-ink/70"
+        className="mx-auto -mt-6 block w-full max-w-[300px] rounded-md bg-[#e7c6b5] py-3 text-sm text-ink/70"
       >
         연락하기
       </button>

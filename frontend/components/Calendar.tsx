@@ -67,9 +67,10 @@ export function Calendar() {
       {dday !== null && (
         <p className="mt-7 text-sm text-ink">
           {wedding.groom.name} <span className="text-point">♥</span> {wedding.bride.name}{" "}
-          결혼식{" "}
           {dday > 0 ? (
-            <span className="font-medium text-point">D-{dday}</span>
+            <>
+              예식일까지, <span className="font-medium text-point">D-{dday}</span>
+            </>
           ) : dday === 0 ? (
             <span className="font-medium text-point">D-DAY</span>
           ) : (

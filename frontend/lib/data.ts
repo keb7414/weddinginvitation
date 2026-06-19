@@ -57,8 +57,16 @@ export const wedding = {
   },
   // 마음 전하는 곳 — 원본 표시값(샘플 계좌)
   accounts: {
-    groom: [{ label: "신랑", bank: "국민", number: "12312312312313123", holder: "정승찬" }],
-    bride: [{ label: "신부", bank: "국민", number: "12312312312313123", holder: "김은별" }],
+    groom: [
+      { label: "신랑", bank: "국민", number: "123123-12-3123123", holder: "정승찬" },
+      { label: "신랑 아버지", bank: "신한", number: "110-234-567890", holder: "정병록" },
+      { label: "신랑 어머니", bank: "농협", number: "302-1234-5678-90", holder: "조홍랑" },
+    ],
+    bride: [
+      { label: "신부", bank: "국민", number: "456456-45-4564564", holder: "김은별" },
+      { label: "신부 아버지", bank: "우리", number: "1002-345-678901", holder: "김영동" },
+      { label: "신부 어머니", bank: "하나", number: "123-456789-01234", holder: "이영주" },
+    ],
   },
   galleryCount: 18,
   notices: [

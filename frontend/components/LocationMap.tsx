@@ -33,8 +33,8 @@ function TransportBlock({
   children: React.ReactNode;
 }) {
   return (
-    <div className="border-t border-sand pt-6">
-      <div className="mb-3 flex items-center gap-2 text-point">
+    <div>
+      <div className="mb-3 flex items-center gap-2 border-b border-sand pb-3 text-point">
         <span>{icon}</span>
         <span className="text-sm">{title}</span>
       </div>
@@ -49,14 +49,12 @@ export function LocationMap() {
 
   return (
     <Section className="bg-ivory">
-      <SectionTitle en="Location" ko="오시는 길" />
+      <SectionTitle ko="오시는 길" soft />
 
-      <div className="text-center text-sm text-ink">
-        <p className="font-bold">{venue.name}</p>
-        <p className="mt-1 text-muted">
-          {venue.hall} · {venue.tel}
-        </p>
-        <p className="mt-1 text-muted">{venue.address}</p>
+      <div className="text-center">
+        <p className="text-lg text-ink">{venue.name}</p>
+        <p className="mt-1.5 text-sm text-point">{venue.address}</p>
+        <p className="mt-0.5 text-sm text-muted">{venue.hall}</p>
       </div>
 
       {/* 카카오맵 SDK 연동 전 플레이스홀더 + 길찾기 링크 */}

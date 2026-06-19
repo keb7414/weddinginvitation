@@ -66,7 +66,7 @@ create or replace function public.delete_guestbook(p_id bigint, p_password text)
 returns boolean
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 declare
   affected integer;
@@ -105,7 +105,14 @@ create policy rsvp_insert_anon on public.rsvp
   for insert to anon with check (true);
 
 grant insert on public.rsvp to anon;
--- 조회 정책 없음 → anon 조회 불가. 관리자는 service_role 로 조회.
+
+-- 관리자 대시보드(/dashboard)에서 조회하기 위한 SELECT 정책.
+-- ⚠️ publishable 키로 조회 가능해지므로, 진짜 비공개가 필요하면 RPC+비밀번호 방식으로 교체할 것.
+drop policy if exists rsvp_select_anon on public.rsvp;
+create policy rsvp_select_anon on public.rsvp
+  for select to anon using (true);
+
+grant select on public.rsvp to anon;
 
 -- ---------------------------------------------------------------------
 -- 3) 예식 알림 신청 (저장만 — 발송 스케줄러 없음)
@@ -125,3 +132,57 @@ create policy alarm_insert_anon on public.alarm
   for insert to anon with check (true);
 
 grant insert on public.alarm to anon;
+
+-- ---------------------------------------------------------------------
+-- 4) 방문자 (같은 기기는 1회만 — visitor_id 를 PK 로 중복 차단)
+--    접속정보(브라우저/유입경로/경로/언어/시각) 저장.
+-- ---------------------------------------------------------------------
+create table if not exists public.visit (
+  visitor_id text primary key,           -- 브라우저 localStorage 의 영구 ID
+  created_at timestamptz not null default now()
+);
+-- 기존에 단순 테이블이 이미 있어도 접속정보 컬럼을 안전하게 추가
+alter table public.visit add column if not exists user_agent text;
+alter table public.visit add column if not exists referrer   text;
+alter table public.visit add column if not exists path       text;
+alter table public.visit add column if not exists language   text;
+
+alter table public.visit enable row level security;
+
+-- anon: 기록(INSERT)만 허용. 같은 visitor_id 는 ON CONFLICT DO NOTHING 으로 무시됨.
+drop policy if exists visit_insert_anon on public.visit;
+create policy visit_insert_anon on public.visit
+  for insert to anon with check (true);
+
+grant insert on public.visit to anon;
+
+-- 합계 (대시보드 카운트)
+create or replace function public.visit_count()
+returns integer
+language sql
+security definer
+set search_path = public
+as $$ select count(*)::int from public.visit $$;
+
+grant execute on function public.visit_count() to anon;
+
+-- 최근 접속 기록 (대시보드 목록용 — 목록 직접 SELECT 는 막고 RPC 로만 노출)
+create or replace function public.visit_recent(p_limit int default 100)
+returns table (
+  visitor_id text,
+  user_agent text,
+  referrer   text,
+  path       text,
+  created_at timestamptz
+)
+language sql
+security definer
+set search_path = public
+as $$
+  select visitor_id, user_agent, referrer, path, created_at
+    from public.visit
+   order by created_at desc
+   limit p_limit
+$$;
+
+grant execute on function public.visit_recent(int) to anon;

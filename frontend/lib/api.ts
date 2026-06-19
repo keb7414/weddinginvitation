@@ -56,6 +56,18 @@ export type RsvpPayload = {
   memo?: string;
 };
 
+export type RsvpEntry = {
+  id: number;
+  side: "GROOM" | "BRIDE";
+  name: string;
+  attend: boolean;
+  headcount: number;
+  meal: boolean;
+  shuttle: boolean;
+  memo: string | null;
+  createdAt: string;
+};
+
 export const rsvpApi = {
   create: async (payload: RsvpPayload) => {
     const { error } = await supabase.from("rsvp").insert({
@@ -68,6 +80,83 @@ export const rsvpApi = {
       memo: payload.memo ?? null,
     });
     if (error) throw new Error(error.message);
+  },
+
+  // 관리자 대시보드용 — rsvp SELECT 정책 필요 (아래 schema.sql 참고)
+  list: async (): Promise<RsvpEntry[]> => {
+    const { data, error } = await supabase
+      .from("rsvp")
+      .select("id, side, name, attend, headcount, meal, shuttle, memo, created_at")
+      .order("id", { ascending: false });
+    if (error) throw new Error(error.message);
+    return (data ?? []).map((r) => ({
+      id: r.id as number,
+      side: r.side as "GROOM" | "BRIDE",
+      name: r.name as string,
+      attend: r.attend as boolean,
+      headcount: r.headcount as number,
+      meal: r.meal as boolean,
+      shuttle: r.shuttle as boolean,
+      memo: (r.memo as string | null) ?? null,
+      createdAt: r.created_at as string,
+    }));
+  },
+};
+
+// ---- 방문자 ----
+export type VisitInfo = {
+  visitor_id: string;
+  user_agent: string | null;
+  referrer: string | null;
+  path: string | null;
+  created_at: string;
+};
+
+export const visitApi = {
+  // 같은 기기(브라우저)는 1회만 기록. localStorage 영구 ID 사용 → 경로/세션/탭 무관 중복 방지.
+  track: async () => {
+    if (typeof window === "undefined") return;
+    // 로컬/LAN(개발 환경) 접속은 집계 제외 — 실제 배포 방문만 카운트
+    const host = window.location.hostname;
+    if (
+      host === "localhost" ||
+      host === "127.0.0.1" ||
+      host.startsWith("192.168.") ||
+      host.startsWith("10.") ||
+      host.endsWith(".local")
+    ) {
+      return;
+    }
+    let id = localStorage.getItem("invite_visitor_id");
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem("invite_visitor_id", id);
+    }
+    // 이미 이 기기에서 집계됐으면 네트워크 호출 생략(보조 안전장치)
+    if (localStorage.getItem("invite_visit_done") === "1") return;
+    const { error } = await supabase.from("visit").upsert(
+      {
+        visitor_id: id,
+        user_agent: navigator.userAgent,
+        referrer: document.referrer || null,
+        path: window.location.pathname,
+        language: navigator.language,
+      },
+      { onConflict: "visitor_id", ignoreDuplicates: true }
+    );
+    if (!error) localStorage.setItem("invite_visit_done", "1");
+  },
+
+  count: async (): Promise<number> => {
+    const { data, error } = await supabase.rpc("visit_count");
+    if (error) throw new Error(error.message);
+    return (data as number) ?? 0;
+  },
+
+  recent: async (limit = 100): Promise<VisitInfo[]> => {
+    const { data, error } = await supabase.rpc("visit_recent", { p_limit: limit });
+    if (error) throw new Error(error.message);
+    return (data ?? []) as VisitInfo[];
   },
 };
 

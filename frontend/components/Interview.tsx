@@ -8,7 +8,7 @@ export function Interview() {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <Section className="bg-ivory">
-      <SectionTitle en="Interview" ko="인터뷰" />
+      <SectionTitle en="Interview" ko="우리 둘만의 이야기" />
       <ul className="mx-auto max-w-[340px] space-y-3">
         {wedding.interview.map((item, i) => {
           const isOpen = open === i;

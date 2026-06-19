@@ -32,7 +32,7 @@ function ContactRow({ label, name, phone }: { label: string; name: string; phone
 
 export function ContactAccordion() {
   const [open, setOpen] = useState(false);
-  const { groom, bride } = wedding;
+  const { contacts } = wedding;
 
   return (
     <Section className="bg-ivory">
@@ -45,8 +45,9 @@ export function ContactAccordion() {
       </button>
       {open && (
         <div className="mx-auto mt-6 max-w-[320px] animate-fadeUp">
-          <ContactRow label="신랑" name={groom.name} phone={groom.phone} />
-          <ContactRow label="신부" name={bride.name} phone={bride.phone} />
+          {[...contacts.groom, ...contacts.bride].map((c) => (
+            <ContactRow key={c.label} label={c.label} name={c.name} phone={c.phone} />
+          ))}
         </div>
       )}
     </Section>

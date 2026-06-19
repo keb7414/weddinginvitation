@@ -1,23 +1,14 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Section, SectionTitle } from "./Section";
-import { guestbookApi, type GuestbookEntry } from "@/lib/api";
+import { guestbookApi } from "@/lib/api";
 
 export function GuestBook() {
-  const [entries, setEntries] = useState<GuestbookEntry[]>([]);
   const [form, setForm] = useState({ name: "", message: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const load = () => {
-    guestbookApi
-      .list()
-      .then(setEntries)
-      .catch((e) => setError(e.message));
-  };
-
-  useEffect(load, []);
+  const [done, setDone] = useState(false);
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -30,7 +21,8 @@ export function GuestBook() {
     try {
       await guestbookApi.create(form);
       setForm({ name: "", message: "", password: "" });
-      load();
+      setDone(true);
+      setTimeout(() => setDone(false), 2500);
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -38,20 +30,12 @@ export function GuestBook() {
     }
   };
 
-  const remove = async (id: number) => {
-    const pw = window.prompt("삭제하려면 작성 시 비밀번호를 입력하세요.");
-    if (!pw) return;
-    try {
-      await guestbookApi.remove(id, pw);
-      load();
-    } catch (err) {
-      alert((err as Error).message);
-    }
-  };
-
   return (
     <Section className="bg-ivory">
       <SectionTitle en="Guestbook" ko="방명록" />
+      <p className="mb-6 text-center text-xs text-muted">
+        남겨주신 축하 메시지는 신랑·신부에게만 전달됩니다.
+      </p>
 
       <form onSubmit={submit} className="mx-auto max-w-[340px] space-y-2">
         <div className="flex gap-2">
@@ -80,6 +64,9 @@ export function GuestBook() {
           className="w-full resize-none rounded-lg border border-sand bg-white px-3 py-2 text-sm outline-none focus:border-point"
         />
         {error && <p className="text-xs text-red-500">{error}</p>}
+        {done && (
+          <p className="text-xs text-point">축하 메시지가 전달되었습니다. 감사합니다.</p>
+        )}
         <button
           type="submit"
           disabled={loading}
@@ -88,33 +75,6 @@ export function GuestBook() {
           {loading ? "등록 중..." : "방명록 남기기"}
         </button>
       </form>
-
-      <ul className="mx-auto mt-8 max-w-[340px] space-y-3">
-        {entries.length === 0 && (
-          <li className="text-center text-sm text-muted">
-            첫 번째 축하 메시지를 남겨주세요.
-          </li>
-        )}
-        {entries.map((g) => (
-          <li key={g.id} className="rounded-xl bg-white px-4 py-3 shadow-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-bold text-ink">{g.name}</span>
-              <button
-                onClick={() => remove(g.id)}
-                className="text-[11px] text-muted hover:text-red-400"
-              >
-                삭제
-              </button>
-            </div>
-            <p className="mt-1 whitespace-pre-wrap text-sm leading-6 text-ink/80">
-              {g.message}
-            </p>
-            <p className="mt-2 text-[10px] text-muted">
-              {g.createdAt?.slice(0, 16).replace("T", " ")}
-            </p>
-          </li>
-        ))}
-      </ul>
     </Section>
   );
 }

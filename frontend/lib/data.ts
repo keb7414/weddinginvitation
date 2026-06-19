@@ -60,7 +60,7 @@ export const wedding = {
     groom: [{ label: "신랑", bank: "국민", number: "12312312312313123", holder: "정승찬" }],
     bride: [{ label: "신부", bank: "국민", number: "12312312312313123", holder: "김은별" }],
   },
-  galleryCount: 9,
+  galleryCount: 18,
   notices: [
     {
       title: "주차 안내",

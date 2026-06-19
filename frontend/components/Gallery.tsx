@@ -1,15 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { Section, SectionTitle } from "./Section";
 import { wedding } from "@/lib/data";
+import { asset } from "@/lib/asset";
 
-// 더미: 실제 이미지 대신 색조 블록. /public/images/gallery/1.jpg ... 로 교체.
-const TONES = [
-  "from-sand to-point/30",
-  "from-point/20 to-sand",
-  "from-white to-sand",
-];
+const src = (n: number) => asset(`/images/gallery/gallery_${n}.png`);
 
 export function Gallery() {
   const [expanded, setExpanded] = useState(false);
@@ -27,11 +24,15 @@ export function Gallery() {
           <button
             key={i}
             onClick={() => setActive(i)}
-            className={`flex aspect-square items-center justify-center bg-gradient-to-br ${
-              TONES[i % TONES.length]
-            } text-[11px] text-muted`}
+            className="aspect-square overflow-hidden bg-sand"
           >
-            {i + 1}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={src(i + 1)}
+              alt={`갤러리 사진 ${i + 1}`}
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
           </button>
         ))}
       </div>
@@ -45,48 +46,50 @@ export function Gallery() {
         </button>
       )}
 
-      {/* 라이트박스 */}
-      {active !== null && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
-          onClick={() => setActive(null)}
-        >
+      {/* 라이트박스 — portal 로 body 에 렌더(섹션 transform 컨텍스트 탈출) */}
+      {active !== null &&
+        typeof document !== "undefined" &&
+        createPortal(
           <div
-            className={`flex aspect-[3/4] w-[78%] max-w-[360px] items-center justify-center bg-gradient-to-br ${
-              TONES[active % TONES.length]
-            } text-white`}
+            className="fixed inset-0 z-[80] flex items-center justify-center bg-black/90"
+            onClick={() => setActive(null)}
           >
-            사진 {active + 1}
-          </div>
-          <button
-            className="absolute right-5 top-5 text-2xl text-white"
-            aria-label="닫기"
-          >
-            ✕
-          </button>
-          {/* 좌우 이동 */}
-          <button
-            className="absolute left-4 text-3xl text-white/80"
-            aria-label="이전"
-            onClick={(e) => {
-              e.stopPropagation();
-              setActive((a) => (a! - 1 + total) % total);
-            }}
-          >
-            ‹
-          </button>
-          <button
-            className="absolute right-4 text-3xl text-white/80"
-            aria-label="다음"
-            onClick={(e) => {
-              e.stopPropagation();
-              setActive((a) => (a! + 1) % total);
-            }}
-          >
-            ›
-          </button>
-        </div>
-      )}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={src(active + 1)}
+              alt={`갤러리 사진 ${active + 1}`}
+              className="max-h-[82vh] w-auto max-w-[88%] object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              className="absolute right-5 top-5 text-2xl text-white"
+              aria-label="닫기"
+            >
+              ✕
+            </button>
+            <button
+              className="absolute left-4 text-3xl text-white/80"
+              aria-label="이전"
+              onClick={(e) => {
+                e.stopPropagation();
+                setActive((a) => (a! - 1 + total) % total);
+              }}
+            >
+              ‹
+            </button>
+            <button
+              className="absolute right-4 text-3xl text-white/80"
+              aria-label="다음"
+              onClick={(e) => {
+                e.stopPropagation();
+                setActive((a) => (a! + 1) % total);
+              }}
+            >
+              ›
+            </button>
+          </div>,
+          document.body
+        )}
     </Section>
   );
 }

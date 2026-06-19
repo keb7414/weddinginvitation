@@ -5,7 +5,7 @@ export function Invitation() {
   const { greeting } = wedding;
   return (
     <Section className="bg-ivory text-center">
-      <SectionTitle en="Invitation" ko="초대합니다" />
+      <SectionTitle ko="초대합니다" />
       <p className="text-sm italic leading-7 text-point">
         &ldquo;{greeting.verse}&rdquo;
       </p>

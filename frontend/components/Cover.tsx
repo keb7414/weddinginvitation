@@ -33,21 +33,8 @@ export function Cover() {
       </button>
       <audio ref={audioRef} loop src={asset("/audio/bgm.mp3")} />
 
-      {/* 대표 사진 — 가공 없이 사각형 그대로, 전체 폭 */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={asset("/images/main.jpg")}
-        alt="신랑 신부 대표 사진"
-        className="block w-full animate-introUp"
-      />
-
-      {/* 스크롤 안내 */}
-      <p className="py-7 text-center text-[11px] tracking-[0.3em] text-muted">
-        <span className="block animate-pulse">스크롤 해주세요 ↓</span>
-      </p>
-
       {/* INVITATION + 이름 */}
-      <div className="px-7 pb-8 text-center">
+      <div className="px-7 pb-8 pt-14 text-center">
         <p className="text-xs tracking-[0.4em] text-point">INVITATION</p>
         <p className="mt-5 text-2xl tracking-[0.12em] text-ink">
           {groom.name}
@@ -56,12 +43,12 @@ export function Cover() {
         </p>
       </div>
 
-      {/* 둘째 사진 — 사각형 그대로 */}
+      {/* 대표 사진 — 가공 없이 사각형 그대로, 전체 폭 */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={asset("/images/snd.jpg")}
-        alt="신랑 신부 사진"
-        className="block w-full"
+        src={asset("/images/main.jpg")}
+        alt="신랑 신부 대표 사진"
+        className="block w-full animate-introUp"
       />
 
       {/* 날짜 · 장소 · 초대 문구 */}
@@ -72,6 +59,14 @@ export function Cover() {
         <p className="mt-1 text-sm text-muted">{venue.name}</p>
         <p className="mt-7 text-base tracking-[0.05em] text-ink">결혼식에 초대합니다</p>
       </div>
+
+      {/* 둘째 사진 — 사각형 그대로 */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={asset("/images/snd.jpg")}
+        alt="신랑 신부 사진"
+        className="block w-full"
+      />
     </section>
   );
 }

@@ -69,7 +69,7 @@ export function ContactAccordion() {
             onClick={() => setOpen(false)}
           >
             <div
-              className="w-full max-w-[360px] animate-fadeUp overflow-hidden rounded-2xl bg-white shadow-2xl"
+              className="w-full max-w-[360px] overflow-hidden rounded-2xl bg-white shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* 헤더 */}

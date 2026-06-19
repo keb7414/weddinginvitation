@@ -27,7 +27,7 @@ export function Calendar() {
 
   return (
     <Section className="bg-ivory text-center">
-      <p className="font-script text-4xl leading-none text-point">Calendar</p>
+      <p className="font-script text-2xl leading-none text-point">Calendar</p>
       <p className="mt-4 text-xl tracking-wide text-ink">{month}월</p>
 
       <div className="mx-auto mt-7 max-w-[330px] border-y border-sand py-6">

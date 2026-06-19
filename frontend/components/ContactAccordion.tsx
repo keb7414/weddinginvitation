@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Section, SectionTitle } from "./Section";
 import { wedding } from "@/lib/data";
 
@@ -61,41 +62,44 @@ export function ContactAccordion() {
         연락하기
       </button>
 
-      {/* 팝업 */}
-      {open && (
-        <div
-          className="fixed inset-0 z-[70] flex items-center justify-center bg-black/40 px-6"
-          onClick={() => setOpen(false)}
-        >
+      {/* 팝업 — portal 로 body 에 렌더(섹션 transform 컨텍스트 탈출), 배경 전체 블러 */}
+      {open &&
+        typeof document !== "undefined" &&
+        createPortal(
           <div
-            className="w-full max-w-[360px] animate-fadeUp overflow-hidden rounded-2xl bg-white"
-            onClick={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/30 px-6 backdrop-blur-sm"
+            onClick={() => setOpen(false)}
           >
-            {/* 헤더 */}
-            <div className="relative flex items-center justify-center bg-[#e7c6b5] py-4">
-              <span className="text-sm font-medium tracking-wide text-ink">연락하기</span>
-              <button
-                onClick={() => setOpen(false)}
-                aria-label="닫기"
-                className="absolute right-4 text-lg text-white"
-              >
-                ✕
-              </button>
-            </div>
+            <div
+              className="w-full max-w-[360px] animate-fadeUp overflow-hidden rounded-2xl bg-white shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* 헤더 */}
+              <div className="relative flex items-center justify-center bg-[#e7c6b5] py-4">
+                <span className="text-sm font-medium tracking-wide text-ink">연락하기</span>
+                <button
+                  onClick={() => setOpen(false)}
+                  aria-label="닫기"
+                  className="absolute right-4 text-lg text-white"
+                >
+                  ✕
+                </button>
+              </div>
 
-            {/* 목록 */}
-            <div className="px-6 py-3">
-              {contacts.groom.map((c) => (
-                <ContactRow key={c.label} label={c.label} name={c.name} phone={c.phone} />
-              ))}
-              <div className="my-1 border-t border-sand" />
-              {contacts.bride.map((c) => (
-                <ContactRow key={c.label} label={c.label} name={c.name} phone={c.phone} />
-              ))}
+              {/* 목록 */}
+              <div className="px-6 py-3">
+                {contacts.groom.map((c) => (
+                  <ContactRow key={c.label} label={c.label} name={c.name} phone={c.phone} />
+                ))}
+                <div className="my-1 border-t border-sand" />
+                {contacts.bride.map((c) => (
+                  <ContactRow key={c.label} label={c.label} name={c.name} phone={c.phone} />
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </Section>
   );
 }

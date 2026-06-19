@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Nanum_Myeongjo, Great_Vibes } from "next/font/google";
+import { Nanum_Myeongjo, Parisienne } from "next/font/google";
 import "./globals.css";
 import { wedding } from "@/lib/data";
 
@@ -11,7 +11,7 @@ const serif = Nanum_Myeongjo({
 });
 
 // 영어 타이틀용 필기체(캘리그래피)
-const script = Great_Vibes({
+const script = Parisienne({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-script",

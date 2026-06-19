@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Section, SectionTitle } from "./Section";
+import { Section } from "./Section";
 import { wedding } from "@/lib/data";
 
 const WEEK = ["일", "월", "화", "수", "목", "금", "토"];
@@ -27,46 +27,53 @@ export function Calendar() {
 
   return (
     <Section className="bg-ivory text-center">
-      <SectionTitle en="Calendar" ko="예식 일자" />
-      <p className="mb-6 text-sm text-muted">
-        {year}년 {month}월 {day}일 {wedding.date.weekday} {wedding.date.timeText}
-      </p>
+      <p className="font-script text-4xl leading-none text-point">Calendar</p>
+      <p className="mt-4 text-xl tracking-wide text-ink">{month}월</p>
 
-      <div className="mx-auto max-w-[320px] rounded-2xl bg-white p-5 shadow-sm">
-        <div className="grid grid-cols-7 gap-y-2 text-xs">
+      <div className="mx-auto mt-7 max-w-[330px] border-t border-sand pt-6">
+        {/* 요일 헤더 */}
+        <div className="grid grid-cols-7 text-xs">
           {WEEK.map((w, i) => (
-            <span
-              key={w}
-              className={i === 0 ? "text-point" : "text-muted"}
-            >
+            <span key={w} className={i === 0 ? "text-point" : "text-muted"}>
               {w}
             </span>
           ))}
+        </div>
+        {/* 날짜 */}
+        <div className="mt-3 grid grid-cols-7 gap-y-3 text-sm">
           {cells.map((c, i) => {
+            if (c === null) return <span key={i} />;
             const isWedding = c === day;
+            const isSunday = i % 7 === 0;
             return (
-              <span
-                key={i}
-                className={`mx-auto flex h-8 w-8 items-center justify-center text-sm ${
-                  isWedding
-                    ? "rounded-full bg-point font-bold text-white"
-                    : "text-ink/80"
-                }`}
-              >
-                {c ?? ""}
+              <span key={i} className="flex justify-center">
+                <span
+                  className={`flex h-8 w-8 items-center justify-center rounded-full ${
+                    isWedding
+                      ? "bg-point font-medium text-white"
+                      : isSunday
+                        ? "text-point"
+                        : "text-ink/80"
+                  }`}
+                >
+                  {c}
+                </span>
               </span>
             );
           })}
         </div>
       </div>
 
+      <div className="mx-auto max-w-[330px] border-t border-sand pt-6" />
+
       {dday !== null && (
-        <p className="mt-6 text-sm text-ink">
-          {wedding.groom.name} ♥ {wedding.bride.name} 결혼식{" "}
+        <p className="text-sm text-ink">
+          {wedding.groom.name} <span className="text-point">♥</span> {wedding.bride.name}{" "}
+          결혼식{" "}
           {dday > 0 ? (
-            <span className="font-bold text-point">D-{dday}</span>
+            <span className="font-medium text-point">D-{dday}</span>
           ) : dday === 0 ? (
-            <span className="font-bold text-point">D-DAY</span>
+            <span className="font-medium text-point">D-DAY</span>
           ) : (
             <span className="text-muted">결혼을 축하합니다</span>
           )}

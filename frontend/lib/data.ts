@@ -5,8 +5,8 @@ export const wedding = {
   groom: {
     name: "정승찬",
     role: "차남",
-    father: "김영동",
-    mother: "이영주",
+    father: "정병록",
+    mother: "조홍랑",
     phone: "010-0000-0001",
   },
   bride: {

@@ -64,20 +64,26 @@ export default function Dashboard() {
   useEffect(() => {
     if (!authed) return;
     setLoading(true);
-    Promise.all([
-      guestbookApi.list(),
-      rsvpApi.list(),
-      visitApi.count(),
-      visitApi.recent(100),
-    ])
-      .then(([g, r, v, vl]) => {
-        setGuests(g);
-        setRsvps(r);
-        setVisits(v);
-        setVisitLog(vl);
-      })
-      .catch((e) => setError((e as Error).message))
-      .finally(() => setLoading(false));
+    // 각 항목을 독립적으로 로드 — 하나가 실패해도 나머지는 표시
+    (async () => {
+      const errs: string[] = [];
+      const [g, r, v, vl] = await Promise.allSettled([
+        guestbookApi.list(),
+        rsvpApi.list(),
+        visitApi.count(),
+        visitApi.recent(100),
+      ]);
+      if (g.status === "fulfilled") setGuests(g.value);
+      else errs.push("방명록: " + g.reason.message);
+      if (r.status === "fulfilled") setRsvps(r.value);
+      else errs.push("참석여부: " + r.reason.message);
+      if (v.status === "fulfilled") setVisits(v.value);
+      else errs.push("방문자수: " + v.reason.message);
+      if (vl.status === "fulfilled") setVisitLog(vl.value);
+      else errs.push("접속기록: " + vl.reason.message);
+      setError(errs.length ? errs.join(" / ") : null);
+      setLoading(false);
+    })();
   }, [authed]);
 
   const stats = useMemo(() => {
@@ -145,10 +151,10 @@ export default function Dashboard() {
 
         {loading && <p className="text-center text-sm text-muted">불러오는 중...</p>}
         {error && (
-          <p className="rounded-md bg-red-50 p-3 text-center text-sm text-red-500">{error}</p>
+          <p className="mb-4 rounded-md bg-red-50 p-3 text-center text-xs text-red-500">{error}</p>
         )}
 
-        {!loading && !error && (
+        {!loading && (
           <>
             {/* 참석여부 요약 */}
             <section className="mb-10">

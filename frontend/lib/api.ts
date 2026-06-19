@@ -2,6 +2,30 @@
 // 컴포넌트는 이 모듈의 동일한 export 를 그대로 사용 (Spring 버전과 시그니처 호환).
 
 import { supabase } from "./supabase";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+
+// 방문자 식별자 해석 — 핑거프린트 우선(저장소 삭제에도 유지), 실패 시 localStorage UUID 폴백.
+let fpAgent: Promise<{ get: () => Promise<{ visitorId: string }> }> | null = null;
+
+async function resolveVisitorId(): Promise<string> {
+  try {
+    fpAgent = fpAgent ?? FingerprintJS.load();
+    const agent = await fpAgent;
+    const { visitorId } = await agent.get();
+    if (visitorId) {
+      localStorage.setItem("invite_visitor_id", visitorId); // 캐시
+      return visitorId;
+    }
+  } catch {
+    /* 핑거프린트 실패 → 폴백 */
+  }
+  let id = localStorage.getItem("invite_visitor_id");
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem("invite_visitor_id", id);
+  }
+  return id;
+}
 
 // ---- 방명록 ----
 export type GuestbookEntry = {
@@ -127,14 +151,10 @@ export const visitApi = {
     ) {
       return;
     }
-    let id = localStorage.getItem("invite_visitor_id");
-    if (!id) {
-      id = crypto.randomUUID();
-      localStorage.setItem("invite_visitor_id", id);
-    }
-    // 이미 이 기기에서 집계됐으면 네트워크 호출 생략(보조 안전장치)
-    if (localStorage.getItem("invite_visit_done") === "1") return;
-    const { error } = await supabase.from("visit").upsert(
+    // 핑거프린트(우선) 또는 localStorage UUID 로 기기 식별
+    const id = await resolveVisitorId();
+    // 같은 기기는 visitor_id(PK) 충돌로 DB 에서도 1회만 기록됨
+    await supabase.from("visit").upsert(
       {
         visitor_id: id,
         user_agent: navigator.userAgent,
@@ -144,7 +164,6 @@ export const visitApi = {
       },
       { onConflict: "visitor_id", ignoreDuplicates: true }
     );
-    if (!error) localStorage.setItem("invite_visit_done", "1");
   },
 
   count: async (): Promise<number> => {

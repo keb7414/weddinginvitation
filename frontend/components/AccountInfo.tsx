@@ -51,7 +51,7 @@ export function AccountInfo() {
 
   return (
     <Section className="bg-ivory">
-      <SectionTitle en="Gift" ko="마음 전하기" />
+      <SectionTitle en="Gift" ko="마음을 전하는 곳" />
       <p className="mb-6 text-center text-sm leading-7 text-ink/80">
         저희 두 사람의 앞날을 축복해 주시는
         <br />

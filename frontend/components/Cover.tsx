@@ -61,14 +61,6 @@ export function Cover() {
         <LeafSprig className="mx-auto mt-8 h-12 w-12 text-point" />
         <p className="mt-3 text-base tracking-[0.05em] text-ink">결혼식에 초대합니다</p>
       </div>
-
-      {/* 둘째 사진 — 사각형 그대로 */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={asset("/images/snd.jpg")}
-        alt="신랑 신부 사진"
-        className="block w-full"
-      />
     </section>
   );
 }

@@ -12,6 +12,11 @@ body {
   margin: 0;
 }
 
+html {
+  /* 핀치줌·더블탭 확대 차단 (세로 스크롤만 허용) */
+  touch-action: pan-y;
+}
+
 body {
   background: #e7e2da; /* 모바일 폭 바깥 영역 (데스크탑에서 가운데 프레임처럼 보임) */
   color: theme("colors.ink");

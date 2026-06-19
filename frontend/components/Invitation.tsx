@@ -6,7 +6,10 @@ export function Invitation() {
   return (
     <Section className="bg-ivory text-center">
       <SectionTitle en="Invitation" ko="초대합니다" />
-      <p className="mb-8 text-sm italic leading-7 text-point">{greeting.verse}</p>
+      <p className="text-sm italic leading-7 text-point">
+        &ldquo;{greeting.verse}&rdquo;
+      </p>
+      <p className="mb-8 mt-1 text-xs text-point/80">{greeting.verseRef}</p>
       <div className="space-y-3 text-[15px] leading-8 text-ink/90">
         {greeting.body.map((line, i) => (
           <p key={i}>{line}</p>

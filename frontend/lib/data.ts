@@ -33,7 +33,8 @@ export const wedding = {
     tel: "",
   },
   greeting: {
-    verse: "이제 둘이 아니요 한 몸이니 (마태복음 19:6)",
+    verse: "이제 둘이 아니요 한 몸이니",
+    verseRef: "(마태복음 19:6)",
     body: [
       "하나님이 허락하신 사랑 안에서",
       "새로운 삶을 시작하려 합니다.",

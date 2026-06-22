@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { wedding } from "@/lib/data";
 import { asset } from "@/lib/asset";
 import { FallingHearts } from "./FallingHearts";
@@ -19,6 +19,20 @@ export function Cover() {
     }
     setPlaying(!playing);
   };
+
+  // 기본은 정지, 첫 화면 터치/클릭 시 1회 자동 재생 (모바일 자동재생 정책 대응)
+  useEffect(() => {
+    const startOnce = () => {
+      const el = audioRef.current;
+      if (el && el.paused) {
+        el.play()
+          .then(() => setPlaying(true))
+          .catch(() => {/* 차단 시 무시 — 버튼으로 재생 */});
+      }
+    };
+    document.addEventListener("pointerdown", startOnce, { once: true });
+    return () => document.removeEventListener("pointerdown", startOnce);
+  }, []);
 
   const { groom, bride, date, venue } = wedding;
 

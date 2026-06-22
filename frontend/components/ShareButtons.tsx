@@ -59,7 +59,7 @@ export function ShareButtons() {
       Kakao.Share.sendDefault({
         objectType: "feed",
         content: {
-          title: `${groom.name} ♥ ${bride.name} 결혼합니다`,
+          title: `모바일 청첩장 | ${groom.name} ♥ ${bride.name} 결혼합니다`,
           description: `${date.year}. ${date.month}. ${date.day} ${date.weekday} ${date.timeText} · ${venue.name}`,
           imageUrl,
           link: { mobileWebUrl: url, webUrl: url },

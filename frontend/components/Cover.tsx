@@ -38,7 +38,7 @@ export function Cover() {
       <audio ref={audioRef} loop src={asset("/audio/bgm.mp3")} />
 
       {/* INVITATION + 이름 */}
-      <div className="px-7 pb-10 pt-10 text-center">
+      <div className="px-15 pb-10 pt-20 text-center">
         <p className="text-xs tracking-[0.4em] text-point">INVITATION</p>
         <p className="mt-3 text-xl tracking-[0.12em] text-ink">
           {groom.name}

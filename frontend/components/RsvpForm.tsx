@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { createPortal } from "react-dom";
 import { Section, SectionTitle } from "./Section";
 import { rsvpApi, type RsvpPayload } from "@/lib/api";
 
@@ -39,6 +40,8 @@ export function RsvpForm() {
     setError(null);
     try {
       await rsvpApi.create({ ...form, name: form.name.trim() });
+      setForm(initial);
+      setOpen(false);
       setDone(true);
     } catch (err) {
       setError((err as Error).message);
@@ -46,19 +49,6 @@ export function RsvpForm() {
       setLoading(false);
     }
   };
-
-  if (done) {
-    return (
-      <Section className="bg-ivory text-center">
-        <SectionTitle ko="참석 여부" soft />
-        <p className="text-sm leading-7 text-ink/80">
-          소중한 참석 의사 전달 감사합니다.
-          <br />
-          정성껏 준비하여 맞이하겠습니다.
-        </p>
-      </Section>
-    );
-  }
 
   const choice = (active: boolean) =>
     `flex flex-1 items-center justify-center gap-1 rounded-md border py-2.5 text-sm ${
@@ -166,6 +156,36 @@ export function RsvpForm() {
         </button>
       </form>
       )}
+
+      {/* 제출 완료 팝업 */}
+      {done &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/30 px-6 backdrop-blur-sm"
+            onClick={() => setDone(false)}
+          >
+            <div
+              className="w-full max-w-[320px] rounded-md bg-white px-6 py-8 text-center shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p className="text-2xl text-point">♥</p>
+              <p className="mt-3 text-base font-medium text-ink">참석 여부가 전달되었습니다</p>
+              <p className="mt-2 text-sm leading-6 text-ink/70">
+                소중한 마음 감사합니다.
+                <br />
+                정성껏 준비하여 맞이하겠습니다.
+              </p>
+              <button
+                onClick={() => setDone(false)}
+                className="mt-6 w-full rounded-md bg-point py-2.5 text-sm text-white"
+              >
+                확인
+              </button>
+            </div>
+          </div>,
+          document.body
+        )}
     </Section>
   );
 }

@@ -2,6 +2,36 @@
 
 import { useState } from "react";
 import { Section } from "./Section";
+import { wedding } from "@/lib/data";
+
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
+// 지도와 동일한 카카오 JavaScript 키
+const KAKAO_KEY = process.env.NEXT_PUBLIC_KAKAO_MAP_KEY;
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+// Kakao SDK 로드 + 초기화(1회)
+function ensureKakao(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    if (window.Kakao) {
+      if (!window.Kakao.isInitialized()) window.Kakao.init(KAKAO_KEY);
+      return resolve(window.Kakao);
+    }
+    const s = document.createElement("script");
+    s.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";
+    s.async = true;
+    s.onload = () => {
+      window.Kakao.init(KAKAO_KEY);
+      resolve(window.Kakao);
+    };
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
 
 export function ShareButtons() {
   const [copied, setCopied] = useState(false);
@@ -16,12 +46,35 @@ export function ShareButtons() {
     }
   };
 
-  const shareKakao = () => {
-    // Kakao SDK 연동 전 임시: 네이티브 공유 또는 안내
-    if (navigator.share) {
-      navigator.share({ url: window.location.href }).catch(() => {});
-    } else {
+  const shareKakao = async () => {
+    if (!KAKAO_KEY) {
       copyUrl();
+      return;
+    }
+    const url = window.location.href;
+    const imageUrl = `${window.location.origin}${BASE_PATH}/images/main.jpg`;
+    const { groom, bride, date, venue } = wedding;
+    try {
+      const Kakao = await ensureKakao();
+      Kakao.Share.sendDefault({
+        objectType: "feed",
+        content: {
+          title: `${groom.name} ♥ ${bride.name} 결혼합니다`,
+          description: `${date.year}. ${date.month}. ${date.day} ${date.weekday} ${date.timeText} · ${venue.name}`,
+          imageUrl,
+          link: { mobileWebUrl: url, webUrl: url },
+        },
+        buttons: [
+          {
+            title: "청첩장 보기",
+            link: { mobileWebUrl: url, webUrl: url },
+          },
+        ],
+      });
+    } catch {
+      // SDK 실패 시 폴백
+      if (navigator.share) navigator.share({ url }).catch(() => {});
+      else copyUrl();
     }
   };
 

@@ -34,3 +34,30 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* 하트 흩날림 효과 (사선 낙하 + 뿌옇게) */
+.heart {
+  position: absolute;
+  top: -10%;
+  filter: blur(1.3px);
+  animation: heartFall linear infinite;
+  will-change: top, transform, opacity;
+}
+@keyframes heartFall {
+  0% {
+    top: -10%;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+  12% {
+    opacity: var(--heart-op, 0.5);
+  }
+  88% {
+    opacity: var(--heart-op, 0.5);
+  }
+  100% {
+    top: 110%;
+    opacity: 0;
+    transform: translateX(320px) rotate(55deg);
+  }
+}

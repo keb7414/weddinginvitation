@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import {
   guestbookApi,
   rsvpApi,
@@ -9,6 +9,66 @@ import {
   type RsvpEntry,
   type VisitInfo,
 } from "@/lib/api";
+
+// 신랑측/신부측 참석여부 테이블 (하단 합계 포함)
+function RsvpTable({ title, rows }: { title: string; rows: RsvpEntry[] }) {
+  const attendees = rows.filter((r) => r.attend);
+  const headcount = attendees.reduce((s, r) => s + (r.headcount || 0), 0);
+  const mealCount = attendees
+    .filter((r) => r.meal)
+    .reduce((s, r) => s + (r.headcount || 0), 0);
+
+  return (
+    <div>
+      <h3 className="mb-2 text-sm font-medium text-ink">{title}</h3>
+      <div className="overflow-hidden rounded-md border border-sand bg-white">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="bg-sand/50 text-xs text-muted">
+              <th className="px-3 py-2 text-left font-normal">이름</th>
+              <th className="px-3 py-2 text-center font-normal">참석</th>
+              <th className="px-3 py-2 text-center font-normal">인원</th>
+              <th className="px-3 py-2 text-center font-normal">식사</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.length === 0 && (
+              <tr>
+                <td colSpan={4} className="px-3 py-6 text-center text-muted">
+                  응답 없음
+                </td>
+              </tr>
+            )}
+            {rows.map((r) => (
+              <tr key={r.id} className="border-t border-sand">
+                <td className="px-3 py-2.5 text-ink">{r.name}</td>
+                <td className="px-3 py-2.5 text-center">
+                  <span className={r.attend ? "text-point" : "text-muted"}>
+                    {r.attend ? "O" : "X"}
+                  </span>
+                </td>
+                <td className="px-3 py-2.5 text-center text-ink/80">{r.headcount}</td>
+                <td className="px-3 py-2.5 text-center text-ink/80">
+                  {r.meal ? "O" : "-"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          {rows.length > 0 && (
+            <tfoot>
+              <tr className="border-t border-sand bg-ivory text-xs font-medium">
+                <td className="px-3 py-2.5 text-muted">합계 · 참석 {attendees.length}</td>
+                <td className="px-3 py-2.5" />
+                <td className="px-3 py-2.5 text-center text-ink">{headcount}명</td>
+                <td className="px-3 py-2.5 text-center text-ink">{mealCount}명</td>
+              </tr>
+            </tfoot>
+          )}
+        </table>
+      </div>
+    </div>
+  );
+}
 
 // user agent → 간단한 기기/브라우저 표기
 function deviceLabel(ua: string | null) {
@@ -96,20 +156,6 @@ export default function Dashboard() {
     })();
   }, [authed]);
 
-  const stats = useMemo(() => {
-    const attend = rsvps.filter((r) => r.attend);
-    const head = attend.reduce((s, r) => s + (r.headcount || 0), 0);
-    return {
-      total: rsvps.length,
-      attendCount: attend.length,
-      declineCount: rsvps.length - attend.length,
-      headcount: head,
-      mealCount: attend.filter((r) => r.meal).reduce((s, r) => s + (r.headcount || 0), 0),
-      groom: attend.filter((r) => r.side === "GROOM").length,
-      bride: attend.filter((r) => r.side === "BRIDE").length,
-    };
-  }, [rsvps]);
-
   const submitPw = (e: FormEvent) => {
     e.preventDefault();
     if (pw === ADMIN_PW) {
@@ -166,67 +212,18 @@ export default function Dashboard() {
 
         {!loading && (
           <>
-            {/* 참석여부 요약 */}
+            {/* 참석여부 — 신랑측/신부측 테이블 */}
             <section className="mb-10">
               <h2 className="mb-3 text-sm font-medium text-point">참석여부</h2>
-              <div className="grid grid-cols-3 gap-2">
-                {[
-                  { label: "응답", value: stats.total },
-                  { label: "참석", value: stats.attendCount },
-                  { label: "미참석", value: stats.declineCount },
-                  { label: "총 인원", value: stats.headcount },
-                  { label: "식사 인원", value: stats.mealCount },
-                  { label: "신랑/신부측", value: `${stats.groom}/${stats.bride}` },
-                ].map((c) => (
-                  <div
-                    key={c.label}
-                    className="rounded-md border border-sand bg-white px-3 py-4 text-center"
-                  >
-                    <p className="text-lg font-medium text-ink">{c.value}</p>
-                    <p className="mt-1 text-[11px] text-muted">{c.label}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* 참석여부 목록 */}
-              <div className="mt-4 overflow-hidden rounded-md border border-sand bg-white">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-sand/50 text-xs text-muted">
-                      <th className="px-3 py-2 text-left font-normal">측</th>
-                      <th className="px-3 py-2 text-left font-normal">이름</th>
-                      <th className="px-3 py-2 text-center font-normal">참석</th>
-                      <th className="px-3 py-2 text-center font-normal">인원</th>
-                      <th className="px-3 py-2 text-center font-normal">식사</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {rsvps.length === 0 && (
-                      <tr>
-                        <td colSpan={5} className="px-3 py-6 text-center text-muted">
-                          아직 응답이 없습니다.
-                        </td>
-                      </tr>
-                    )}
-                    {rsvps.map((r) => (
-                      <tr key={r.id} className="border-t border-sand">
-                        <td className="px-3 py-2.5 text-ink/80">
-                          {r.side === "GROOM" ? "신랑" : "신부"}
-                        </td>
-                        <td className="px-3 py-2.5 text-ink">{r.name}</td>
-                        <td className="px-3 py-2.5 text-center">
-                          <span className={r.attend ? "text-point" : "text-muted"}>
-                            {r.attend ? "O" : "X"}
-                          </span>
-                        </td>
-                        <td className="px-3 py-2.5 text-center text-ink/80">{r.headcount}</td>
-                        <td className="px-3 py-2.5 text-center text-ink/80">
-                          {r.meal ? "O" : "-"}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div className="space-y-6">
+                <RsvpTable
+                  title="신랑측"
+                  rows={rsvps.filter((r) => r.side === "GROOM")}
+                />
+                <RsvpTable
+                  title="신부측"
+                  rows={rsvps.filter((r) => r.side === "BRIDE")}
+                />
               </div>
             </section>
 

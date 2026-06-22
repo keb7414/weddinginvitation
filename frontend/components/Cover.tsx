@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { wedding } from "@/lib/data";
 import { asset } from "@/lib/asset";
+import { FallingHearts } from "./FallingHearts";
 
 export function Cover() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -23,6 +24,9 @@ export function Cover() {
 
   return (
     <section className="relative bg-ivory">
+      {/* 하트 흩날림 */}
+      <FallingHearts />
+
       {/* BGM 토글 */}
       <button
         onClick={toggle}
@@ -63,7 +67,7 @@ export function Cover() {
           alt=""
           className="mx-auto mt-7 h-11 w-auto"
         />
-        <p className="mt-5 text-base tracking-[0.05em] text-ink">결혼식에 초대합니다.</p>
+        <p className="mt-5 text-base tracking-[0.05em] text-ink">소중한 분들을 초대합니다.</p>
       </div>
     </section>
   );

@@ -53,7 +53,7 @@ export function Intro() {
           {groom.name} <span className="mx-2 text-point">♥</span> {bride.name}
         </p>
         <p
-          className="mt-6 text-lg tracking-[0.25em] text-muted opacity-0 animate-introUp"
+          className="mt-5 font-hand text-4xl tracking-[0.08em] text-point opacity-0 animate-introUp"
           style={{ animationDelay: "0.5s" }}
         >
           우리 결혼합니다

@@ -63,7 +63,7 @@ export function Cover() {
           alt=""
           className="mx-auto mt-4 h-11 w-auto"
         />
-        <p className="mt-2 text-base tracking-[0.05em] text-ink">결혼식에 초대합니다</p>
+        <p className="mt-2 text-base tracking-[0.05em] text-ink">결혼식에 초대합니다.</p>
       </div>
     </section>
   );

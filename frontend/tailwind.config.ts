@@ -18,6 +18,7 @@ const config: Config = {
       fontFamily: {
         serif: ["var(--font-serif)", "serif"],
         script: ["var(--font-script)", "cursive"],
+        hand: ["'Nanum Brush Script'", "cursive"],
       },
       keyframes: {
         fadeUp: {

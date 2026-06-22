@@ -34,6 +34,16 @@ function deviceLabel(ua: string | null) {
   return `${os} · ${br}`;
 }
 
+// 유입 referrer → 호스트명만 표시
+function hostOf(url: string | null) {
+  if (!url) return "직접";
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return url;
+  }
+}
+
 // 관리자 비밀번호 — 필요 시 이 값만 바꾸면 됩니다.
 const ADMIN_PW = "1031";
 
@@ -225,27 +235,43 @@ export default function Dashboard() {
               <h2 className="mb-3 text-sm font-medium text-point">
                 접속 기록 <span className="text-muted">({visitLog.length})</span>
               </h2>
-              <ul className="space-y-2">
-                {visitLog.length === 0 && (
-                  <li className="rounded-md border border-sand bg-white px-4 py-6 text-center text-sm text-muted">
-                    아직 접속 기록이 없습니다.
-                  </li>
-                )}
-                {visitLog.map((v) => (
-                  <li
-                    key={v.visitor_id}
-                    className="rounded-md border border-sand bg-white px-4 py-3 text-sm"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-ink">{deviceLabel(v.user_agent)}</span>
-                      <span className="text-[11px] text-muted">{fmt(v.created_at)}</span>
-                    </div>
-                    <p className="mt-1 text-[11px] text-muted">
-                      경로 {v.path || "/"} · 유입 {v.referrer ? v.referrer : "직접"}
-                    </p>
-                  </li>
-                ))}
-              </ul>
+              <div className="overflow-x-auto rounded-md border border-sand bg-white">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-sand/50 text-xs text-muted">
+                      <th className="whitespace-nowrap px-3 py-2 text-left font-normal">기기</th>
+                      <th className="whitespace-nowrap px-3 py-2 text-left font-normal">유입</th>
+                      <th className="whitespace-nowrap px-3 py-2 text-left font-normal">경로</th>
+                      <th className="whitespace-nowrap px-3 py-2 text-left font-normal">시각</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {visitLog.length === 0 && (
+                      <tr>
+                        <td colSpan={4} className="px-3 py-6 text-center text-muted">
+                          아직 접속 기록이 없습니다.
+                        </td>
+                      </tr>
+                    )}
+                    {visitLog.map((v) => (
+                      <tr key={v.visitor_id} className="border-t border-sand">
+                        <td className="whitespace-nowrap px-3 py-2.5 text-ink">
+                          {deviceLabel(v.user_agent)}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-2.5 text-ink/80">
+                          {hostOf(v.referrer)}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-2.5 text-ink/80">
+                          {v.path || "/"}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-2.5 text-[11px] text-muted">
+                          {fmt(v.created_at)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </section>
 
             {/* 방명록 */}

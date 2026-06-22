@@ -151,19 +151,23 @@ export const visitApi = {
     ) {
       return;
     }
+    // 관리자 대시보드 접속은 집계 제외
+    if (window.location.pathname.includes("/dashboard")) return;
     // 핑거프린트(우선) 또는 localStorage UUID 로 기기 식별
     const id = await resolveVisitorId();
-    // 같은 기기는 visitor_id(PK) 충돌로 DB 에서도 1회만 기록됨
-    await supabase.from("visit").upsert(
-      {
-        visitor_id: id,
-        user_agent: navigator.userAgent,
-        referrer: document.referrer || null,
-        path: window.location.pathname,
-        language: navigator.language,
-      },
-      { onConflict: "visitor_id", ignoreDuplicates: true }
-    );
+    // 일반 INSERT — 같은 기기는 visitor_id(PK) 충돌(23505)로 거부되며 그게 곧 중복 방지.
+    // (upsert/ON CONFLICT 는 충돌행 조회용 SELECT 권한이 필요해 RLS 거부되므로 일반 insert 사용)
+    const { error } = await supabase.from("visit").insert({
+      visitor_id: id,
+      user_agent: navigator.userAgent,
+      referrer: document.referrer || null,
+      path: window.location.pathname,
+      language: navigator.language,
+    });
+    // 23505 = 중복(재방문) → 정상. 그 외 에러는 best-effort 로 무시.
+    if (error && error.code !== "23505") {
+      // 집계 실패는 사용자 경험에 영향 없으므로 조용히 무시
+    }
   },
 
   count: async (): Promise<number> => {

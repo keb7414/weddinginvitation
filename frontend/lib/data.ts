@@ -14,7 +14,7 @@ export const wedding = {
     role: "장녀",
     father: "김영동",
     mother: "이영주",
-    phone: "010-0000-0002",
+    phone: "010-3439-2329",
   },
   date: {
     iso: "2026-10-31T13:00:00+09:00",
@@ -45,25 +45,25 @@ export const wedding = {
   // 연락하기 — 신랑/신부 + 양가 부모 (원본 동일 구성)
   contacts: {
     groom: [
-      { label: "신랑", name: "정승찬", phone: "010-0000-0001" },
+      { label: "신랑", name: "정승찬", phone: "010-4916-4036" },
       { label: "신랑 아버지", name: "정병록", phone: "010-0000-0003" },
       { label: "신랑 어머니", name: "조홍랑", phone: "010-0000-0004" },
     ],
     bride: [
-      { label: "신부", name: "김은별", phone: "010-0000-0002" },
-      { label: "신부 아버지", name: "김영동", phone: "010-0000-0005" },
-      { label: "신부 어머니", name: "이영주", phone: "010-0000-0006" },
+      { label: "신부", name: "김은별", phone: "010-3439-2329" },
+      { label: "신부 아버지", name: "김영동", phone: "010-7236-0121" },
+      { label: "신부 어머니", name: "이영주", phone: "010-2340-2329" },
     ],
   },
   // 마음 전하는 곳 — 원본 표시값(샘플 계좌)
   accounts: {
     groom: [
-      { label: "신랑", bank: "국민", number: "123123-12-3123123", holder: "정승찬" },
-      { label: "신랑 아버지", bank: "신한", number: "110-234-567890", holder: "정병록" },
-      { label: "신랑 어머니", bank: "농협", number: "302-1234-5678-90", holder: "조홍랑" },
+      { label: "신랑", bank: "기업", number: "218-071682-01-019", holder: "정승찬" },
+      { label: "신랑 아버지", bank: "국민", number: "776202-04-082169", holder: "정병록" },
+      { label: "신랑 어머니", bank: "국민", number: "409102-94-107541", holder: "조홍랑" },
     ],
     bride: [
-      { label: "신부", bank: "국민", number: "456456-45-4564564", holder: "김은별" },
+      { label: "신부", bank: "우리", number: "1002-360-632713", holder: "김은별" },
       { label: "신부 아버지", bank: "우리", number: "1002-345-678901", holder: "김영동" },
       { label: "신부 어머니", bank: "하나", number: "123-456789-01234", holder: "이영주" },
     ],

@@ -33,6 +33,8 @@ jobs:
       #  · Secrets:   SUPABASE_ANON_KEY
       NEXT_PUBLIC_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
       NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+      # 카카오맵 JavaScript 키 — Variables: KAKAO_MAP_KEY (도메인 제한된 공개 키)
+      NEXT_PUBLIC_KAKAO_MAP_KEY: ${{ vars.KAKAO_MAP_KEY }}
     steps:
       - uses: actions/checkout@v4
 

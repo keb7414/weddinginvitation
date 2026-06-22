@@ -19,7 +19,12 @@ const script = Parisienne({
   display: "swap",
 });
 
-// 한글 손글씨(붓글씨)는 next/font 의 한글 subset 한계로 Google Fonts <link> 로 로드(아래 head)
+// 오프닝 손글씨 — 더페이스샵 잉크립퀴드체(self-host)
+const hand = localFont({
+  src: "./fonts/InkLipquid.woff2",
+  variable: "--font-hand",
+  display: "swap",
+});
 
 const title = `모바일 청첩장 | ${wedding.groom.name}ღ${wedding.bride.name}`;
 const description = `${wedding.date.year}.${wedding.date.month}.${wedding.date.day} ${wedding.date.weekday} ${wedding.date.timeText} · ${wedding.venue.name}`;
@@ -51,15 +56,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className={`${serif.variable} ${script.variable}`}>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="ko" className={`${serif.variable} ${script.variable} ${hand.variable}`}>
       <body className="font-serif">{children}</body>
     </html>
   );

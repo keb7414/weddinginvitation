@@ -1,5 +1,6 @@
 import { Section, SectionTitle } from "./Section";
 import { wedding } from "@/lib/data";
+import { KakaoMap } from "./KakaoMap";
 
 function SubwayIcon() {
   return (
@@ -57,9 +58,9 @@ export function LocationMap() {
         <p className="mt-0.5 text-sm text-muted">{venue.hall}</p>
       </div>
 
-      {/* 카카오맵 SDK 연동 전 플레이스홀더 + 길찾기 링크 */}
-      <div className="mt-5 flex aspect-[4/3] w-full items-center justify-center rounded-xl bg-sand text-sm text-muted">
-        지도 (Kakao Map 연동 예정)
+      {/* 카카오 지도 */}
+      <div className="mt-5 aspect-[4/3] w-full overflow-hidden rounded-xl bg-sand">
+        <KakaoMap />
       </div>
 
       <div className="mt-4 flex justify-center gap-2">

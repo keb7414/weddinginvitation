@@ -33,7 +33,7 @@ export const wedding = {
     tel: "",
   },
   greeting: {
-    verse: "그 둘이 한 몸이 될지니라 이러므로 이제 둘이 아니요 한 몸이니",
+    verse: ["그 둘이 한 몸이 될지니라", "이러므로 이제 둘이 아니요 한 몸이니"],
     verseRef: "(마가복음 10:8)",
     body: [
       "하나님의 사랑으로 만난 두 사람이",
@@ -73,7 +73,7 @@ export const wedding = {
   notices: [
     {
       title: "주차 안내",
-      body: "건물 내 지하주차장 이용 가능하며 3시간 무료입니다.",
+      body: "건물 내 지하주차장 이용 가능합니다.",
     },
   ],
   transport: {

@@ -7,13 +7,23 @@ import { likeApi } from "@/lib/api";
 export function LikeButton() {
   const [liked, setLiked] = useState(false);
   const [pop, setPop] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
-  // 이미 누른 적 있으면 분홍 하트 유지
   useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("invite_liked") === "1") {
-      setLiked(true);
+    try {
+      // 혼주/가족용 링크(?host=1 또는 그 기기)는 하트 숨김
+      const isHost =
+        new URLSearchParams(window.location.search).get("host") === "1" ||
+        localStorage.getItem("invite_host") === "1";
+      if (isHost) setHidden(true);
+      // 이미 누른 적 있으면 분홍 하트 유지
+      if (localStorage.getItem("invite_liked") === "1") setLiked(true);
+    } catch {
+      /* 무시 */
     }
   }, []);
+
+  if (hidden) return null;
 
   const like = async () => {
     setPop(true);

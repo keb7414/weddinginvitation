@@ -1,38 +1,39 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { wedding } from "@/lib/data";
 import { asset } from "@/lib/asset";
 import { FallingHearts } from "./FallingHearts";
 
 export function Cover() {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [playing, setPlaying] = useState(false);
-
-  const toggle = () => {
-    const el = audioRef.current;
-    if (!el) return;
-    if (playing) {
-      el.pause();
-    } else {
-      el.play().catch(() => {/* 자동재생 차단 시 무시 */});
-    }
-    setPlaying(!playing);
-  };
-
-  // 기본은 정지, 첫 화면 터치/클릭 시 1회 자동 재생 (모바일 자동재생 정책 대응)
-  useEffect(() => {
-    const startOnce = () => {
-      const el = audioRef.current;
-      if (el && el.paused) {
-        el.play()
-          .then(() => setPlaying(true))
-          .catch(() => {/* 차단 시 무시 — 버튼으로 재생 */});
-      }
-    };
-    document.addEventListener("pointerdown", startOnce, { once: true });
-    return () => document.removeEventListener("pointerdown", startOnce);
-  }, []);
+  // ===== 배경음악(BGM) — 현재 숨김. 살리려면 아래 블록과 JSX의 BGM 주석을 해제 =====
+  // const audioRef = useRef<HTMLAudioElement | null>(null);
+  // const [playing, setPlaying] = useState(false);
+  //
+  // const toggle = () => {
+  //   const el = audioRef.current;
+  //   if (!el) return;
+  //   if (playing) {
+  //     el.pause();
+  //   } else {
+  //     el.play().catch(() => {/* 자동재생 차단 시 무시 */});
+  //   }
+  //   setPlaying(!playing);
+  // };
+  //
+  // // 기본은 정지, 첫 화면 터치/클릭 시 1회 자동 재생 (모바일 자동재생 정책 대응)
+  // useEffect(() => {
+  //   const startOnce = () => {
+  //     const el = audioRef.current;
+  //     if (el && el.paused) {
+  //       el.play()
+  //         .then(() => setPlaying(true))
+  //         .catch(() => {/* 차단 시 무시 — 버튼으로 재생 */});
+  //     }
+  //   };
+  //   document.addEventListener("pointerdown", startOnce, { once: true });
+  //   return () => document.removeEventListener("pointerdown", startOnce);
+  // }, []);
+  // ===========================================================================
 
   const { groom, bride, date, venue } = wedding;
 
@@ -41,7 +42,7 @@ export function Cover() {
       {/* 하트 흩날림 */}
       <FallingHearts />
 
-      {/* BGM 토글 */}
+      {/* ===== 배경음악(BGM) 버튼·오디오 — 현재 숨김. 살리려면 주석 해제 =====
       <button
         onClick={toggle}
         aria-label="배경음악 재생/정지"
@@ -59,6 +60,7 @@ export function Cover() {
         )}
       </button>
       <audio ref={audioRef} loop src={asset("/audio/bgm.mp3")} />
+      ===================================================================== */}
 
       {/* INVITATION + 이름 */}
       <div className="px-15 pb-10 pt-20 text-center">

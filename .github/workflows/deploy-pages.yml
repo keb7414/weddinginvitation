@@ -26,6 +26,8 @@ jobs:
       run:
         working-directory: frontend
     env:
+      # GitHub Pages 빌드 표시 — next.config 가 이 값일 때만 정적 export + basePath 적용
+      GITHUB_PAGES: "true"
       # 프로젝트 페이지 하위 경로(/<repo>). 커스텀 도메인 사용 시 빈 값으로 변경.
       NEXT_PUBLIC_BASE_PATH: /weddinginvitation
       # Supabase 연결 — 리포지토리 Settings → Secrets and variables → Actions 에 등록

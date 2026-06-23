@@ -5,6 +5,7 @@ import {
   guestbookApi,
   rsvpApi,
   visitApi,
+  likeApi,
   type GuestbookEntry,
   type RsvpEntry,
   type VisitInfo,
@@ -122,6 +123,7 @@ export default function Dashboard() {
   const [guests, setGuests] = useState<GuestbookEntry[]>([]);
   const [rsvps, setRsvps] = useState<RsvpEntry[]>([]);
   const [visits, setVisits] = useState<number | null>(null);
+  const [likes, setLikes] = useState<number | null>(null);
   const [visitLog, setVisitLog] = useState<VisitInfo[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -152,11 +154,12 @@ export default function Dashboard() {
     // 각 항목을 독립적으로 로드 — 하나가 실패해도 나머지는 표시
     (async () => {
       const errs: string[] = [];
-      const [g, r, v, vl] = await Promise.allSettled([
+      const [g, r, v, vl, lk] = await Promise.allSettled([
         guestbookApi.list(),
         rsvpApi.list(),
         visitApi.count(),
         visitApi.recent(100),
+        likeApi.count(),
       ]);
       if (g.status === "fulfilled") setGuests(g.value);
       else errs.push("방명록: " + g.reason.message);
@@ -166,6 +169,8 @@ export default function Dashboard() {
       else errs.push("방문자수: " + v.reason.message);
       if (vl.status === "fulfilled") setVisitLog(vl.value);
       else errs.push("접속기록: " + vl.reason.message);
+      if (lk.status === "fulfilled") setLikes(lk.value);
+      else errs.push("좋아요: " + lk.reason.message);
       setError(errs.length ? errs.join(" / ") : null);
       setLoading(false);
     })();
@@ -212,12 +217,20 @@ export default function Dashboard() {
         <h1 className="mb-1 text-center text-xl tracking-wide text-ink">관리자 대시보드</h1>
         <p className="mb-6 text-center text-xs text-muted">방명록 · 참석여부 현황</p>
 
-        {/* 방문자 수 */}
-        <div className="mb-3 rounded-md border border-sand bg-white px-5 py-4 text-center">
-          <p className="text-[11px] text-muted">방문자 수 (같은 기기 1회)</p>
-          <p className="mt-1 text-2xl font-medium text-point">
-            {visits === null ? "—" : visits.toLocaleString()}
-          </p>
+        {/* 방문자 수 · 좋아요 */}
+        <div className="mb-3 grid grid-cols-2 gap-3">
+          <div className="rounded-md border border-sand bg-white px-5 py-4 text-center">
+            <p className="text-[11px] text-muted">방문자 수 (같은 기기 1회)</p>
+            <p className="mt-1 text-2xl font-medium text-point">
+              {visits === null ? "—" : visits.toLocaleString()}
+            </p>
+          </div>
+          <div className="rounded-md border border-sand bg-white px-5 py-4 text-center">
+            <p className="text-[11px] text-muted">좋아요 ♥</p>
+            <p className="mt-1 text-2xl font-medium text-[#e2545f]">
+              {likes === null ? "—" : likes.toLocaleString()}
+            </p>
+          </div>
         </div>
 
         {/* 혼주/가족용 링크 — 방문수 집계 제외 */}

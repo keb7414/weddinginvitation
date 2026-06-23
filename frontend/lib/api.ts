@@ -192,6 +192,26 @@ export const visitApi = {
   },
 };
 
+// ---- 좋아요 ----
+export const likeApi = {
+  count: async (): Promise<number> => {
+    const { data, error } = await supabase.rpc("like_count");
+    if (error) throw new Error(error.message);
+    return (data as number) ?? 0;
+  },
+
+  add: async () => {
+    let vid: string | null = null;
+    try {
+      vid = localStorage.getItem("invite_visitor_id");
+    } catch {
+      /* 무시 */
+    }
+    const { error } = await supabase.from("likes").insert({ visitor_id: vid });
+    if (error) throw new Error(error.message);
+  },
+};
+
 // ---- 예식 알림 (저장만) ----
 export const alarmApi = {
   create: async (payload: { contact: string; notifyAt: string }) => {

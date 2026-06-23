@@ -29,7 +29,7 @@ const hand = localFont({
 const title = `모바일 청첩장 | ${wedding.groom.name}ღ${wedding.bride.name}`;
 const description = `${wedding.date.year}.${wedding.date.month}.${wedding.date.day} ${wedding.date.weekday} ${wedding.date.timeText} · ${wedding.venue.name}`;
 
-const SITE_URL = "https://keb7414.github.io/weddinginvitation/";
+const SITE_URL = "https://invitation-eb-sc.vercel.app/";
 
 export const metadata: Metadata = {
   title,

@@ -3,6 +3,7 @@
 import { wedding } from "@/lib/data";
 import { asset } from "@/lib/asset";
 import { FallingHearts } from "./FallingHearts";
+import { LikeButton } from "./LikeButton";
 
 export function Cover() {
   // ===== 배경음악(BGM) — 현재 숨김. 살리려면 아래 블록과 JSX의 BGM 주석을 해제 =====
@@ -41,6 +42,9 @@ export function Cover() {
     <section className="relative bg-ivory">
       {/* 하트 흩날림 */}
       <FallingHearts />
+
+      {/* 좋아요 버튼 (우측 상단) */}
+      <LikeButton />
 
       {/* ===== 배경음악(BGM) 버튼·오디오 — 현재 숨김. 살리려면 주석 해제 =====
       <button

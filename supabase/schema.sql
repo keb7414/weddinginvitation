@@ -186,3 +186,30 @@ as $$
 $$;
 
 grant execute on function public.visit_recent(int) to anon;
+
+-- ---------------------------------------------------------------------
+-- 5) 좋아요 (하트 버튼 — 누를 때마다 1행 누적)
+-- ---------------------------------------------------------------------
+create table if not exists public.likes (
+  id         bigint generated always as identity primary key,
+  visitor_id text,
+  created_at timestamptz not null default now()
+);
+
+alter table public.likes enable row level security;
+
+drop policy if exists likes_insert_anon on public.likes;
+create policy likes_insert_anon on public.likes
+  for insert to anon with check (true);
+
+grant insert on public.likes to anon;
+
+-- 합계 (좋아요 수)
+create or replace function public.like_count()
+returns integer
+language sql
+security definer
+set search_path = public
+as $$ select count(*)::int from public.likes $$;
+
+grant execute on function public.like_count() to anon;

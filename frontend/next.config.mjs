@@ -1,23 +1,26 @@
 /**
- * GitHub Pages 정적 배포 설정.
+ * 배포 대상에 따라 설정 분기.
  *
- * - output: 'export'  → next build 시 정적 HTML 묶음(out/) 생성
- * - basePath          → 프로젝트 페이지는 /<repo> 하위 경로로 서빙됨
- *                       (https://keb7414.github.io/weddinginvitation)
- *                       커스텀 도메인 사용 시 NEXT_PUBLIC_BASE_PATH 를 빈 값으로.
- * - images.unoptimized → 정적 export 에서는 next/image 최적화 서버가 없어 필수
+ * - GitHub Pages: GITHUB_PAGES=true 일 때만 정적 export + basePath(/weddinginvitation) 적용
+ *   (워크플로 deploy-pages.yml 에서 GITHUB_PAGES=true 주입)
+ * - Vercel(기본): export/basePath 미적용 → 루트(/)에서 일반 Next 로 동작
  *
  * @type {import('next').NextConfig}
  */
+const isGithubPages = process.env.GITHUB_PAGES === "true";
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const nextConfig = {
   reactStrictMode: true,
-  output: "export",
-  basePath: basePath || undefined,
-  assetPrefix: basePath || undefined,
   images: { unoptimized: true },
-  trailingSlash: true,
+  ...(isGithubPages
+    ? {
+        output: "export",
+        basePath: basePath || undefined,
+        assetPrefix: basePath || undefined,
+        trailingSlash: true,
+      }
+    : {}),
 };
 
 export default nextConfig;

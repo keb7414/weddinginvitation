@@ -80,7 +80,7 @@ export function ShareButtons() {
       window.Kakao.Share.sendDefault({
         objectType: "feed",
         content: {
-          title: `${groom.name} ♥ ${bride.name} 결혼합니다`,
+          title: `모바일 청첩장 | ${groom.name}♥${bride.name} 결혼합니다`,
           description: `${date.year}.${date.month}.${date.day} ${date.weekday} ${date.timeText}\n${venue.name}`,
           imageUrl,
           link: { mobileWebUrl: url, webUrl: url },
@@ -95,7 +95,7 @@ export function ShareButtons() {
     // 폴백: Web Share(공유 시트)
     if (typeof navigator !== "undefined" && navigator.share) {
       try {
-        await navigator.share({ title: `${groom.name} ♥ ${bride.name} 결혼합니다`, url });
+        await navigator.share({ title: `모바일 청첩장 | ${groom.name}♥${bride.name} 결혼합니다`, url });
       } catch {
         /* 사용자가 취소한 경우 무시 */
       }

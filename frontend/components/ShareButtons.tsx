@@ -1,8 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Section } from "./Section";
 import { wedding } from "@/lib/data";
+
+declare global {
+  interface Window {
+    Kakao?: any;
+  }
+}
+
+const KAKAO_JS_KEY = process.env.NEXT_PUBLIC_KAKAO_MAP_KEY ?? "";
 
 // 보안 컨텍스트(https)가 아니어도 동작하는 복사 — 레거시 execCommand 폴백 포함
 async function copyText(text: string): Promise<boolean> {
@@ -33,6 +41,27 @@ async function copyText(text: string): Promise<boolean> {
 export function ShareButtons() {
   const [copied, setCopied] = useState(false);
 
+  // 카카오 JS SDK 로드 + 초기화 (친구목록 공유에 필요)
+  useEffect(() => {
+    if (!KAKAO_JS_KEY) return;
+    const init = () => {
+      if (window.Kakao && !window.Kakao.isInitialized()) {
+        window.Kakao.init(KAKAO_JS_KEY);
+      }
+    };
+    if (window.Kakao) {
+      init();
+      return;
+    }
+    const id = "kakao-sdk";
+    if (document.getElementById(id)) return;
+    const s = document.createElement("script");
+    s.id = id;
+    s.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";
+    s.onload = init;
+    document.head.appendChild(s);
+  }, []);
+
   const copyUrl = async () => {
     if (await copyText(window.location.href)) {
       setCopied(true);
@@ -40,10 +69,30 @@ export function ShareButtons() {
     }
   };
 
-  // 공유 — Web Share(공유 시트). 배포본(https)에서 동작.
+  // 카카오톡 공유 — 누르면 카톡 친구/채팅 목록이 바로 뜸.
   const shareLink = async () => {
-    const url = window.location.href;
-    const { groom, bride } = wedding;
+    const url = window.location.href.split("?")[0]; // 혼주용 등 쿼리 제거
+    const { groom, bride, date, venue } = wedding;
+    const imageUrl = `${window.location.origin}/images/main.jpg`;
+
+    // 1순위: 카카오 SDK(친구목록)
+    if (window.Kakao?.Share && window.Kakao.isInitialized?.()) {
+      window.Kakao.Share.sendDefault({
+        objectType: "feed",
+        content: {
+          title: `${groom.name} ♥ ${bride.name} 결혼합니다`,
+          description: `${date.year}.${date.month}.${date.day} ${date.weekday} ${date.timeText}\n${venue.name}`,
+          imageUrl,
+          link: { mobileWebUrl: url, webUrl: url },
+        },
+        buttons: [
+          { title: "청첩장 보기", link: { mobileWebUrl: url, webUrl: url } },
+        ],
+      });
+      return;
+    }
+
+    // 폴백: Web Share(공유 시트)
     if (typeof navigator !== "undefined" && navigator.share) {
       try {
         await navigator.share({ title: `${groom.name} ♥ ${bride.name} 결혼합니다`, url });

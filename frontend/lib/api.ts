@@ -153,6 +153,15 @@ export const visitApi = {
     }
     // 관리자 대시보드 접속은 집계 제외
     if (window.location.pathname.includes("/dashboard")) return;
+    // 혼주/가족용 링크(?host=1)는 집계 제외. 한 번 들어오면 그 기기는 이후에도 계속 제외.
+    try {
+      if (new URLSearchParams(window.location.search).get("host") === "1") {
+        localStorage.setItem("invite_host", "1");
+      }
+      if (localStorage.getItem("invite_host") === "1") return;
+    } catch {
+      /* 무시 */
+    }
     // 핑거프린트(우선) 또는 localStorage UUID 로 기기 식별
     const id = await resolveVisitorId();
     // 일반 INSERT — 같은 기기는 visitor_id(PK) 충돌(23505)로 거부되며 그게 곧 중복 방지.

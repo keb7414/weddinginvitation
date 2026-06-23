@@ -77,8 +77,6 @@ export function AccountInfo() {
     <Section className="bg-ivory !px-4">
       <SectionTitle ko="마음을 전하는 곳" soft />
       <p className="mb-6 text-center text-[13px] leading-7 text-ink/80">
-        축복해 주시는 모든 분께 진심으로 감사드립니다.
-        <br />
         멀리서나마 축하의 마음을 전하고자 하시는 분들을 위해
         <br />
         아래와 같이 안내해 드립니다.

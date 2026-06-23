@@ -126,10 +126,25 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // 세션 동안 인증 유지
+  const [hostLink, setHostLink] = useState("");
+  const [hostCopied, setHostCopied] = useState(false);
+
+  // 세션 동안 인증 유지 + 혼주용 링크 계산
   useEffect(() => {
     if (sessionStorage.getItem("dash_authed") === "1") setAuthed(true);
+    const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+    setHostLink(`${window.location.origin}${base}/?host=1`);
   }, []);
+
+  const copyHostLink = async () => {
+    try {
+      await navigator.clipboard.writeText(hostLink);
+      setHostCopied(true);
+      setTimeout(() => setHostCopied(false), 1500);
+    } catch {
+      /* 무시 */
+    }
+  };
 
   useEffect(() => {
     if (!authed) return;
@@ -198,10 +213,32 @@ export default function Dashboard() {
         <p className="mb-6 text-center text-xs text-muted">방명록 · 참석여부 현황</p>
 
         {/* 방문자 수 */}
-        <div className="mb-8 rounded-md border border-sand bg-white px-5 py-4 text-center">
+        <div className="mb-3 rounded-md border border-sand bg-white px-5 py-4 text-center">
           <p className="text-[11px] text-muted">방문자 수 (같은 기기 1회)</p>
           <p className="mt-1 text-2xl font-medium text-point">
             {visits === null ? "—" : visits.toLocaleString()}
+          </p>
+        </div>
+
+        {/* 혼주/가족용 링크 — 방문수 집계 제외 */}
+        <div className="mb-8 rounded-md border border-sand bg-white px-5 py-4">
+          <p className="text-[11px] text-muted">혼주·가족용 링크 (방문수 집계 제외)</p>
+          <div className="mt-2 flex items-center gap-2">
+            <input
+              readOnly
+              value={hostLink}
+              onFocus={(e) => e.currentTarget.select()}
+              className="min-w-0 flex-1 rounded bg-sand/40 px-2 py-1.5 text-xs text-ink outline-none"
+            />
+            <button
+              onClick={copyHostLink}
+              className="shrink-0 rounded bg-point px-3 py-1.5 text-xs text-white"
+            >
+              {hostCopied ? "복사됨" : "복사"}
+            </button>
+          </div>
+          <p className="mt-2 text-[11px] text-muted">
+            이 링크로 한 번 접속한 기기는 이후 일반 링크로 봐도 방문수에 집계되지 않습니다.
           </p>
         </div>
 

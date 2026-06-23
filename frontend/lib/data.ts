@@ -48,8 +48,8 @@ export const wedding = {
   contacts: {
     groom: [
       { label: "신랑", name: "정승찬", phone: "010-4916-4036" },
-      { label: "신랑 아버지", name: "정병록", phone: "010-0000-0003" },
-      { label: "신랑 어머니", name: "조홍랑", phone: "010-0000-0004" },
+      { label: "신랑 아버지", name: "정병록", phone: "010-5309-4029" },
+      { label: "신랑 어머니", name: "조홍랑", phone: "010-4911-4717" },
     ],
     bride: [
       { label: "신부", name: "김은별", phone: "010-3439-2329" },
@@ -66,8 +66,8 @@ export const wedding = {
     ],
     bride: [
       { label: "신부", bank: "우리", number: "1002-360-632713", holder: "김은별" },
-      { label: "신부 아버지", bank: "우리", number: "1002-345-678901", holder: "김영동" },
-      { label: "신부 어머니", bank: "하나", number: "123-456789-01234", holder: "이영주" },
+      { label: "신부 아버지", bank: "카카오뱅크", number: "3333-37-2530047", holder: "김영동" },
+      { label: "신부 어머니", bank: "우리", number: "1002-552-552903", holder: "이영주" },
     ],
   },
   galleryCount: 18,
@@ -87,7 +87,7 @@ export const wedding = {
       { kind: "일반", list: "60 60-3 70-2 70-3" },
       { kind: "마을", list: "강서04 강서05" },
     ],
-    car: ["건물 내 지하주차장 이용", "3시간 무료 이용 가능"],
+    car: ["건물 내 지하주차장 무료 개방", "2시간 30분 이후 출차는 교회사무실에서 등록"],
   },
   interview: [
     {

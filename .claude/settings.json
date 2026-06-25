@@ -14,7 +14,8 @@
       "Bash(git -c commit.gpgsign=false commit -q -m 'fix\\(dashboard\\): 접속기록 시간을 UTC→한국시간\\(KST\\)으로 표시 *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 하트 숨김을 현재 URL의 host=1 기준으로만 판정\\(과거 기록 무관\\) *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 전화번호 자동인식\\(버스번호 밑줄\\) 차단 + 텍스트·이미지 복사 방지 *)",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 계좌 복사 시 은행명 제외, 계좌번호만 복사 *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 계좌 복사 시 은행명 제외, 계좌번호만 복사 *)",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 오프닝 필기체 글씨 연하게\\(text-point/60\\) *)"
     ]
   }
 }

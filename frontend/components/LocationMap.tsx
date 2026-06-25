@@ -56,6 +56,9 @@ export function LocationMap() {
         <p className="text-lg text-ink">{venue.name}</p>
         <p className="mt-1.5 text-sm text-point">{venue.address}</p>
         <p className="mt-0.5 text-sm text-muted">{venue.hall}</p>
+        <a href="tel:02-3663-0333" className="mt-1 inline-block text-sm text-point">
+          02-3663-0333
+        </a>
       </div>
 
       {/* 카카오 지도 */}

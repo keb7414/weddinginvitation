@@ -11,10 +11,10 @@ export function LikeButton() {
 
   useEffect(() => {
     try {
-      // 혼주/가족용 링크(?host=1 또는 그 기기)는 하트 숨김
+      // 혼주/가족용 링크(현재 URL 에 ?host=1)일 때만 하트 숨김.
+      // (과거에 host=1 로 들어왔던 기기여도, 일반 링크로 오면 하트 표시)
       const isHost =
-        new URLSearchParams(window.location.search).get("host") === "1" ||
-        localStorage.getItem("invite_host") === "1";
+        new URLSearchParams(window.location.search).get("host") === "1";
       if (isHost) setHidden(true);
       // 이미 누른 적 있으면 분홍 하트 유지
       if (localStorage.getItem("invite_liked") === "1") setLiked(true);

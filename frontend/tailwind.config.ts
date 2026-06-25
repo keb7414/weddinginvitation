@@ -11,7 +11,7 @@ const config: Config = {
         // 차분한 웨딩 톤
         ivory: "#faf8f4",
         sand: "#efe9e1",
-        ink: "#3a3631",
+        ink: "#6a6056",
         muted: "#8a8377",
         point: "#a98b6f", // 포인트(베이지 골드)
       },

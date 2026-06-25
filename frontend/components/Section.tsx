@@ -20,10 +20,12 @@ export function SectionTitle({
   en,
   ko,
   soft = false,
+  noLine = false,
 }: {
   en?: string;
   ko?: string;
   soft?: boolean;
+  noLine?: boolean;
 }) {
   return (
     <div className="mb-8 text-center">
@@ -41,7 +43,7 @@ export function SectionTitle({
           {ko}
         </h2>
       )}
-      {!soft && <div className="mx-auto mt-4 h-px w-10 bg-point/50" />}
+      {!soft && !noLine && <div className="mx-auto mt-4 h-px w-10 bg-point/50" />}
     </div>
   );
 }

@@ -17,7 +17,7 @@ export function Gallery() {
 
   return (
     <Section className="bg-ivory">
-      <SectionTitle en="Gallery" />
+      <SectionTitle en="Gallery" noLine />
 
       <div className="grid grid-cols-3 gap-1.5">
         {Array.from({ length: visible }, (_, i) => (

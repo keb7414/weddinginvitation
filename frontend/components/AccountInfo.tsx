@@ -50,7 +50,7 @@ function AccountPanel({
     <div className="overflow-hidden rounded-md border border-point/20">
       <button
         onClick={onToggle}
-        className="relative flex w-full items-center justify-center bg-[#f5e6df] py-3.5 text-sm text-point"
+        className="relative flex w-full items-center justify-center bg-[#f5e6df] py-3 text-sm text-point"
       >
         {title}
         <span className="absolute right-5 text-point/70">{open ? "▾" : "▴"}</span>

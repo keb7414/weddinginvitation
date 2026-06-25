@@ -56,7 +56,7 @@ export function RsvpForm() {
     }`;
 
   return (
-    <Section className="bg-ivory">
+    <Section className="bg-ivory !px-4">
       <SectionTitle ko="참석 여부" soft />
       <p className="mb-6 text-center text-sm leading-7 text-ink/80">
         결혼식 참석 여부를 체크해주세요.
@@ -66,7 +66,7 @@ export function RsvpForm() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="relative mx-auto flex w-full items-center justify-center gap-1.5 rounded-md bg-[#f5e6df] py-3.5 text-sm text-point"
+        className="relative mx-auto flex w-full items-center justify-center gap-1.5 rounded-md bg-[#f5e6df] py-3 text-sm text-point"
       >
         참석 여부 전달하기
         <span className="text-point">{open ? "▴" : "▾"}</span>

@@ -72,7 +72,7 @@ export function GuestBook() {
       {/* 작성하기 버튼 (테두리 박스) */}
       <button
         onClick={() => setOpen(true)}
-        className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-sm border border-sand bg-white py-4 text-sm text-ink shadow-sm"
+        className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-sm border border-sand bg-white py-3 text-sm text-ink shadow-sm"
       >
         <PencilIcon />
         작성하기

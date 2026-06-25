@@ -104,11 +104,11 @@ export function ShareButtons() {
 
   return (
     <Section className="bg-ivory text-center !pb-6">
-      <div className="flex flex-col items-stretch gap-2 border-t border-sand pt-6">
+      <div className="flex flex-col items-stretch gap-1 border-t border-sand pt-4">
         <button
           onClick={shareLink}
           type="button"
-          className="flex w-full items-center justify-center gap-2 bg-transparent py-3.5 text-sm text-ink"
+          className="flex w-full items-center justify-center gap-2 bg-transparent py-2.5 text-sm text-ink"
         >
           {/* 카카오톡 말풍선 아이콘 */}
           <svg viewBox="0 0 24 24" fill="currentColor" className="h-[18px] w-[18px] text-[#3a1d1d]">
@@ -120,7 +120,7 @@ export function ShareButtons() {
         <button
           onClick={copyUrl}
           type="button"
-          className="flex w-full items-center justify-center gap-2 bg-transparent py-3.5 text-sm text-ink"
+          className="flex w-full items-center justify-center gap-2 bg-transparent py-2.5 text-sm text-ink"
         >
           {/* 링크 아이콘 */}
           <svg

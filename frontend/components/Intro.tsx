@@ -47,7 +47,7 @@ export function Intro() {
     >
       <div className="text-center">
         <p
-          className="text-2xl tracking-[0.15em] text-ink opacity-0 animate-introUp"
+          className="text-xl tracking-[0.15em] text-ink opacity-0 animate-introUp"
           style={{ animationDelay: "0.15s", WebkitTextStroke: "0.35px #faf8f4" }}
         >
           {groom.name} <span className="mx-2 text-point">♥</span> {bride.name}

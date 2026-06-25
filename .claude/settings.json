@@ -17,7 +17,8 @@
       "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 계좌 복사 시 은행명 제외, 계좌번호만 복사 *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'style: 오프닝 필기체 글씨 연하게\\(text-point/60\\) *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'style: 커버 날짜·장소 글씨 크기 확대\\(text-sm→text-base\\) *)",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 최상단 INVITATION 위 여백 소폭 축소\\(pt-20→4.5rem\\) *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 최상단 INVITATION 위 여백 소폭 축소\\(pt-20→4.5rem\\) *)",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 오프닝 이름 글씨 크기 축소\\(text-2xl→text-xl\\) *)"
     ]
   }
 }

@@ -9,7 +9,7 @@ function AccountRow({ acc }: { acc: Account }) {
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(`${acc.bank} ${acc.number}`);
+      await navigator.clipboard.writeText(acc.number);
     } catch {
       /* clipboard 미지원 무시 */
     }

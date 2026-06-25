@@ -2,7 +2,15 @@
   "permissions": {
     "allow": [
       "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/likes -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -H 'Prefer: return=representation' -d '{\"visitor_id\":\"TEST-like\"}' -w '\\\\n[HTTP %{http_code}]\\\\n')",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'fix\\(db\\): visit/likes 익명 INSERT RLS 정책 추가 SQL — 집계 미동작 해결 *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'fix\\(db\\): visit/likes 익명 INSERT RLS 정책 추가 SQL — 집계 미동작 해결 *)",
+      "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/rpc/visit_count -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -d '{}')",
+      "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/visit -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -H 'Prefer: return=representation' -d '{\"visitor_id\":\"VERIFY-__CMDSUB_OUTPUT__\",\"user_agent\":\"verify-test\",\"path\":\"/\",\"language\":\"ko\"}' -w '  [HTTP %{http_code}]\\\\n')",
+      "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/visit -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -d '{\"visitor_id\":\"VERIFY-__CMDSUB_OUTPUT__\",\"user_agent\":\"verify-test\",\"path\":\"/\",\"language\":\"ko\"}' -w '  [HTTP %{http_code}]\\\\n')",
+      "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/likes -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -H 'Prefer: return=representation' -d '{\"visitor_id\":\"VERIFY-like\"}' -w '  [HTTP %{http_code}]\\\\n')",
+      "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/visit -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -d '{\"visitor_id\":\"__TRACKED_VAR__\",\"path\":\"/\"}' -w '  [HTTP %{http_code}]\\\\n')",
+      "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/likes -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -d '{\"visitor_id\":\"FRESH-like\"}' -w '  [HTTP %{http_code}]\\\\n')",
+      "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/rpc/like_count -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -d '{}')",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'chore\\(db\\): 검증 테스트 행 정리 SQL 추가 *)"
     ]
   }
 }

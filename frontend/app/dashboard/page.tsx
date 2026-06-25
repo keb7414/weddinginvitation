@@ -109,10 +109,26 @@ function hostOf(url: string | null) {
 const ADMIN_PW = "1031";
 
 function fmt(ts: string) {
-  // "2026-06-19T12:34:56..." → "2026.06.19 12:34"
+  // DB 는 UTC(timestamptz) 로 저장 → 한국시간(KST)으로 변환해 표시
+  // "2026-06-19T12:34:56+00:00" → "2026.06.19 21:34"
   if (!ts) return "";
-  const [d, t = ""] = ts.split("T");
-  return `${d.replace(/-/g, ".")} ${t.slice(0, 5)}`;
+  const date = new Date(ts);
+  if (isNaN(date.getTime())) return ts;
+  const p = new Intl.DateTimeFormat("ko-KR", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  })
+    .formatToParts(date)
+    .reduce<Record<string, string>>((a, x) => {
+      a[x.type] = x.value;
+      return a;
+    }, {});
+  return `${p.year}.${p.month}.${p.day} ${p.hour}:${p.minute}`;
 }
 
 export default function Dashboard() {

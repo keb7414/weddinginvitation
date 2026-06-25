@@ -10,7 +10,8 @@
       "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/visit -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -d '{\"visitor_id\":\"__TRACKED_VAR__\",\"path\":\"/\"}' -w '  [HTTP %{http_code}]\\\\n')",
       "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/likes -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -d '{\"visitor_id\":\"FRESH-like\"}' -w '  [HTTP %{http_code}]\\\\n')",
       "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/rpc/like_count -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -d '{}')",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'chore\\(db\\): 검증 테스트 행 정리 SQL 추가 *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'chore\\(db\\): 검증 테스트 행 정리 SQL 추가 *)",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'fix\\(dashboard\\): 접속기록 시간을 UTC→한국시간\\(KST\\)으로 표시 *)"
     ]
   }
 }

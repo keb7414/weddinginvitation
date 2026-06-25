@@ -86,10 +86,10 @@ export function Cover() {
 
       {/* 날짜 · 장소 · 초대 문구 */}
       <div className="px-7 py-10 text-center">
-        <p className="text-sm text-muted">
+        <p className="text-base text-muted">
           {date.year}년 {date.month}월 {date.day}일 {date.weekday} {date.timeText}
         </p>
-        <p className="mt-2 text-sm text-muted">{venue.name}</p>
+        <p className="mt-2 text-base text-muted">{venue.name}</p>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={asset("/images/flower.png")}

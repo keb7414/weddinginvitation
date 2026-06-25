@@ -30,7 +30,7 @@ export function SectionTitle({
   return (
     <div className="mb-8 text-center">
       {en && (
-        <p className="mb-1 font-script text-xl leading-none text-point">{en}</p>
+        <p className="mb-1 font-script text-2xl leading-none text-point">{en}</p>
       )}
       {ko && (
         <h2

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/likes -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -H 'Prefer: return=representation' -d '{\"visitor_id\":\"TEST-like\"}' -w '\\\\n[HTTP %{http_code}]\\\\n')",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'fix\\(db\\): visit/likes 익명 INSERT RLS 정책 추가 SQL — 집계 미동작 해결 *)"
+    ]
+  }
+}

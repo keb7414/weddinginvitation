@@ -36,7 +36,7 @@ export function SectionTitle({
         <h2
           className={
             soft
-              ? "text-sm tracking-[0.1em] text-point"
+              ? "text-xl tracking-[0.1em] text-point"
               : "text-lg tracking-[0.2em] text-ink"
           }
         >

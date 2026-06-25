@@ -24,6 +24,28 @@ body {
   overflow-x: hidden; /* 가로 스크롤 방지 */
 }
 
+/* 텍스트·이미지 복사 차단 (롱프레스 메뉴/선택/드래그) — 입력 필드는 예외 */
+* {
+  -webkit-touch-callout: none; /* iOS 롱프레스 '복사/이미지 저장' 메뉴 차단 */
+}
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none; /* 이미지 길게 눌러 저장/복사 방지 */
+}
+
 /* 스크롤 진입 애니메이션 기본 상태 */
 .reveal {
   opacity: 0;

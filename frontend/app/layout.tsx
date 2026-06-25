@@ -34,6 +34,9 @@ const SITE_URL = "https://invitation-eb-sc.vercel.app/";
 export const metadata: Metadata = {
   title,
   description,
+  // 모바일 브라우저가 버스 번호 등을 전화번호로 자동 인식(밑줄 링크)하는 것 방지.
+  // 명시적 <a href="tel:..."> (예식장 번호)는 그대로 동작함.
+  formatDetection: { telephone: false, date: false, email: false, address: false },
   openGraph: {
     title,
     description,

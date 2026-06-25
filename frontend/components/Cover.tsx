@@ -96,7 +96,7 @@ export function Cover() {
           alt=""
           className="mx-auto mt-7 h-11 w-auto"
         />
-        <p className="mt-5 text-base tracking-[0.05em] text-ink">소중한 분들을 초대합니다.</p>
+        <p className="mt-5 text-base tracking-[0.05em] text-[#5c4632]">소중한 분들을 초대합니다.</p>
       </div>
     </section>
   );

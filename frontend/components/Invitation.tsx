@@ -16,7 +16,7 @@ export function Invitation() {
         ))}
       </p>
       <p className="mb-7 mt-2 text-xs text-point/80">{greeting.verseRef}</p>
-      <div className="space-y-2.5 text-[15px] leading-7 text-ink/90">
+      <div className="space-y-2.5 text-[15px] leading-7 text-[#5c4632]">
         {greeting.body.map((line, i) => (
           <p key={i}>{line}</p>
         ))}

@@ -19,7 +19,9 @@
       "Bash(git -c commit.gpgsign=false commit -q -m 'style: 커버 날짜·장소 글씨 크기 확대\\(text-sm→text-base\\) *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'style: 최상단 INVITATION 위 여백 소폭 축소\\(pt-20→4.5rem\\) *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'style: 오프닝 이름 글씨 크기 축소\\(text-2xl→text-xl\\) *)",
-      "Bash(curl -s -o /dev/null -w \"live / -> HTTP %{http_code}\\\\n\" \"https://invitation-eb-sc.vercel.app/\")"
+      "Bash(curl -s -o /dev/null -w \"live / -> HTTP %{http_code}\\\\n\" \"https://invitation-eb-sc.vercel.app/\")",
+      "Bash(ls -1 main*.jpg)",
+      "Bash(grep -n \"main\" ../../components/Cover.tsx)"
     ]
   }
 }

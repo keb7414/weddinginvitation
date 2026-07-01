@@ -79,7 +79,7 @@ export function Cover() {
       {/* 대표 사진 — 가공 없이 사각형 그대로, 전체 폭 */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={asset("/images/main2.jpg")}
+        src={asset("/images/main.jpg")}
         alt="신랑 신부 대표 사진"
         className="block w-full animate-introUp"
       />

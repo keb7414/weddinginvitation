@@ -6,7 +6,11 @@ import { Section, SectionTitle } from "./Section";
 import { wedding } from "@/lib/data";
 import { asset } from "@/lib/asset";
 
-const src = (n: number) => asset(`/images/gallery/gallery_${n}.png`);
+const src = (n: number) => asset(`/images/gallery/gallery_${n}.jpg`);
+
+// 가로사진 번호(1-based) — 한 줄에 2개씩 표시(col-span-3). 나머지 세로사진은 3개씩(col-span-2).
+// ※ 사진을 교체해 방향이 바뀌면 이 목록을 갱신하세요.
+const LANDSCAPE = new Set([13, 14]);
 
 export function Gallery() {
   const [expanded, setExpanded] = useState(false);
@@ -19,22 +23,28 @@ export function Gallery() {
     <Section className="bg-ivory">
       <SectionTitle en="Gallery" noLine />
 
-      <div className="grid grid-cols-3 gap-1.5">
-        {Array.from({ length: visible }, (_, i) => (
-          <button
-            key={i}
-            onClick={() => setActive(i)}
-            className="aspect-square overflow-hidden bg-sand"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={src(i + 1)}
-              alt={`갤러리 사진 ${i + 1}`}
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-          </button>
-        ))}
+      <div className="grid grid-cols-6 gap-1.5">
+        {Array.from({ length: visible }, (_, i) => {
+          const n = i + 1;
+          const land = LANDSCAPE.has(n);
+          return (
+            <button
+              key={i}
+              onClick={() => setActive(i)}
+              className={`overflow-hidden bg-sand ${
+                land ? "col-span-3 aspect-[3/2]" : "col-span-2 aspect-square"
+              }`}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={src(n)}
+                alt={`갤러리 사진 ${n}`}
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+            </button>
+          );
+        })}
       </div>
 
       {total > 6 && (

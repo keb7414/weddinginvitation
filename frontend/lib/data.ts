@@ -69,7 +69,7 @@ export const wedding = {
       { label: "신부 어머니", bank: "우리", number: "1002-552-552903", holder: "이영주" },
     ],
   },
-  galleryCount: 18,
+  galleryCount: 17,
   notices: [
     {
       title: "주차 안내",

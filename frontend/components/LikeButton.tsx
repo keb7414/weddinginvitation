@@ -16,8 +16,8 @@ export function LikeButton() {
       const isHost =
         new URLSearchParams(window.location.search).get("host") === "1";
       if (isHost) setHidden(true);
-      // 이미 누른 적 있으면 분홍 하트 유지
-      if (localStorage.getItem("invite_liked") === "1") setLiked(true);
+      // 이번 세션에서 이미 눌렀으면 분홍 유지. 세션이 초기화되면(탭 종료) 다시 회색.
+      if (sessionStorage.getItem("invite_liked") === "1") setLiked(true);
     } catch {
       /* 무시 */
     }
@@ -28,10 +28,10 @@ export function LikeButton() {
   const like = async () => {
     setPop(true);
     setTimeout(() => setPop(false), 250);
-    if (liked) return; // 한 번만 집계
+    if (liked) return; // 세션당 한 번만 집계
     setLiked(true);
     try {
-      localStorage.setItem("invite_liked", "1");
+      sessionStorage.setItem("invite_liked", "1");
     } catch {
       /* 무시 */
     }

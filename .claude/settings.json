@@ -25,7 +25,8 @@
       "Bash(curl -s -o /dev/null -w \"localhost:3000 -> HTTP %{http_code}\\\\n\" \"http://localhost:3000/\")",
       "Bash(git -c commit.gpgsign=false commit -q -m 'feat: 카카오/URL 공유 이미지를 share.jpg\\(가로 960x640\\)로 변경 *)",
       "Bash(curl -s -o /dev/null -w \"share.jpg -> HTTP %{http_code}\\\\n\" \"https://invitation-eb-sc.vercel.app/images/share.jpg\")",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'feat: 좋아요 하트를 세션 기준으로 변경\\(sessionStorage\\) — 기본 회색, 세션 초기화 시 재클릭 가능 *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'feat: 좋아요 하트를 세션 기준으로 변경\\(sessionStorage\\) — 기본 회색, 세션 초기화 시 재클릭 가능 *)",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'feat: URL 링크 미리보기용 og.jpg\\(위쪽 크롭, 아래 보존\\) 추가 — 카톡은 share.jpg 유지 *)"
     ]
   }
 }

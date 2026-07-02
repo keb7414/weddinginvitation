@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Section, SectionTitle } from "./Section";
 import { wedding } from "@/lib/data";
@@ -20,6 +20,13 @@ export function Gallery() {
 
   const total = wedding.galleryCount;
   const visible = expanded ? total : Math.min(6, total);
+
+  // 라이트박스 사진 이동 (dir: -1 이전, +1 다음)
+  const go = (dir: number) =>
+    setActive((a) => (a === null ? a : (a + dir + total) % total));
+
+  // 스와이프 감지
+  const touchX = useRef<number | null>(null);
 
   return (
     <Section className="bg-ivory">
@@ -75,38 +82,40 @@ export function Gallery() {
         createPortal(
           <div
             className="fixed inset-0 z-[80] flex items-center justify-center bg-black/90"
-            onClick={() => setActive(null)}
+            onTouchStart={(e) => {
+              touchX.current = e.touches[0].clientX;
+            }}
+            onTouchEnd={(e) => {
+              if (touchX.current === null) return;
+              const dx = e.changedTouches[0].clientX - touchX.current;
+              touchX.current = null;
+              if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); // 왼쪽으로 밀면 다음
+            }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={src(active + 1)}
               alt={`갤러리 사진 ${active + 1}`}
               className="max-h-[82vh] w-auto max-w-[88%] object-contain"
-              onClick={(e) => e.stopPropagation()}
             />
             <button
               className="absolute right-5 top-5 text-2xl text-white"
               aria-label="닫기"
+              onClick={() => setActive(null)}
             >
               ✕
             </button>
             <button
               className="absolute left-4 text-3xl text-white/80"
               aria-label="이전"
-              onClick={(e) => {
-                e.stopPropagation();
-                setActive((a) => (a! - 1 + total) % total);
-              }}
+              onClick={() => go(-1)}
             >
               ‹
             </button>
             <button
               className="absolute right-4 text-3xl text-white/80"
               aria-label="다음"
-              onClick={(e) => {
-                e.stopPropagation();
-                setActive((a) => (a! + 1) % total);
-              }}
+              onClick={() => go(1)}
             >
               ›
             </button>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Section, SectionTitle } from "./Section";
 import { wedding } from "@/lib/data";
@@ -27,6 +27,16 @@ export function Gallery() {
 
   // 스와이프 감지
   const touchX = useRef<number | null>(null);
+
+  // 라이트박스 열려 있을 때 앞뒤 사진을 미리 로드 → 넘길 때 즉시 표시
+  useEffect(() => {
+    if (active === null) return;
+    [-2, -1, 1, 2].forEach((d) => {
+      const n = ((active + d + total) % total) + 1;
+      const im = new window.Image();
+      im.src = src(n);
+    });
+  }, [active, total]);
 
   return (
     <Section className="bg-ivory">

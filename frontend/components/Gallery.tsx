@@ -33,9 +33,10 @@ export function Gallery() {
   useEffect(() => {
     if (active === null) return;
     [-2, -1, 1, 2].forEach((d) => {
-      const n = ((active + d + total) % total) + 1;
+      const idx = active + d;
+      if (idx < 0 || idx >= total) return; // 순환 없음
       const im = new window.Image();
-      im.src = src(n);
+      im.src = src(idx + 1);
     });
   }, [active, total]);
 
@@ -65,7 +66,9 @@ export function Gallery() {
     pending.current = 0;
     setSliding(false);
     setDx(0);
-    setActive((a) => (a === null ? a : (a + dir + total) % total));
+    setActive((a) =>
+      a === null ? a : Math.max(0, Math.min(total - 1, a + dir)) // 순환 없이 양끝에서 멈춤
+    );
   };
 
   return (
@@ -127,16 +130,20 @@ export function Gallery() {
               setSliding(false);
             }}
             onTouchMove={(e) => {
-              if (startX.current === null) return;
-              setDx(e.touches[0].clientX - startX.current);
+              if (startX.current === null || active === null) return;
+              let delta = e.touches[0].clientX - startX.current;
+              // 양끝에서는 더 못 넘어가게(순환 없음)
+              if (active === 0 && delta > 0) delta = 0; // 처음: 이전 막기
+              if (active === total - 1 && delta < 0) delta = 0; // 끝: 다음 막기
+              setDx(delta);
             }}
             onTouchEnd={(e) => {
-              if (startX.current === null) return;
+              if (startX.current === null || active === null) return;
               const d = e.changedTouches[0].clientX - startX.current;
               startX.current = null;
               const th = 50;
-              if (d < -th) slideTo(1); // 왼쪽으로 밀면 다음
-              else if (d > th) slideTo(-1); // 오른쪽으로 밀면 이전
+              if (d < -th && active < total - 1) slideTo(1); // 왼쪽으로 밀면 다음
+              else if (d > th && active > 0) slideTo(-1); // 오른쪽으로 밀면 이전
               else {
                 pending.current = 0; // 스냅백
                 setSliding(true);
@@ -154,18 +161,21 @@ export function Gallery() {
               onTransitionEnd={onSlideEnd}
             >
               {[-1, 0, 1].map((off) => {
-                const n = ((active + off + total) % total) + 1;
+                const idx = active + off;
+                const has = idx >= 0 && idx < total; // 범위 밖(처음/끝 너머)은 빈 칸
                 return (
                   <div
                     key={off}
                     className="flex h-full w-screen shrink-0 items-center justify-center"
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={src(n)}
-                      alt={`갤러리 사진 ${n}`}
-                      className="max-h-[82vh] w-auto max-w-[88%] object-contain"
-                    />
+                    {has && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={src(idx + 1)}
+                        alt={`갤러리 사진 ${idx + 1}`}
+                        className="max-h-[82vh] w-auto max-w-[88%] object-contain"
+                      />
+                    )}
                   </div>
                 );
               })}
@@ -178,20 +188,30 @@ export function Gallery() {
             >
               ✕
             </button>
-            <button
-              className="absolute left-4 top-1/2 z-10 -translate-y-1/2 text-3xl text-white/80"
-              aria-label="이전"
-              onClick={() => slideTo(-1)}
-            >
-              ‹
-            </button>
-            <button
-              className="absolute right-4 top-1/2 z-10 -translate-y-1/2 text-3xl text-white/80"
-              aria-label="다음"
-              onClick={() => slideTo(1)}
-            >
-              ›
-            </button>
+            {/* 처음이 아니면 이전 버튼 표시 */}
+            {active > 0 && (
+              <button
+                className="absolute left-4 top-1/2 z-10 -translate-y-1/2 text-3xl text-white/80"
+                aria-label="이전"
+                onClick={() => slideTo(-1)}
+              >
+                ‹
+              </button>
+            )}
+            {/* 끝이 아니면 다음 버튼 표시 */}
+            {active < total - 1 && (
+              <button
+                className="absolute right-4 top-1/2 z-10 -translate-y-1/2 text-3xl text-white/80"
+                aria-label="다음"
+                onClick={() => slideTo(1)}
+              >
+                ›
+              </button>
+            )}
+            {/* 현재 위치 — 처음/끝을 알 수 있게 */}
+            <div className="absolute bottom-6 left-0 right-0 z-10 text-center text-sm tracking-widest text-white/80">
+              {active + 1} / {total}
+            </div>
           </div>,
           document.body
         )}

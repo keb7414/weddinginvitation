@@ -21,14 +21,15 @@ export function Gallery() {
   const total = wedding.galleryCount;
   const visible = expanded ? total : Math.min(6, total);
 
-  // 라이트박스 사진 이동 (dir: -1 이전, +1 다음)
-  const go = (dir: number) =>
-    setActive((a) => (a === null ? a : (a + dir + total) % total));
+  // 라이트박스 슬라이드(캐러셀) 상태
+  const [dx, setDx] = useState(0); // 트랙 이동량(px)
+  const [sliding, setSliding] = useState(false); // transition on/off
+  const startX = useRef<number | null>(null);
+  const pending = useRef(0); // 애니메이션 중인 이동 방향
 
-  // 스와이프 감지
-  const touchX = useRef<number | null>(null);
+  const vw = () => (typeof window !== "undefined" ? window.innerWidth : 0);
 
-  // 라이트박스 열려 있을 때 앞뒤 사진을 미리 로드 → 넘길 때 즉시 표시
+  // 앞뒤 사진 프리로드 → 넘길 때 즉시 표시
   useEffect(() => {
     if (active === null) return;
     [-2, -1, 1, 2].forEach((d) => {
@@ -37,6 +38,25 @@ export function Gallery() {
       im.src = src(n);
     });
   }, [active, total]);
+
+  // dir 방향으로 슬라이드(버튼/스와이프 공통). 애니메이션 끝나면 onEnd 에서 인덱스 교체.
+  const slideTo = (dir: number) => {
+    pending.current = dir;
+    setSliding(true);
+    setDx(-dir * vw());
+  };
+
+  const onSlideEnd = () => {
+    const dir = pending.current;
+    if (dir === 0) {
+      setSliding(false); // 스냅백 종료
+      return;
+    }
+    pending.current = 0;
+    setSliding(false);
+    setDx(0);
+    setActive((a) => (a === null ? a : (a + dir + total) % total));
+  };
 
   return (
     <Section className="bg-ivory">
@@ -91,41 +111,74 @@ export function Gallery() {
         typeof document !== "undefined" &&
         createPortal(
           <div
-            className="fixed inset-0 z-[80] flex items-center justify-center bg-black/90"
+            className="fixed inset-0 z-[80] overflow-hidden bg-black/90"
             onTouchStart={(e) => {
-              touchX.current = e.touches[0].clientX;
+              startX.current = e.touches[0].clientX;
+              setSliding(false);
+            }}
+            onTouchMove={(e) => {
+              if (startX.current === null) return;
+              setDx(e.touches[0].clientX - startX.current);
             }}
             onTouchEnd={(e) => {
-              if (touchX.current === null) return;
-              const dx = e.changedTouches[0].clientX - touchX.current;
-              touchX.current = null;
-              if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); // 왼쪽으로 밀면 다음
+              if (startX.current === null) return;
+              const d = e.changedTouches[0].clientX - startX.current;
+              startX.current = null;
+              const th = 50;
+              if (d < -th) slideTo(1); // 왼쪽으로 밀면 다음
+              else if (d > th) slideTo(-1); // 오른쪽으로 밀면 이전
+              else {
+                pending.current = 0; // 스냅백
+                setSliding(true);
+                setDx(0);
+              }
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={src(active + 1)}
-              alt={`갤러리 사진 ${active + 1}`}
-              className="max-h-[82vh] w-auto max-w-[88%] object-contain"
-            />
+            {/* 3장(이전·현재·다음) 트랙을 옆으로 이동시켜 슬라이드 효과 */}
+            <div
+              className="absolute inset-0 flex"
+              style={{
+                transform: `translateX(${-vw() + dx}px)`,
+                transition: sliding ? "transform 0.28s ease-out" : "none",
+              }}
+              onTransitionEnd={onSlideEnd}
+            >
+              {[-1, 0, 1].map((off) => {
+                const n = ((active + off + total) % total) + 1;
+                return (
+                  <div
+                    key={off}
+                    className="flex h-full w-screen shrink-0 items-center justify-center"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={src(n)}
+                      alt={`갤러리 사진 ${n}`}
+                      className="max-h-[82vh] w-auto max-w-[88%] object-contain"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+
             <button
-              className="absolute right-5 top-5 text-2xl text-white"
+              className="absolute right-5 top-5 z-10 text-2xl text-white"
               aria-label="닫기"
               onClick={() => setActive(null)}
             >
               ✕
             </button>
             <button
-              className="absolute left-4 text-3xl text-white/80"
+              className="absolute left-4 top-1/2 z-10 -translate-y-1/2 text-3xl text-white/80"
               aria-label="이전"
-              onClick={() => go(-1)}
+              onClick={() => slideTo(-1)}
             >
               ‹
             </button>
             <button
-              className="absolute right-4 text-3xl text-white/80"
+              className="absolute right-4 top-1/2 z-10 -translate-y-1/2 text-3xl text-white/80"
               aria-label="다음"
-              onClick={() => go(1)}
+              onClick={() => slideTo(1)}
             >
               ›
             </button>

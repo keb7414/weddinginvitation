@@ -39,6 +39,16 @@ export function Gallery() {
     });
   }, [active, total]);
 
+  // 라이트박스 열려 있는 동안 뒤 페이지 스크롤 잠금
+  useEffect(() => {
+    if (active === null) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [active]);
+
   // dir 방향으로 슬라이드(버튼/스와이프 공통). 애니메이션 끝나면 onEnd 에서 인덱스 교체.
   const slideTo = (dir: number) => {
     pending.current = dir;
@@ -111,7 +121,7 @@ export function Gallery() {
         typeof document !== "undefined" &&
         createPortal(
           <div
-            className="fixed inset-0 z-[80] overflow-hidden bg-black/90"
+            className="fixed inset-0 z-[80] touch-none select-none overflow-hidden bg-black/90"
             onTouchStart={(e) => {
               startX.current = e.touches[0].clientX;
               setSliding(false);

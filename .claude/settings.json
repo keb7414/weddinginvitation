@@ -29,7 +29,8 @@
       "Bash(git -c commit.gpgsign=false commit -q -m 'feat: URL 링크 미리보기용 og.jpg\\(위쪽 크롭, 아래 보존\\) 추가 — 카톡은 share.jpg 유지 *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'feat: 갤러리 라이트박스 스와이프 넘김 + 닫기는 X 버튼만\\(여백 클릭 닫힘 제거\\) *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'perf: 라이트박스 앞뒤 사진 프리로드 — 넘길 때 즉시 표시 *)",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'perf: 갤러리 원본\\(라이트박스용\\)을 1500px/q82로 축소 \\(7.9MB→2.8MB\\) *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'perf: 갤러리 원본\\(라이트박스용\\)을 1500px/q82로 축소 \\(7.9MB→2.8MB\\) *)",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 사진 볼 때 뒤 페이지 스크롤 잠금 + 오버레이 touch-none — 스와이프/버튼만 동작 *)"
     ]
   }
 }

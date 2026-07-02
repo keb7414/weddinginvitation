@@ -6,11 +6,13 @@ import { Section, SectionTitle } from "./Section";
 import { wedding } from "@/lib/data";
 import { asset } from "@/lib/asset";
 
+// 원본(라이트박스용) / 썸네일(그리드용 — 축소·압축본)
 const src = (n: number) => asset(`/images/gallery/gallery_${n}.jpg`);
+const thumb = (n: number) => asset(`/images/gallery/thumb/gallery_${n}.jpg`);
 
 // 가로사진 번호(1-based) — 한 줄에 2개씩 표시(col-span-3). 나머지 세로사진은 3개씩(col-span-2).
 // ※ 사진을 교체해 방향이 바뀌면 이 목록을 갱신하세요.
-const LANDSCAPE = new Set([13, 14]);
+const LANDSCAPE = new Set([7, 8]);
 
 export function Gallery() {
   const [expanded, setExpanded] = useState(false);
@@ -37,7 +39,7 @@ export function Gallery() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={src(n)}
+                src={thumb(n)}
                 alt={`갤러리 사진 ${n}`}
                 loading="lazy"
                 className="h-full w-full object-cover"

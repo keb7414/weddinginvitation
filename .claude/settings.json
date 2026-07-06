@@ -34,7 +34,9 @@
       "Bash(git -c commit.gpgsign=false commit -q -m 'feat: 전체 이미지 교체·최적화 + 공유 이미지 얼굴/상반신 크롭 + 예식당일 문구 *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 갤러리 스와이프 방향 잠금\\(가로만\\) + 데드존 — 세로/미세 움직임 흔들림 제거 *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'style: 카카오 공유 이미지\\(1:1\\) 얼굴 중앙 정렬 + 신랑 머리 위 여백 증가 *)",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 카카오 공유 이미지 얼굴 위치를 상단 1/3로 조정 *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 카카오 공유 이미지 얼굴 위치를 상단 1/3로 조정 *)",
+      "Bash(curl -s \"https://invitation-eb-sc.vercel.app/images/kakao.jpg\" -o /tmp/k.jpg -w \"HTTP %{http_code}  size=%{size_download} bytes\\\\n\")",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 갤러리 원본·커버·인사말 사진 원본 해상도\\(1200x1800\\) 복구 — 고DPR 모바일 깨짐 해결 \\(썸네일만 축소 유지\\) *)"
     ]
   }
 }

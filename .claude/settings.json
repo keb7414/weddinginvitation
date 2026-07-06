@@ -36,7 +36,10 @@
       "Bash(git -c commit.gpgsign=false commit -q -m 'style: 카카오 공유 이미지\\(1:1\\) 얼굴 중앙 정렬 + 신랑 머리 위 여백 증가 *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'style: 카카오 공유 이미지 얼굴 위치를 상단 1/3로 조정 *)",
       "Bash(curl -s \"https://invitation-eb-sc.vercel.app/images/kakao.jpg\" -o /tmp/k.jpg -w \"HTTP %{http_code}  size=%{size_download} bytes\\\\n\")",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 갤러리 원본·커버·인사말 사진 원본 해상도\\(1200x1800\\) 복구 — 고DPR 모바일 깨짐 해결 \\(썸네일만 축소 유지\\) *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 갤러리 원본·커버·인사말 사진 원본 해상도\\(1200x1800\\) 복구 — 고DPR 모바일 깨짐 해결 \\(썸네일만 축소 유지\\) *)",
+      "Bash(awk '{print $5\" bytes\"}')",
+      "Bash(curl -s -o /dev/null -w \"main.jpg -> %{size_download} bytes, HTTP %{http_code}\\\\n\" \"https://invitation-eb-sc.vercel.app/images/main.jpg?v=$\\(date +%s\\)\")",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'change: URL 링크 공유\\(OG\\) 이미지를 share.jpg\\(세로 전신\\)로 변경 *)"
     ]
   }
 }

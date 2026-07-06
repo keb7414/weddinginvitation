@@ -25,6 +25,8 @@ export function Gallery() {
   const [dx, setDx] = useState(0); // 트랙 이동량(px)
   const [sliding, setSliding] = useState(false); // transition on/off
   const startX = useRef<number | null>(null);
+  const startY = useRef<number | null>(null);
+  const axisLock = useRef<"h" | "v" | null>(null); // 제스처 방향 잠금
   const pending = useRef(0); // 애니메이션 중인 이동 방향
 
   const vw = () => (typeof window !== "undefined" ? window.innerWidth : 0);
@@ -127,23 +129,36 @@ export function Gallery() {
             className="fixed inset-0 z-[80] touch-none select-none overflow-hidden bg-black/90"
             onTouchStart={(e) => {
               startX.current = e.touches[0].clientX;
+              startY.current = e.touches[0].clientY;
+              axisLock.current = null;
               setSliding(false);
             }}
             onTouchMove={(e) => {
-              if (startX.current === null || active === null) return;
-              let delta = e.touches[0].clientX - startX.current;
-              // 양끝에서는 더 못 넘어가게(순환 없음)
+              if (startX.current === null || startY.current === null || active === null)
+                return;
+              const dxRaw = e.touches[0].clientX - startX.current;
+              const dyRaw = e.touches[0].clientY - startY.current;
+              // 처음 움직임 방향 판별(데드존 10px) — 가로일 때만 사진 이동, 세로는 무시
+              if (axisLock.current === null) {
+                if (Math.abs(dxRaw) < 10 && Math.abs(dyRaw) < 10) return;
+                axisLock.current = Math.abs(dxRaw) > Math.abs(dyRaw) ? "h" : "v";
+              }
+              if (axisLock.current !== "h") return; // 세로/대각 제스처는 사진 안 흔들리게 무시
+              let delta = dxRaw;
               if (active === 0 && delta > 0) delta = 0; // 처음: 이전 막기
               if (active === total - 1 && delta < 0) delta = 0; // 끝: 다음 막기
               setDx(delta);
             }}
             onTouchEnd={(e) => {
               if (startX.current === null || active === null) return;
+              const wasH = axisLock.current === "h";
               const d = e.changedTouches[0].clientX - startX.current;
               startX.current = null;
+              startY.current = null;
+              axisLock.current = null;
               const th = 50;
-              if (d < -th && active < total - 1) slideTo(1); // 왼쪽으로 밀면 다음
-              else if (d > th && active > 0) slideTo(-1); // 오른쪽으로 밀면 이전
+              if (wasH && d < -th && active < total - 1) slideTo(1); // 왼쪽으로 밀면 다음
+              else if (wasH && d > th && active > 0) slideTo(-1); // 오른쪽으로 밀면 이전
               else {
                 pending.current = 0; // 스냅백
                 setSliding(true);

@@ -72,7 +72,7 @@ export function Calendar() {
               예식일까지, <span className="font-medium text-point">D-{dday}</span>
             </>
           ) : dday === 0 ? (
-            <span className="font-medium text-point">D-DAY</span>
+            <span className="font-medium text-point">예식일이 오늘입니다.</span>
           ) : (
             <span className="text-muted">결혼을 축하합니다</span>
           )}

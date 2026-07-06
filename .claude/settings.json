@@ -32,7 +32,8 @@
       "Bash(git -c commit.gpgsign=false commit -q -m 'perf: 갤러리 원본\\(라이트박스용\\)을 1500px/q82로 축소 \\(7.9MB→2.8MB\\) *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 사진 볼 때 뒤 페이지 스크롤 잠금 + 오버레이 touch-none — 스와이프/버튼만 동작 *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'feat: 전체 이미지 교체·최적화 + 공유 이미지 얼굴/상반신 크롭 + 예식당일 문구 *)",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 갤러리 스와이프 방향 잠금\\(가로만\\) + 데드존 — 세로/미세 움직임 흔들림 제거 *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 갤러리 스와이프 방향 잠금\\(가로만\\) + 데드존 — 세로/미세 움직임 흔들림 제거 *)",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 카카오 공유 이미지\\(1:1\\) 얼굴 중앙 정렬 + 신랑 머리 위 여백 증가 *)"
     ]
   }
 }

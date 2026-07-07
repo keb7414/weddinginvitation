@@ -41,7 +41,8 @@
       "Bash(curl -s -o /dev/null -w \"main.jpg -> %{size_download} bytes, HTTP %{http_code}\\\\n\" \"https://invitation-eb-sc.vercel.app/images/main.jpg?v=$\\(date +%s\\)\")",
       "Bash(git -c commit.gpgsign=false commit -q -m 'change: URL 링크 공유\\(OG\\) 이미지를 share.jpg\\(세로 전신\\)로 변경 *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 카카오 공유 이미지를 가로형\\(3:2\\)로 변경 + 인물 좌우 중앙 정렬 \\(카톡 표시비율 대응\\) *)",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 카카오 이미지 인물 우측 이동 — 신부 좌측/신랑 우측 여백 균형 *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 카카오 이미지 인물 우측 이동 — 신부 좌측/신랑 우측 여백 균형 *)",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 카카오 이미지 신부 좌측 여백 확대·신랑 우측 여백 축소 *)"
     ]
   }
 }

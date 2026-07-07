@@ -73,7 +73,7 @@ export function ShareButtons() {
   const shareLink = async () => {
     const url = window.location.href.split("?")[0]; // 혼주용 등 쿼리 제거
     const { groom, bride, date, venue } = wedding;
-    const imageUrl = `${window.location.origin}/images/kakao.jpg`;
+    const imageUrl = `${window.location.origin}/images/kakao.jpg?v=2`;
 
     // 1순위: 카카오 SDK(친구목록)
     if (window.Kakao?.Share && window.Kakao.isInitialized?.()) {

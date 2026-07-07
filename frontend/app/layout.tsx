@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     images: [
       {
-        url: SITE_URL + "images/og.jpg",
+        url: SITE_URL + "images/og.jpg?v=2",
         width: 1200,
         height: 628,
         alt: title,

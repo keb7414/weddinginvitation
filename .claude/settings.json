@@ -43,7 +43,8 @@
       "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 카카오 공유 이미지를 가로형\\(3:2\\)로 변경 + 인물 좌우 중앙 정렬 \\(카톡 표시비율 대응\\) *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'style: 카카오 이미지 인물 우측 이동 — 신부 좌측/신랑 우측 여백 균형 *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'style: 카카오 이미지 신부 좌측 여백 확대·신랑 우측 여백 축소 *)",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'change: URL 링크\\(OG\\) 이미지를 og.jpg\\(가로\\)로 복귀 + 인물 좌측 이동\\(신부 좌측 여백↓·신랑 우측 여백↑\\) *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'change: URL 링크\\(OG\\) 이미지를 og.jpg\\(가로\\)로 복귀 + 인물 좌측 이동\\(신부 좌측 여백↓·신랑 우측 여백↑\\) *)",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'change: URL 링크\\(OG\\) 이미지 교체\\(하트 포즈\\) — 1200x630, 캐시버스트 v3 *)"
     ]
   }
 }

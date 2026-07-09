@@ -44,7 +44,10 @@
       "Bash(git -c commit.gpgsign=false commit -q -m 'style: 카카오 이미지 인물 우측 이동 — 신부 좌측/신랑 우측 여백 균형 *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'style: 카카오 이미지 신부 좌측 여백 확대·신랑 우측 여백 축소 *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'change: URL 링크\\(OG\\) 이미지를 og.jpg\\(가로\\)로 복귀 + 인물 좌측 이동\\(신부 좌측 여백↓·신랑 우측 여백↑\\) *)",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'change: URL 링크\\(OG\\) 이미지 교체\\(하트 포즈\\) — 1200x630, 캐시버스트 v3 *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'change: URL 링크\\(OG\\) 이미지 교체\\(하트 포즈\\) — 1200x630, 캐시버스트 v3 *)",
+      "Bash(node -e \"const d=new Date\\(2026,6,9\\); console.log\\('2026-07-09 요일:', ['일','월','화','수','목','금','토'][d.getDay\\(\\)]+'요일'\\);\")",
+      "Bash(ls -1 audio/)",
+      "Bash(find . -iname \"*.mp3\")"
     ]
   }
 }

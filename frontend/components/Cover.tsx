@@ -1,40 +1,27 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { wedding } from "@/lib/data";
 import { asset } from "@/lib/asset";
 import { FallingHearts } from "./FallingHearts";
 import { LikeButton } from "./LikeButton";
 
 export function Cover() {
-  // ===== 배경음악(BGM) — 현재 숨김. 살리려면 아래 블록과 JSX의 BGM 주석을 해제 =====
-  // const audioRef = useRef<HTMLAudioElement | null>(null);
-  // const [playing, setPlaying] = useState(false);
-  //
-  // const toggle = () => {
-  //   const el = audioRef.current;
-  //   if (!el) return;
-  //   if (playing) {
-  //     el.pause();
-  //   } else {
-  //     el.play().catch(() => {/* 자동재생 차단 시 무시 */});
-  //   }
-  //   setPlaying(!playing);
-  // };
-  //
-  // // 기본은 정지, 첫 화면 터치/클릭 시 1회 자동 재생 (모바일 자동재생 정책 대응)
-  // useEffect(() => {
-  //   const startOnce = () => {
-  //     const el = audioRef.current;
-  //     if (el && el.paused) {
-  //       el.play()
-  //         .then(() => setPlaying(true))
-  //         .catch(() => {/* 차단 시 무시 — 버튼으로 재생 */});
-  //     }
-  //   };
-  //   document.addEventListener("pointerdown", startOnce, { once: true });
-  //   return () => document.removeEventListener("pointerdown", startOnce);
-  // }, []);
-  // ===========================================================================
+  // 배경음악 — 기본은 정지 상태. 버튼을 눌러야 재생됨(자동재생 없음).
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [playing, setPlaying] = useState(false);
+
+  const toggle = () => {
+    const el = audioRef.current;
+    if (!el) return;
+    if (el.paused) {
+      el.play().catch(() => {
+        /* 브라우저가 막으면 무시 */
+      });
+    } else {
+      el.pause();
+    }
+  };
 
   const { groom, bride, date, venue } = wedding;
 
@@ -46,25 +33,31 @@ export function Cover() {
       {/* 좋아요 버튼 (우측 상단) */}
       <LikeButton />
 
-      {/* ===== 배경음악(BGM) 버튼·오디오 — 현재 숨김. 살리려면 주석 해제 =====
+      {/* 배경음악 버튼 (좌측 상단) — 회색 원 안에 흰 재생/정지 아이콘 */}
       <button
         onClick={toggle}
-        aria-label="배경음악 재생/정지"
-        className="absolute right-5 top-5 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-[#f1ece4]/90 shadow-sm backdrop-blur"
+        aria-label={playing ? "배경음악 정지" : "배경음악 재생"}
+        className="absolute left-5 top-5 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-[#cfc8bd]/90 shadow-sm backdrop-blur"
       >
         {playing ? (
-          <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 text-[#b3a89a]">
-            <rect x="6" y="5" width="4" height="14" rx="1" />
-            <rect x="14" y="5" width="4" height="14" rx="1" />
+          <svg viewBox="0 0 24 24" fill="white" className="h-[15px] w-[15px]">
+            <rect x="6.5" y="5" width="4" height="14" rx="1.2" />
+            <rect x="13.5" y="5" width="4" height="14" rx="1.2" />
           </svg>
         ) : (
-          <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 text-[#b3a89a]">
+          <svg viewBox="0 0 24 24" fill="white" className="ml-[2px] h-[15px] w-[15px]">
             <path d="M8 5.5v13a1 1 0 0 0 1.5.87l11-6.5a1 1 0 0 0 0-1.74l-11-6.5A1 1 0 0 0 8 5.5z" />
           </svg>
         )}
       </button>
-      <audio ref={audioRef} loop src={asset("/audio/bgm.mp3")} />
-      ===================================================================== */}
+      <audio
+        ref={audioRef}
+        loop
+        preload="none"
+        src={asset("/audio/morning-light.mp3")}
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+      />
 
       {/* INVITATION + 이름 */}
       <div className="px-15 pb-10 pt-[4.5rem] text-center">

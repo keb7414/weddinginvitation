@@ -48,7 +48,11 @@
       "Bash(node -e \"const d=new Date\\(2026,6,9\\); console.log\\('2026-07-09 요일:', ['일','월','화','수','목','금','토'][d.getDay\\(\\)]+'요일'\\);\")",
       "Bash(ls -1 audio/)",
       "Bash(find . -iname \"*.mp3\")",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 음악 버튼 원 크기 축소\\(36→32px\\), 재생 삼각형 확대\\(15→18px\\) *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 음악 버튼 원 크기 축소\\(36→32px\\), 재생 삼각형 확대\\(15→18px\\) *)",
+      "Bash(curl -s -o /dev/null -w \"/ -> HTTP %{http_code}\\\\n\" \"http://localhost:3000/\")",
+      "Bash(curl -s -o /dev/null -w \"/icon.png -> HTTP %{http_code}\\\\n\" \"http://localhost:3000/icon.png\")",
+      "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/rpc/visit_recent -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -d '{\"p_limit\":10}' -w '\\\\n  [HTTP %{http_code}]\\\\n')",
+      "Bash(python -c 'import sys,json,datetime; *)"
     ]
   }
 }

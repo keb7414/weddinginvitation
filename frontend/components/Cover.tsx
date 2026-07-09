@@ -15,6 +15,7 @@ export function Cover() {
     const el = audioRef.current;
     if (!el) return;
     if (el.paused) {
+      el.volume = 0.25; // 배경음악이므로 작게
       el.play().catch(() => {
         /* 브라우저가 막으면 무시 */
       });

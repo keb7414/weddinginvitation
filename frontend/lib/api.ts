@@ -133,11 +133,13 @@ export type VisitInfo = {
   user_agent: string | null;
   referrer: string | null;
   path: string | null;
-  created_at: string;
+  created_at: string; // 최초 방문
+  last_seen: string; // 최근 방문
+  visit_count: number; // 방문 횟수(재방문 포함)
 };
 
 export const visitApi = {
-  // 같은 기기(브라우저)는 1회만 기록. localStorage 영구 ID 사용 → 경로/세션/탭 무관 중복 방지.
+  // 기기당 1행. 최초 방문은 새 행, 재방문은 last_seen/visit_count 갱신.
   track: async () => {
     if (typeof window === "undefined") return;
     // 로컬/LAN(개발 환경) 접속은 집계 제외 — 실제 배포 방문만 카운트
@@ -164,19 +166,16 @@ export const visitApi = {
     }
     // 핑거프린트(우선) 또는 localStorage UUID 로 기기 식별
     const id = await resolveVisitorId();
-    // 일반 INSERT — 같은 기기는 visitor_id(PK) 충돌(23505)로 거부되며 그게 곧 중복 방지.
-    // (upsert/ON CONFLICT 는 충돌행 조회용 SELECT 권한이 필요해 RLS 거부되므로 일반 insert 사용)
-    const { error } = await supabase.from("visit").insert({
-      visitor_id: id,
-      user_agent: navigator.userAgent,
-      referrer: document.referrer || null,
-      path: window.location.pathname,
-      language: navigator.language,
+    // RPC(SECURITY DEFINER) 로 기록 — 최초 방문은 INSERT, 재방문은 last_seen/횟수 갱신.
+    // anon 에 UPDATE 권한을 직접 주지 않아도 되므로 안전하다.
+    await supabase.rpc("visit_track", {
+      p_visitor_id: id,
+      p_user_agent: navigator.userAgent,
+      p_referrer: document.referrer || null,
+      p_path: window.location.pathname,
+      p_language: navigator.language,
     });
-    // 23505 = 중복(재방문) → 정상. 그 외 에러는 best-effort 로 무시.
-    if (error && error.code !== "23505") {
-      // 집계 실패는 사용자 경험에 영향 없으므로 조용히 무시
-    }
+    // 집계 실패는 사용자 경험에 영향 없으므로 조용히 무시
   },
 
   count: async (): Promise<number> => {

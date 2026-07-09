@@ -305,13 +305,15 @@ export default function Dashboard() {
                       <th className="whitespace-nowrap px-3 py-2 text-left font-normal">기기</th>
                       <th className="whitespace-nowrap px-3 py-2 text-left font-normal">유입</th>
                       <th className="whitespace-nowrap px-3 py-2 text-left font-normal">경로</th>
-                      <th className="whitespace-nowrap px-3 py-2 text-left font-normal">시각</th>
+                      <th className="whitespace-nowrap px-3 py-2 text-center font-normal">방문</th>
+                      <th className="whitespace-nowrap px-3 py-2 text-left font-normal">최초 방문</th>
+                      <th className="whitespace-nowrap px-3 py-2 text-left font-normal">최근 방문</th>
                     </tr>
                   </thead>
                   <tbody>
                     {visitLog.length === 0 && (
                       <tr>
-                        <td colSpan={4} className="px-3 py-6 text-center text-muted">
+                        <td colSpan={6} className="px-3 py-6 text-center text-muted">
                           아직 접속 기록이 없습니다.
                         </td>
                       </tr>
@@ -327,8 +329,20 @@ export default function Dashboard() {
                         <td className="whitespace-nowrap px-3 py-2.5 text-ink/80">
                           {v.path || "/"}
                         </td>
+                        <td className="whitespace-nowrap px-3 py-2.5 text-center text-ink/80">
+                          {(v.visit_count ?? 1) > 1 ? (
+                            <span className="rounded-full bg-point/10 px-2 py-0.5 text-[11px] text-point">
+                              {v.visit_count}회
+                            </span>
+                          ) : (
+                            <span className="text-[11px] text-muted">1회</span>
+                          )}
+                        </td>
                         <td className="whitespace-nowrap px-3 py-2.5 text-[11px] text-muted">
                           {fmt(v.created_at)}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-2.5 text-[11px] text-muted">
+                          {fmt(v.last_seen ?? v.created_at)}
                         </td>
                       </tr>
                     ))}

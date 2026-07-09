@@ -47,7 +47,8 @@
       "Bash(git -c commit.gpgsign=false commit -q -m 'change: URL 링크\\(OG\\) 이미지 교체\\(하트 포즈\\) — 1200x630, 캐시버스트 v3 *)",
       "Bash(node -e \"const d=new Date\\(2026,6,9\\); console.log\\('2026-07-09 요일:', ['일','월','화','수','목','금','토'][d.getDay\\(\\)]+'요일'\\);\")",
       "Bash(ls -1 audio/)",
-      "Bash(find . -iname \"*.mp3\")"
+      "Bash(find . -iname \"*.mp3\")",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 음악 버튼 원 크기 축소\\(36→32px\\), 재생 삼각형 확대\\(15→18px\\) *)"
     ]
   }
 }

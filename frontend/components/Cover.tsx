@@ -37,15 +37,15 @@ export function Cover() {
       <button
         onClick={toggle}
         aria-label={playing ? "배경음악 정지" : "배경음악 재생"}
-        className="absolute left-5 top-5 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-[#cfc8bd]/90 shadow-sm backdrop-blur"
+        className="absolute left-5 top-5 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-[#cfc8bd]/90 shadow-sm backdrop-blur"
       >
         {playing ? (
-          <svg viewBox="0 0 24 24" fill="white" className="h-[15px] w-[15px]">
+          <svg viewBox="0 0 24 24" fill="white" className="h-[16px] w-[16px]">
             <rect x="6.5" y="5" width="4" height="14" rx="1.2" />
             <rect x="13.5" y="5" width="4" height="14" rx="1.2" />
           </svg>
         ) : (
-          <svg viewBox="0 0 24 24" fill="white" className="ml-[2px] h-[15px] w-[15px]">
+          <svg viewBox="0 0 24 24" fill="white" className="ml-[2px] h-[18px] w-[18px]">
             <path d="M8 5.5v13a1 1 0 0 0 1.5.87l11-6.5a1 1 0 0 0 0-1.74l-11-6.5A1 1 0 0 0 8 5.5z" />
           </svg>
         )}

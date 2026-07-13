@@ -52,7 +52,10 @@
       "Bash(curl -s -o /dev/null -w \"/ -> HTTP %{http_code}\\\\n\" \"http://localhost:3000/\")",
       "Bash(curl -s -o /dev/null -w \"/icon.png -> HTTP %{http_code}\\\\n\" \"http://localhost:3000/icon.png\")",
       "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/rpc/visit_recent -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -d '{\"p_limit\":10}' -w '\\\\n  [HTTP %{http_code}]\\\\n')",
-      "Bash(python -c 'import sys,json,datetime; *)"
+      "Bash(python -c 'import sys,json,datetime; *)",
+      "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/rpc/visit_recent -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -d '{\"p_limit\":10}')",
+      "Bash(node -e ' *)",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'change: 갤러리 1~4번 사진 교체 + 썸네일 재생성 *)"
     ]
   }
 }

@@ -157,7 +157,6 @@ export function Gallery() {
               {[-1, 0, 1].map((off) => {
                 const idx = active + off;
                 const has = idx >= 0 && idx < total; // 범위 밖(처음/끝 너머)은 빈 칸
-                const isLand = has && LANDSCAPE.has(idx + 1);
                 return (
                   <div
                     key={off}
@@ -168,12 +167,8 @@ export function Gallery() {
                       <img
                         src={src(idx + 1)}
                         alt={`갤러리 사진 ${idx + 1}`}
-                        // 세로: 화면 꽉 채움(여백 없이 확대) / 가로: 과도한 크롭 방지 위해 전체 표시
-                        className={
-                          isLand
-                            ? "max-h-full w-full object-contain"
-                            : "h-full w-full object-cover"
-                        }
+                        // 좌우는 폭에 꽉 차게, 상하는 사진 비율대로(검정 여백) — 잘림 없음
+                        className="h-full w-full object-contain"
                       />
                     )}
                   </div>

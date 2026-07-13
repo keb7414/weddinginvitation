@@ -26,7 +26,6 @@ export function Gallery() {
   const [sliding, setSliding] = useState(false); // transition on/off
   const startX = useRef<number | null>(null);
   const startY = useRef<number | null>(null);
-  const axisLock = useRef<"h" | "v" | null>(null); // 제스처 방향 잠금
   const pending = useRef(0); // 애니메이션 중인 이동 방향
 
   const vw = () => (typeof window !== "undefined" ? window.innerWidth : 0);
@@ -130,39 +129,19 @@ export function Gallery() {
             onTouchStart={(e) => {
               startX.current = e.touches[0].clientX;
               startY.current = e.touches[0].clientY;
-              axisLock.current = null;
-              setSliding(false);
-            }}
-            onTouchMove={(e) => {
-              if (startX.current === null || startY.current === null || active === null)
-                return;
-              const dxRaw = e.touches[0].clientX - startX.current;
-              const dyRaw = e.touches[0].clientY - startY.current;
-              // 처음 움직임 방향 판별(데드존 10px) — 가로일 때만 사진 이동, 세로는 무시
-              if (axisLock.current === null) {
-                if (Math.abs(dxRaw) < 10 && Math.abs(dyRaw) < 10) return;
-                axisLock.current = Math.abs(dxRaw) > Math.abs(dyRaw) ? "h" : "v";
-              }
-              if (axisLock.current !== "h") return; // 세로/대각 제스처는 사진 안 흔들리게 무시
-              let delta = dxRaw;
-              if (active === 0 && delta > 0) delta = 0; // 처음: 이전 막기
-              if (active === total - 1 && delta < 0) delta = 0; // 끝: 다음 막기
-              setDx(delta);
             }}
             onTouchEnd={(e) => {
-              if (startX.current === null || active === null) return;
-              const wasH = axisLock.current === "h";
-              const d = e.changedTouches[0].clientX - startX.current;
+              if (startX.current === null || startY.current === null || active === null)
+                return;
+              const dx = e.changedTouches[0].clientX - startX.current;
+              const dy = e.changedTouches[0].clientY - startY.current;
               startX.current = null;
               startY.current = null;
-              axisLock.current = null;
-              const th = 50;
-              if (wasH && d < -th && active < total - 1) slideTo(1); // 왼쪽으로 밀면 다음
-              else if (wasH && d > th && active > 0) slideTo(-1); // 오른쪽으로 밀면 이전
-              else {
-                pending.current = 0; // 스냅백
-                setSliding(true);
-                setDx(0);
+              // 스와이프 중엔 사진 안 움직임 — 손을 뗀 뒤에만 이동.
+              // 가로 이동이 세로보다 크고(세로 제스처 무시) 임계값(50px) 이상일 때만 전환.
+              if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+                if (dx < 0 && active < total - 1) slideTo(1); // 왼쪽으로 밀면 다음
+                else if (dx > 0 && active > 0) slideTo(-1); // 오른쪽으로 밀면 이전
               }
             }}
           >
@@ -203,30 +182,36 @@ export function Gallery() {
             </div>
 
             <button
-              className="absolute right-5 top-5 z-10 text-2xl text-white"
+              className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-sm"
               aria-label="닫기"
               onClick={() => setActive(null)}
             >
-              ✕
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" className="h-5 w-5">
+                <path d="M6 6l12 12M18 6L6 18" />
+              </svg>
             </button>
             {/* 처음이 아니면 이전 버튼 표시 */}
             {active > 0 && (
               <button
-                className="absolute left-4 top-1/2 z-10 -translate-y-1/2 text-3xl text-white/80"
+                className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/35 text-white shadow-md backdrop-blur-sm"
                 aria-label="이전"
                 onClick={() => slideTo(-1)}
               >
-                ‹
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 -translate-x-[1px]">
+                  <path d="M15 5l-7 7 7 7" />
+                </svg>
               </button>
             )}
             {/* 끝이 아니면 다음 버튼 표시 */}
             {active < total - 1 && (
               <button
-                className="absolute right-4 top-1/2 z-10 -translate-y-1/2 text-3xl text-white/80"
+                className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/35 text-white shadow-md backdrop-blur-sm"
                 aria-label="다음"
                 onClick={() => slideTo(1)}
               >
-                ›
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 translate-x-[1px]">
+                  <path d="M9 5l7 7-7 7" />
+                </svg>
               </button>
             )}
             {/* 현재 위치 — 처음/끝을 알 수 있게 */}

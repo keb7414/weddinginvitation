@@ -74,6 +74,10 @@ export function ShareButtons() {
     const url = window.location.href.split("?")[0]; // 혼주용 등 쿼리 제거
     const { groom, bride, date, venue } = wedding;
     const imageUrl = `${window.location.origin}/images/kakao.jpg?v=2`;
+    // 위치보기 — 카카오맵에서 예식장 검색
+    const mapUrl = `https://map.kakao.com/?q=${encodeURIComponent(
+      `${venue.name} ${venue.hall}`
+    )}`;
 
     // 1순위: 카카오 SDK(친구목록)
     if (window.Kakao?.Share && window.Kakao.isInitialized?.()) {
@@ -87,6 +91,7 @@ export function ShareButtons() {
         },
         buttons: [
           { title: "청첩장 보기", link: { mobileWebUrl: url, webUrl: url } },
+          { title: "위치보기", link: { mobileWebUrl: mapUrl, webUrl: mapUrl } },
         ],
       });
       return;

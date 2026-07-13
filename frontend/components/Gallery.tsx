@@ -178,17 +178,23 @@ export function Gallery() {
               {[-1, 0, 1].map((off) => {
                 const idx = active + off;
                 const has = idx >= 0 && idx < total; // 범위 밖(처음/끝 너머)은 빈 칸
+                const isLand = has && LANDSCAPE.has(idx + 1);
                 return (
                   <div
                     key={off}
-                    className="flex h-full w-screen shrink-0 items-center justify-center"
+                    className="flex h-full w-screen shrink-0 items-center justify-center overflow-hidden"
                   >
                     {has && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={src(idx + 1)}
                         alt={`갤러리 사진 ${idx + 1}`}
-                        className="max-h-[82vh] w-auto max-w-[88%] object-contain"
+                        // 세로: 화면 꽉 채움(여백 없이 확대) / 가로: 과도한 크롭 방지 위해 전체 표시
+                        className={
+                          isLand
+                            ? "max-h-full w-full object-contain"
+                            : "h-full w-full object-cover"
+                        }
                       />
                     )}
                   </div>

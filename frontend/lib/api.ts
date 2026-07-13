@@ -156,9 +156,13 @@ export const visitApi = {
     // 관리자 대시보드 접속은 집계 제외
     if (window.location.pathname.includes("/dashboard")) return;
     // 혼주/가족용 링크(?host=1)는 집계 제외. 한 번 들어오면 그 기기는 이후에도 계속 제외.
+    // ?host=0 으로 접속하면 그 기기의 제외를 해제(다시 집계).
     try {
-      if (new URLSearchParams(window.location.search).get("host") === "1") {
+      const hostParam = new URLSearchParams(window.location.search).get("host");
+      if (hostParam === "1") {
         localStorage.setItem("invite_host", "1");
+      } else if (hostParam === "0") {
+        localStorage.removeItem("invite_host");
       }
       if (localStorage.getItem("invite_host") === "1") return;
     } catch {

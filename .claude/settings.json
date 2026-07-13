@@ -56,7 +56,10 @@
       "Bash(curl -s -X POST https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/rpc/visit_recent -H 'apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd' -H 'Content-Type: application/json' -d '{\"p_limit\":10}')",
       "Bash(node -e ' *)",
       "Bash(git -c commit.gpgsign=false commit -q -m 'change: 갤러리 1~4번 사진 교체 + 썸네일 재생성 *)",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 갤러리 확대보기 세로사진 화면 꽉 채움\\(object-cover, 검정 여백 제거\\) *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 갤러리 확대보기 세로사진 화면 꽉 채움\\(object-cover, 검정 여백 제거\\) *)",
+      "Bash(curl -s https://invitation-eb-sc.vercel.app/_next/static/chunks/app/page-99ed25bf1a13dc7f.js)",
+      "Bash(grep -oE '.{0,60}map\\\\.kakao\\\\.com/\\\\?q=.{0,40}')",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'feat: ?host=0 접속 시 혼주 제외 해제 — 기기 집계 복구 수단 *)"
     ]
   }
 }

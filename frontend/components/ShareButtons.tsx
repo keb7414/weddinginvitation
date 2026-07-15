@@ -74,11 +74,10 @@ export function ShareButtons() {
     const url = window.location.href.split("?")[0]; // 혼주용 등 쿼리 제거
     const { groom, bride, date, venue } = wedding;
     const imageUrl = `${window.location.origin}/images/kakao.jpg?v=2`;
-    // 위치보기 — 카카오맵 모바일 검색뷰로 바로 열기(주소).
-    // (map.kakao.com/?q= 는 카톡 인앱에서 앱 딥링크로 빠져 페이지가 어정쩡하게 뜸)
-    const mapUrl = `https://m.map.kakao.com/actions/searchView?q=${encodeURIComponent(
-      venue.address
-    )}`;
+    // 위치보기 — Kakao Share 버튼 링크는 '등록된 우리 도메인'이어야 하므로
+    // 외부(map.kakao.com) 직접 링크는 무시되고 청첩장으로 대체된다.
+    // 우리 도메인의 /map 리다이렉트 페이지를 거쳐 카카오맵으로 넘긴다.
+    const mapUrl = `${window.location.origin}/map`;
 
     // 1순위: 카카오 SDK(친구목록)
     if (window.Kakao?.Share && window.Kakao.isInitialized?.()) {

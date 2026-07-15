@@ -10,8 +10,11 @@ import { wedding } from "@/lib/data";
  */
 export default function MapRedirect() {
   useEffect(() => {
-    const q = encodeURIComponent(wedding.venue.address);
-    window.location.replace(`https://m.map.kakao.com/actions/searchView?q=${q}`);
+    // 카카오맵 '장소 페이지'로 바로 이동 → 지도 + 핀 + 길찾기/내비 버튼 표시.
+    // (searchView 는 '검색' 화면이라 지도가 안 뜸)
+    window.location.replace(
+      `https://place.map.kakao.com/${wedding.venue.kakaoPlaceId}`
+    );
   }, []);
 
   return (

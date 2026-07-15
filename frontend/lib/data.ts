@@ -28,8 +28,9 @@ export const wedding = {
     name: "경향교회",
     hall: "비전홀",
     address: "서울 강서구 화곡로 375",
-    lat: 37.5665,
-    lng: 126.978,
+    lat: 37.5573581666693,
+    lng: 126.852449903241,
+    kakaoPlaceId: "8685561", // 카카오맵 장소 ID (위치보기 링크용)
     tel: "",
   },
   greeting: {

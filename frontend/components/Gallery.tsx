@@ -34,8 +34,7 @@ export function Gallery() {
   useEffect(() => {
     if (active === null) return;
     [-2, -1, 1, 2].forEach((d) => {
-      const idx = active + d;
-      if (idx < 0 || idx >= total) return; // 순환 없음
+      const idx = (active + d + total * 2) % total; // 순환
       const im = new window.Image();
       im.src = src(idx + 1);
     });
@@ -67,9 +66,7 @@ export function Gallery() {
     pending.current = 0;
     setSliding(false);
     setDx(0);
-    setActive((a) =>
-      a === null ? a : Math.max(0, Math.min(total - 1, a + dir)) // 순환 없이 양끝에서 멈춤
-    );
+    setActive((a) => (a === null ? a : (a + dir + total) % total)); // 양끝에서 순환
   };
 
   return (
@@ -140,8 +137,7 @@ export function Gallery() {
               // 스와이프 중엔 사진 안 움직임 — 손을 뗀 뒤에만 이동.
               // 가로 이동이 세로보다 크고(세로 제스처 무시) 임계값(50px) 이상일 때만 전환.
               if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
-                if (dx < 0 && active < total - 1) slideTo(1); // 왼쪽으로 밀면 다음
-                else if (dx > 0 && active > 0) slideTo(-1); // 오른쪽으로 밀면 이전
+                slideTo(dx < 0 ? 1 : -1); // 왼쪽=다음 / 오른쪽=이전 (양끝 순환)
               }
             }}
           >
@@ -155,22 +151,19 @@ export function Gallery() {
               onTransitionEnd={onSlideEnd}
             >
               {[-1, 0, 1].map((off) => {
-                const idx = active + off;
-                const has = idx >= 0 && idx < total; // 범위 밖(처음/끝 너머)은 빈 칸
+                const idx = (active + off + total) % total; // 양끝 순환
                 return (
                   <div
                     key={off}
                     className="flex h-full w-screen shrink-0 items-center justify-center overflow-hidden"
                   >
-                    {has && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={src(idx + 1)}
-                        alt={`갤러리 사진 ${idx + 1}`}
-                        // 좌우는 폭에 꽉 차게, 상하는 사진 비율대로(검정 여백) — 잘림 없음
-                        className="h-full w-full object-contain"
-                      />
-                    )}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={src(idx + 1)}
+                      alt={`갤러리 사진 ${idx + 1}`}
+                      // 좌우는 폭에 꽉 차게, 상하는 사진 비율대로(검정 여백) — 잘림 없음
+                      className="h-full w-full object-contain"
+                    />
                   </div>
                 );
               })}
@@ -185,30 +178,25 @@ export function Gallery() {
                 <path d="M6 6l12 12M18 6L6 18" />
               </svg>
             </button>
-            {/* 처음이 아니면 이전 버튼 표시 */}
-            {active > 0 && (
-              <button
-                className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/35 text-white shadow-md backdrop-blur-sm"
-                aria-label="이전"
-                onClick={() => slideTo(-1)}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 -translate-x-[1px]">
-                  <path d="M15 5l-7 7 7 7" />
-                </svg>
-              </button>
-            )}
-            {/* 끝이 아니면 다음 버튼 표시 */}
-            {active < total - 1 && (
-              <button
-                className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/35 text-white shadow-md backdrop-blur-sm"
-                aria-label="다음"
-                onClick={() => slideTo(1)}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 translate-x-[1px]">
-                  <path d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            )}
+            {/* 이전/다음 — 양끝에서 순환하므로 항상 표시 */}
+            <button
+              className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/35 text-white shadow-md backdrop-blur-sm"
+              aria-label="이전"
+              onClick={() => slideTo(-1)}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 -translate-x-[1px]">
+                <path d="M15 5l-7 7 7 7" />
+              </svg>
+            </button>
+            <button
+              className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/35 text-white shadow-md backdrop-blur-sm"
+              aria-label="다음"
+              onClick={() => slideTo(1)}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 translate-x-[1px]">
+                <path d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
             {/* 현재 위치 — 처음/끝을 알 수 있게 */}
             <div className="absolute bottom-6 left-0 right-0 z-10 text-center text-sm tracking-widest text-white/80">
               {active + 1} / {total}

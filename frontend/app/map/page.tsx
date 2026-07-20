@@ -10,10 +10,12 @@ import { wedding } from "@/lib/data";
  */
 export default function MapRedirect() {
   useEffect(() => {
-    // 카카오맵 '장소 페이지'로 바로 이동 → 지도 + 핀 + 길찾기/내비 버튼 표시.
+    // 카카오맵 지도 상세뷰(detailMapView)로 이동 → 지도 + 핀 + 길찾기 버튼.
+    // link/map 형식: {표시명},{위도},{경도} — 표시명을 '주소'로 넣어 주소 기준 조회.
     // (searchView 는 '검색' 화면이라 지도가 안 뜸)
+    const { address, lat, lng } = wedding.venue;
     window.location.replace(
-      `https://place.map.kakao.com/${wedding.venue.kakaoPlaceId}`
+      `https://map.kakao.com/link/map/${encodeURIComponent(address)},${lat},${lng}`
     );
   }, []);
 

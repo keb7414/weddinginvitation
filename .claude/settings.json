@@ -66,7 +66,8 @@
       "Bash(curl -s -A 'Mozilla/5.0 \\(iPhone; CPU iPhone OS 18_0 like Mac OS X\\) AppleWebKit/605.1.15 KAKAOTALK' -D - -o /dev/null https://map.kakao.com/?q=__CMDSUB_OUTPUT__)",
       "Bash(node -e \"process.stdout.write\\(encodeURIComponent\\('서울 강서구 화곡로 375'\\)\\)\")",
       "Bash(curl -s -A 'Mozilla/5.0 \\(iPhone; CPU iPhone OS 18_0 like Mac OS X\\) AppleWebKit/605.1.15 Mobile KAKAOTALK/26.5' -D - -o /dev/null https://m.map.kakao.com/actions/searchView?q=__CMDSUB_OUTPUT__)",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 카카오 위치보기 — m.map.kakao searchView로 변경\\(카톡 인앱에서 지도 바로 열림\\) *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'fix: 카카오 위치보기 — m.map.kakao searchView로 변경\\(카톡 인앱에서 지도 바로 열림\\) *)",
+      "Bash(curl -s -A 'Mozilla/5.0 \\(iPhone; CPU iPhone OS 18_0 like Mac OS X\\) AppleWebKit/605.1.15 Mobile KAKAOTALK/26.5' -L 'https://m.map.kakao.com/actions/mapView?x=126.852449903241&y=37.5573581666693&level=3' -o C:/Users/comes/AppData/Local/Temp/claude/c--Users-comes-invited/a15e378c-d628-44c1-851a-870a9bd14ebe/scratchpad/mapview.html)"
     ]
   }
 }

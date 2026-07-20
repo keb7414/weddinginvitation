@@ -46,7 +46,11 @@ function TransportBlock({
 
 export function LocationMap() {
   const { venue, transport } = wedding;
-  const mapQuery = encodeURIComponent(venue.name);
+  // 지도 조회는 장소명이 아니라 '주소' 기준
+  const addrQuery = encodeURIComponent(venue.address);
+  // 카카오: link/map 형식({표시명},{위도},{경도}) → 지도 상세뷰로 바로 열림
+  const kakaoMapUrl = `https://map.kakao.com/link/map/${addrQuery},${venue.lat},${venue.lng}`;
+  const naverMapUrl = `https://map.naver.com/v5/search/${addrQuery}`;
 
   return (
     <Section className="bg-ivory">
@@ -68,7 +72,7 @@ export function LocationMap() {
 
       <div className="mt-4 flex justify-center gap-2">
         <a
-          href={`https://map.kakao.com/?q=${mapQuery}`}
+          href={kakaoMapUrl}
           target="_blank"
           rel="noreferrer"
           className="rounded-full bg-point/10 px-4 py-2 text-xs text-point"
@@ -76,7 +80,7 @@ export function LocationMap() {
           카카오맵
         </a>
         <a
-          href={`https://map.naver.com/v5/search/${mapQuery}`}
+          href={naverMapUrl}
           target="_blank"
           rel="noreferrer"
           className="rounded-full bg-point/10 px-4 py-2 text-xs text-point"

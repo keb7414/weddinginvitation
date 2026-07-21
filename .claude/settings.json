@@ -71,7 +71,9 @@
       "Bash(curl -s -A 'Mozilla/5.0 \\(iPhone; CPU iPhone OS 18_0 like Mac OS X\\) AppleWebKit/605.1.15 Mobile Safari' -o /dev/null -w 'HTTP %{http_code}\\\\n' https://map.naver.com/v5/search/__CMDSUB_OUTPUT__)",
       "Bash(curl -s -A 'Mozilla/5.0 \\(iPhone; CPU iPhone OS 18_0 like Mac OS X\\) AppleWebKit/605.1.15 Mobile Safari' -D - -o /dev/null https://map.kakao.com/link/map/__CMDSUB_OUTPUT__,37.5573581666693,126.852449903241)",
       "Bash(curl -s -A 'Mozilla/5.0 \\(iPhone; CPU iPhone OS 18_0 like Mac OS X\\) AppleWebKit/605.1.15 Mobile Safari' -L -o /dev/null -w '최종 HTTP %{http_code}\\\\n최종 URL: %{url_effective}\\\\n' https://map.naver.com/v5/search/__CMDSUB_OUTPUT__)",
-      "Bash(curl -s -A 'Mozilla/5.0 \\(iPhone; CPU iPhone OS 18_0 like Mac OS X\\) AppleWebKit/605.1.15 Mobile Safari' -L -o /dev/null -w '최종 HTTP %{http_code}\\\\n최종 URL: %{url_effective}\\\\n' https://map.naver.com/p/search/__CMDSUB_OUTPUT__)"
+      "Bash(curl -s -A 'Mozilla/5.0 \\(iPhone; CPU iPhone OS 18_0 like Mac OS X\\) AppleWebKit/605.1.15 Mobile Safari' -L -o /dev/null -w '최종 HTTP %{http_code}\\\\n최종 URL: %{url_effective}\\\\n' https://map.naver.com/p/search/__CMDSUB_OUTPUT__)",
+      "Bash(awk 'NR>1{print $5\" bytes \"$6\" \"$7\" \"$8}')",
+      "Read(//c/Users/**)"
     ]
   }
 }

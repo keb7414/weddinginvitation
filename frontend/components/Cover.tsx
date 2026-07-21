@@ -55,7 +55,7 @@ export function Cover() {
         ref={audioRef}
         loop
         preload="none"
-        src={asset("/audio/morning-light.mp3")}
+        src={asset("/audio/bgm.mp3")}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
       />

@@ -79,7 +79,8 @@
       "Bash(node C:/Users/comes/AppData/Local/Temp/claude/c--Users-comes-invited/a15e378c-d628-44c1-851a-870a9bd14ebe/scratchpad/cutmp3.js C:/Users/comes/AppData/Local/Temp/claude/c--Users-comes-invited/a15e378c-d628-44c1-851a-870a9bd14ebe/scratchpad/bgm_60s.mp3 C:/Users/comes/AppData/Local/Temp/claude/c--Users-comes-invited/a15e378c-d628-44c1-851a-870a9bd14ebe/scratchpad/verify.mp3 9999)",
       "Bash(awk '{print \"적용 완료: \"$5\" bytes\"}')",
       "Bash(git -c commit.gpgsign=false commit -q -m 'perf: 배경음악 1분\\(60초\\)으로 축소 — 4.87MB → 1.27MB *)",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'change: 갤러리 6번 사진 교체 + 썸네일 재생성 *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'change: 갤러리 6번 사진 교체 + 썸네일 재생성 *)",
+      "Bash(git -c commit.gpgsign=false commit -q -m 'change: 갤러리 19,20번 사진 교체 + 썸네일 재생성 *)"
     ]
   }
 }

@@ -85,7 +85,9 @@
       "Bash(git -c commit.gpgsign=false commit -q -m 'change: 갤러리 10,11번 사진 교체 + 썸네일 재생성 *)",
       "Bash(curl -s -o /dev/null -w \"localhost:3000 -> HTTP %{http_code}\\\\n\" --max-time 4 \"http://localhost:3000/\")",
       "Bash(curl -s -o /dev/null -w \"localhost:3000 -> HTTP %{http_code}\\\\n\" --max-time 6 \"http://localhost:3000/\")",
-      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 화환 박스 위 여백 확대\\(mt-3→mt-7\\)·내부 상하 여백 축소\\(py-6→py-4\\) *)"
+      "Bash(git -c commit.gpgsign=false commit -q -m 'style: 화환 박스 위 여백 확대\\(mt-3→mt-7\\)·내부 상하 여백 축소\\(py-6→py-4\\) *)",
+      "Bash(awk '{print $6\" \"$7\"  \"$5\" bytes  \"$8}')",
+      "Bash(awk '{print \"flower2.png: \"$5\" bytes\"}')"
     ]
   }
 }

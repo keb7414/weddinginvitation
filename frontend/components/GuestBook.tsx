@@ -83,9 +83,9 @@ export function GuestBook() {
       <div className="mt-7 rounded-sm bg-gradient-to-b from-[#fbeaec] to-[#faf3ee] px-6 py-4 text-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={asset("/images/flower.png")}
+          src={asset("/images/flower2.png")}
           alt=""
-          className="mx-auto mb-3 h-8 w-auto"
+          className="mx-auto mb-3 h-9 w-auto"
         />
         <p className="text-[13px] leading-6 text-[#9a7d74]">
           화환은 정중히 사양합니다. 축하해주시는 마음만

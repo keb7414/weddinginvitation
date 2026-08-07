@@ -80,7 +80,7 @@ export function GuestBook() {
       </button>
 
       {/* 화환 거절 안내 */}
-      <div className="mt-3 rounded-sm bg-gradient-to-b from-[#fbeaec] to-[#faf3ee] px-6 py-6 text-center">
+      <div className="mt-7 rounded-sm bg-gradient-to-b from-[#fbeaec] to-[#faf3ee] px-6 py-4 text-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={asset("/images/flower.png")}

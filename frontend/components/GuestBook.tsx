@@ -80,14 +80,14 @@ export function GuestBook() {
       </button>
 
       {/* 화환 거절 안내 */}
-      <div className="mt-7 rounded-sm bg-[#f5e6df] px-6 py-4 text-center">
+      <div className="mt-20 rounded-sm bg-[#f5e6df] px-6 py-4 text-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={asset("/images/flower2.png")}
           alt=""
           className="mx-auto mb-3 h-9 w-auto"
         />
-        <p className="text-[13px] leading-6 text-[#9a7d74]">
+        <p className="text-[15px] leading-7 text-[#9a7d74]">
           화환은 정중히 사양합니다. 축하해주시는 마음만
           <br />
           감사히 받겠습니다.

@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Section, SectionTitle } from "./Section";
 import { guestbookApi } from "@/lib/api";
+import { asset } from "@/lib/asset";
 
 function PencilIcon() {
   return (
@@ -77,6 +78,21 @@ export function GuestBook() {
         <PencilIcon />
         작성하기
       </button>
+
+      {/* 화환 거절 안내 */}
+      <div className="mt-3 rounded-sm bg-gradient-to-b from-[#fbeaec] to-[#faf3ee] px-6 py-6 text-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={asset("/images/flower.png")}
+          alt=""
+          className="mx-auto mb-3 h-8 w-auto"
+        />
+        <p className="text-[13px] leading-6 text-[#9a7d74]">
+          화환은 정중히 사양합니다. 축하해주시는 마음만
+          <br />
+          감사히 받겠습니다.
+        </p>
+      </div>
 
       {/* 작성 팝업 */}
       {open &&

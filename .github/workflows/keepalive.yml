@@ -1,0 +1,28 @@
+name: Supabase keep-alive
+
+# Supabase 무료 플랜은 7일간 DB 활동이 없으면 프로젝트를 자동 일시정지시킨다.
+# 매일 읽기 전용 RPC(visit_count)를 1회 호출해 활동을 발생시켜 정지를 방지한다.
+#  - visit_count 는 SELECT count(*) 만 실행 → 아무것도 INSERT 하지 않으므로
+#    방문자/좋아요 집계 수는 절대 늘지 않는다(숫자 조회만).
+#  - anon(publishable) 키는 이미 배포된 브라우저 번들에 공개돼 있어 하드코딩해도 안전.
+
+on:
+  schedule:
+    - cron: "17 2 * * *" # 매일 02:17 UTC (하루 1회)
+  workflow_dispatch: {} # 수동 실행 버튼
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase (read-only)
+        run: |
+          code=$(curl -sS -o /dev/null -w "%{http_code}" \
+            -X POST "https://pvbkmqqlqssgpdzknbdl.supabase.co/rest/v1/rpc/visit_count" \
+            -H "apikey: sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd" \
+            -H "Authorization: Bearer sb_publishable_hxINWrrYc8M57kg9SsmBow_imOc8dXd" \
+            -H "Content-Type: application/json" \
+            -d '{}')
+          echo "visit_count ping -> HTTP $code"
+          # 200 이 아니면 실패로 처리(프로젝트가 정지/삭제되면 알 수 있게)
+          test "$code" = "200"

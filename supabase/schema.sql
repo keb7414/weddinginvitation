@@ -28,9 +28,10 @@ create table if not exists public.guestbook (
 create or replace function public.hash_guestbook_password()
 returns trigger
 language plpgsql
+set search_path = public, extensions
 as $$
 begin
-  new.password := crypt(new.password, gen_salt('bf'));
+  new.password := extensions.crypt(new.password, extensions.gen_salt('bf'));
   -- anon 이 임의로 조작하지 못하도록 강제
   new.is_deleted := false;
   new.created_at := now();
@@ -75,7 +76,7 @@ begin
      set is_deleted = true
    where id = p_id
      and is_deleted = false
-     and password = crypt(p_password, password);
+     and password = extensions.crypt(p_password, password);
   get diagnostics affected = row_count;
   return affected > 0;
 end;
